@@ -55,10 +55,10 @@ public class DurabilityRenderer {
         itemHandlers.put(IDarkSteelItem.class, DurabilityRenderer::handleDarkSteelItems);
         itemHandlers.put(AmmoItem.class, (is -> null));
         itemHandlers.put(ToolCore.class, DurabilityRenderer::handleToolCore);
-        itemHandlers.put(ItemArmorFluidTank.class, DurabilityRenderer::handleItemArmorFluidTank);
         itemHandlers.put(IElectricItem.class, DurabilityRenderer::handleIElectricItem);
-        itemHandlers.put(ICustomDamageItem.class, DurabilityRenderer::handleICustomDamageItem);
         itemHandlers.put(IEnergyContainerItem.class, DurabilityRenderer::handleEnergyContainer);
+        itemHandlers.put(ItemArmorFluidTank.class, DurabilityRenderer::handleItemArmorFluidTank);
+        itemHandlers.put(ICustomDamageItem.class, DurabilityRenderer::handleICustomDamageItem);
         itemHandlers.put(ItemBrewBase.class, DurabilityRenderer::handleBotaniaBrew);
         itemHandlers.put(Item.class, DurabilityRenderer::handleDefault);
     }

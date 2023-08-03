@@ -325,7 +325,7 @@ public class DurabilityRenderer {
         List<ItemStackOverlay> overlays = new ArrayList<>();
 
         if (DuraDisplayConfig.DurabilityConfig.Enabled
-            && !(DuraDisplayConfig.DurabilityConfig.ShowWhenFull && (stack.getItemDamage() < stack.getMaxDamage()))) {
+            && !(DuraDisplayConfig.DurabilityConfig.ShowWhenFull && (stack.getItemDamage() == stack.getMaxDamage()))) {
 
             ItemStackOverlay durabilityOverlay = new ItemStackOverlay.DurabilityOverlay();
             double durability = (1 - item.getDurabilityForDisplay(stack));

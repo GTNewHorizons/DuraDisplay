@@ -318,11 +318,25 @@ public class DurabilityRenderer {
 
     // handles all other EIO items
     private static List<ItemStackOverlay> handleDarkSteelItems(@NotNull ItemStack stack) {
+
+        Item item = stack.getItem();
+        assert item != null;
+
         List<ItemStackOverlay> overlays = new ArrayList<>();
-        List<ItemStackOverlay> defaultOverlays = handleDefault(stack);
-        if (defaultOverlays != null) {
-            overlays.addAll(defaultOverlays);
+
+        if (DuraDisplayConfig.DurabilityConfig.Enabled
+            && !(DuraDisplayConfig.DurabilityConfig.ShowWhenFull && (stack.getItemDamage() < stack.getMaxDamage()))) {
+
+            ItemStackOverlay durabilityOverlay = new ItemStackOverlay.DurabilityOverlay();
+            double durability = (1 - item.getDurabilityForDisplay(stack));
+            if (Double.isNaN(durability)) return null;
+            durabilityOverlay.color = getRGBDurabilityForDisplay(durability);
+            durability *= 100;
+            durabilityOverlay.isFull = durability == 100.0;
+            durabilityOverlay.value = nf.format(durability) + "%";
+            overlays.add(durabilityOverlay);
         }
+
         if (!DuraDisplayConfig.ChargeConfig.Enabled || !stack.hasTagCompound()) return overlays;
 
         NBTTagCompound nbt = stack.getTagCompound();

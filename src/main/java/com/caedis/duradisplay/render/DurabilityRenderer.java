@@ -301,8 +301,7 @@ public class DurabilityRenderer {
             overlays.addAll(defaultOverlays);
         }
 
-        if (!DuraDisplayConfig.ChargeConfig.Enabled || !(stack.hasTagCompound() && stack.getTagCompound()
-            .hasKey("Energy"))) return overlays;
+        if (!DuraDisplayConfig.ChargeConfig.Enabled ) return overlays;
         IEnergyContainerItem eci = ((IEnergyContainerItem) stack.getItem());
         assert eci != null;
 

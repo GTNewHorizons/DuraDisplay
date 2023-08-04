@@ -53,11 +53,11 @@ public class DurabilityRenderer {
         itemHandlers.put(GT_MetaBase_Item.class, DurabilityRenderer::handleGregTech);
         itemHandlers.put(GT_RadioactiveCell_Item.class, DurabilityRenderer::handleGregTechRadioactiveCell);
         itemHandlers.put(IDarkSteelItem.class, DurabilityRenderer::handleDarkSteelItems);
-        itemHandlers.put(IEnergyContainerItem.class, DurabilityRenderer::handleEnergyContainer);
         itemHandlers.put(AmmoItem.class, (is -> null));
         itemHandlers.put(ToolCore.class, DurabilityRenderer::handleToolCore);
         itemHandlers.put(IElectricItem.class, DurabilityRenderer::handleIElectricItem);
         itemHandlers.put(ItemArmorFluidTank.class, DurabilityRenderer::handleItemArmorFluidTank);
+        itemHandlers.put(IEnergyContainerItem.class, DurabilityRenderer::handleEnergyContainer);
         itemHandlers.put(ICustomDamageItem.class, DurabilityRenderer::handleICustomDamageItem);
         itemHandlers.put(ItemBrewBase.class, DurabilityRenderer::handleBotaniaBrew);
         itemHandlers.put(Item.class, DurabilityRenderer::handleDefault);

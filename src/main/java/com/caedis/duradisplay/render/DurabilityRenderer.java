@@ -74,7 +74,7 @@ public class DurabilityRenderer {
             .filter(clazz -> clazz.isInstance(stack.getItem()))
             .findFirst();
 
-        if (key.isEmpty()) return;
+        if (!key.isPresent()) return;
 
         List<ItemStackOverlay> list = itemHandlers.get(key.get())
             .apply(stack);

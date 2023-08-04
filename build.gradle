@@ -153,7 +153,6 @@ java {
         } else {
             languageVersion.set(projectJavaVersion)
         }
-        vendor.set(JvmVendorSpec.AZUL)
     }
     if (!noPublishedSources) {
         withSourcesJar()
@@ -240,7 +239,6 @@ if (enableModernJavaSyntax.toBoolean()) {
 
         javaCompiler.set(javaToolchains.compilerFor {
             languageVersion.set(JavaLanguageVersion.of(17))
-            vendor.set(JvmVendorSpec.AZUL)
         })
     }
 }
@@ -712,7 +710,6 @@ tasks.named("processResources", ProcessResources).configure {
 
 ext.java17Toolchain = (JavaToolchainSpec spec) -> {
     spec.languageVersion.set(JavaLanguageVersion.of(17))
-    spec.vendor.set(JvmVendorSpec.matching("jetbrains"))
 }
 
 ext.java17DependenciesCfg = configurations.create("java17Dependencies") {

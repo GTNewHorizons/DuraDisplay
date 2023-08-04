@@ -1,12 +1,8 @@
 package com.caedis.duradisplay.render;
 
-import java.awt.*;
-
 import net.minecraft.client.gui.FontRenderer;
 
 import org.lwjgl.opengl.GL11;
-
-import com.caedis.duradisplay.config.DuraDisplayConfig;
 
 public abstract class ItemStackOverlay {
 
@@ -73,41 +69,4 @@ public abstract class ItemStackOverlay {
         }
     }
 
-    public static class DurabilityOverlay extends ItemStackOverlay {
-
-        @Override
-        public void Render(FontRenderer fontRenderer, int xPosition, int yPosition, float zLevel) {
-            if (!DuraDisplayConfig.DurabilityConfig.ShowWhenFull && this.isFull) return;
-            super.Render(fontRenderer, xPosition, yPosition, zLevel);
-        }
-
-        @Override
-        public int getColor() {
-            return color;
-        }
-
-        @Override
-        public int getLocation() {
-            return DuraDisplayConfig.DurabilityConfig.Position;
-        }
-    }
-
-    public static class ChargeOverlay extends ItemStackOverlay {
-
-        @Override
-        public void Render(FontRenderer fontRenderer, int xPosition, int yPosition, float zLevel) {
-            if (!DuraDisplayConfig.ChargeConfig.ShowWhenFull && this.isFull) return;
-            super.Render(fontRenderer, xPosition, yPosition, zLevel);
-        }
-
-        @Override
-        public int getColor() {
-            return 0xFF55FFFF;
-        }
-
-        @Override
-        public int getLocation() {
-            return DuraDisplayConfig.ChargeConfig.Position;
-        }
-    }
 }

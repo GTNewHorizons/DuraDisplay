@@ -66,8 +66,8 @@ public class DurabilityRenderer {
     public static void Render(FontRenderer fontRenderer, ItemStack stack, int xPosition, int yPosition, float zLevel) {
         if (fontRenderer == null && (fontRenderer = Minecraft.getMinecraft().fontRenderer) == null) return;
         assert stack.getItem() != null;
-        ItemStackOverlay.DurabilityOverlay durabilityOverlay = null;
-        ItemStackOverlay.ChargeOverlay chargeOverlay = null;
+        DurabilityOverlay durabilityOverlay = null;
+        ChargeOverlay chargeOverlay = null;
 
         Optional<Class<?>> key = itemHandlers.keySet()
             .stream()
@@ -80,16 +80,11 @@ public class DurabilityRenderer {
             .apply(stack);
         if (list != null) {
             for (ItemStackOverlay overlay : list) {
-                if (overlay instanceof ItemStackOverlay.DurabilityOverlay dOverlay) {
-                    durabilityOverlay = dOverlay;
-                } else if (overlay instanceof ItemStackOverlay.ChargeOverlay cOverlay) {
-                    chargeOverlay = cOverlay;
-                }
+                if(overlay!=null)
+                    overlay.Render(fontRenderer, xPosition, yPosition, zLevel);
             }
         }
 
-        if (durabilityOverlay != null) durabilityOverlay.Render(fontRenderer, xPosition, yPosition, zLevel);
-        if (chargeOverlay != null) chargeOverlay.Render(fontRenderer, xPosition, yPosition, zLevel);
     }
 
     public static int getRGBDurabilityForDisplay(double dur) {
@@ -118,7 +113,7 @@ public class DurabilityRenderer {
 
         List<ItemStackOverlay> overlays = new ArrayList<>();
 
-        ItemStackOverlay durabilityOverlay = new ItemStackOverlay.DurabilityOverlay();
+        ItemStackOverlay durabilityOverlay = new DurabilityOverlay();
         double durability = (1 - item.getDurabilityForDisplay(stack));
         if (Double.isNaN(durability)) return null;
         durabilityOverlay.color = getRGBDurabilityForDisplay(durability);
@@ -140,7 +135,7 @@ public class DurabilityRenderer {
         if (DuraDisplayConfig.ChargeConfig.Enabled) {
             Long[] elecStats = gtItem.getElectricStats(stack);
             if (elecStats != null) {
-                ItemStackOverlay chargeOverlay = new ItemStackOverlay.ChargeOverlay();
+                ItemStackOverlay chargeOverlay = new ChargeOverlay();
                 double charge = ((double) gtItem.getRealCharge(stack) / Math.abs(elecStats[0])) * 100;
                 if (!Double.isNaN(charge)) {
                     chargeOverlay.isFull = charge == 100.0;
@@ -151,7 +146,7 @@ public class DurabilityRenderer {
         }
 
         if (DuraDisplayConfig.DurabilityConfig.Enabled) {
-            ItemStackOverlay durabilityOverlay = new ItemStackOverlay.DurabilityOverlay();
+            ItemStackOverlay durabilityOverlay = new DurabilityOverlay();
             GTToolsInfo gti = NBTUtils.getToolInfo(stack);
             if (gti.getRemainingPaint() > 0) {
                 durabilityOverlay.color = 0xFFFFFF;
@@ -193,7 +188,7 @@ public class DurabilityRenderer {
         IEnergyContainerItem eci = ((IEnergyContainerItem) stack.getItem());
         assert eci != null;
 
-        ItemStackOverlay chargeOverlay = new ItemStackOverlay.ChargeOverlay();
+        ItemStackOverlay chargeOverlay = new ChargeOverlay();
         double durability = ((double) eci.getEnergyStored(stack) / eci.getMaxEnergyStored(stack)) * 100;
         if (Double.isNaN(durability)) return null;
         chargeOverlay.isFull = durability == 100.0;
@@ -210,7 +205,7 @@ public class DurabilityRenderer {
 
         List<ItemStackOverlay> overlays = new ArrayList<>();
 
-        ItemStackOverlay overlay = new ItemStackOverlay.DurabilityOverlay();
+        ItemStackOverlay overlay = new DurabilityOverlay();
         double charge = 1.0 - (((double) bei.getDamageOfStack(stack) / bei.getMaxDamageEx()));
         if (Double.isNaN(charge)) return null;
         overlay.color = getRGBDurabilityForDisplay(charge);
@@ -229,7 +224,7 @@ public class DurabilityRenderer {
 
         List<ItemStackOverlay> overlays = new ArrayList<>();
 
-        ItemStackOverlay chargeOverlay = new ItemStackOverlay.ChargeOverlay();
+        ItemStackOverlay chargeOverlay = new ChargeOverlay();
         double charge = ((double) ElectricItem.manager.getCharge(stack) / bei.getMaxCharge(stack)) * 100;
         if (Double.isNaN(charge)) return null;
         chargeOverlay.isFull = charge == 100.0;
@@ -246,7 +241,7 @@ public class DurabilityRenderer {
 
         List<ItemStackOverlay> overlays = new ArrayList<>();
 
-        ItemStackOverlay overlay = new ItemStackOverlay.DurabilityOverlay();
+        ItemStackOverlay overlay = new DurabilityOverlay();
         double charge = ((double) bei.getCharge(stack) / bei.getMaxCharge(stack));
         if (Double.isNaN(charge)) return null;
         overlay.color = getRGBDurabilityForDisplay(charge);
@@ -265,7 +260,7 @@ public class DurabilityRenderer {
 
         List<ItemStackOverlay> overlays = new ArrayList<>();
 
-        ItemStackOverlay overlay = new ItemStackOverlay.DurabilityOverlay();
+        ItemStackOverlay overlay = new DurabilityOverlay();
         double charge = 1.0 - (((double) bei.getCustomDamage(stack) / bei.getMaxCustomDamage(stack)));
         if (Double.isNaN(charge)) return null;
         overlay.color = getRGBDurabilityForDisplay(charge);
@@ -284,7 +279,7 @@ public class DurabilityRenderer {
 
         List<ItemStackOverlay> overlays = new ArrayList<>();
 
-        ItemStackOverlay dOverlay = new ItemStackOverlay.DurabilityOverlay();
+        ItemStackOverlay dOverlay = new DurabilityOverlay();
         double swigs = brew.getSwigsLeft(stack);
         dOverlay.isFull = swigs == brew.getMaxDamage();
         dOverlay.value = nf.format(swigs);
@@ -306,7 +301,7 @@ public class DurabilityRenderer {
         IEnergyContainerItem eci = ((IEnergyContainerItem) stack.getItem());
         assert eci != null;
 
-        ItemStackOverlay chargeOverlay = new ItemStackOverlay.ChargeOverlay();
+        ItemStackOverlay chargeOverlay = new ChargeOverlay();
         double durability = ((double) eci.getEnergyStored(stack) / eci.getMaxEnergyStored(stack)) * 100;
         if (Double.isNaN(durability)) return overlays;
         chargeOverlay.isFull = durability == 100.0;
@@ -327,7 +322,7 @@ public class DurabilityRenderer {
         if (DuraDisplayConfig.DurabilityConfig.Enabled
             && !(DuraDisplayConfig.DurabilityConfig.ShowWhenFull && (stack.getItemDamage() == stack.getMaxDamage()))) {
 
-            ItemStackOverlay durabilityOverlay = new ItemStackOverlay.DurabilityOverlay();
+            ItemStackOverlay durabilityOverlay = new DurabilityOverlay();
             double durability = (1 - item.getDurabilityForDisplay(stack));
             if (Double.isNaN(durability)) return null;
             durabilityOverlay.color = getRGBDurabilityForDisplay(durability);
@@ -345,7 +340,7 @@ public class DurabilityRenderer {
             int capacity = upgrade.getInteger("capacity");
             int energy = upgrade.getInteger("energy");
 
-            ItemStackOverlay chargeOverlay = new ItemStackOverlay.ChargeOverlay();
+            ItemStackOverlay chargeOverlay = new ChargeOverlay();
             double durability = ((double) energy / capacity) * 100;
             if (Double.isNaN(durability)) return overlays;
             chargeOverlay.isFull = durability == 100.0;

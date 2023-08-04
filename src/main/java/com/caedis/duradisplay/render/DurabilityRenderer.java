@@ -74,7 +74,7 @@ public class DurabilityRenderer {
             .filter(clazz -> clazz.isInstance(stack.getItem()))
             .findFirst();
 
-        if (!key.isPresent()) return;
+        if (key.isEmpty()) return;
 
         List<ItemStackOverlay> list = itemHandlers.get(key.get())
             .apply(stack);
@@ -230,7 +230,7 @@ public class DurabilityRenderer {
         List<ItemStackOverlay> overlays = new ArrayList<>();
 
         ItemStackOverlay chargeOverlay = new ItemStackOverlay.ChargeOverlay();
-        double charge = ((double) ElectricItem.manager.getCharge(stack) / bei.getMaxCharge(stack)) * 100;
+        double charge = (ElectricItem.manager.getCharge(stack) / bei.getMaxCharge(stack)) * 100;
         if (Double.isNaN(charge)) return null;
         chargeOverlay.isFull = charge == 100.0;
         chargeOverlay.value = nf.format(charge) + "%";
@@ -247,7 +247,7 @@ public class DurabilityRenderer {
         List<ItemStackOverlay> overlays = new ArrayList<>();
 
         ItemStackOverlay overlay = new ItemStackOverlay.DurabilityOverlay();
-        double charge = ((double) bei.getCharge(stack) / bei.getMaxCharge(stack));
+        double charge = (bei.getCharge(stack) / bei.getMaxCharge(stack));
         if (Double.isNaN(charge)) return null;
         overlay.color = getRGBDurabilityForDisplay(charge);
         charge *= 100;
@@ -301,7 +301,7 @@ public class DurabilityRenderer {
             overlays.addAll(defaultOverlays);
         }
 
-        if (!DuraDisplayConfig.ChargeConfig.Enabled ) return overlays;
+        if (!DuraDisplayConfig.ChargeConfig.Enabled) return overlays;
         IEnergyContainerItem eci = ((IEnergyContainerItem) stack.getItem());
         assert eci != null;
 

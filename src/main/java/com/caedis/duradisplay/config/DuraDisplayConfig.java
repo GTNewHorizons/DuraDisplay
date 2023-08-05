@@ -43,7 +43,7 @@ public class DuraDisplayConfig {
 
         DurabilityConfig.loadConfig(config);
         ChargeConfig.loadConfig(config);
-        ChargeConfig.Position=8;
+        ChargeConfig.Position = 8;
 
         if (config.hasChanged()) {
             config.save();

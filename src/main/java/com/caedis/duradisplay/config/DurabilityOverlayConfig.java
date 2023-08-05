@@ -19,7 +19,8 @@ public class DurabilityOverlayConfig extends OverlayConfig {
         super(category);
     }
 
-    public DurabilityOverlayConfig(String category, int position, boolean enabled, boolean showWhenFull, boolean renderBar, boolean useColorThreshold, double[] colorThreshold) {
+    public DurabilityOverlayConfig(String category, int position, boolean enabled, boolean showWhenFull,
+        boolean renderBar, boolean useColorThreshold, double[] colorThreshold) {
         super(category);
         this.Enabled = enabled;
         this.Position = position;
@@ -42,7 +43,7 @@ public class DurabilityOverlayConfig extends OverlayConfig {
             Position,
             1,
             9,
-            String.format("Location in item where the %s percentage will be (numpad style)",category));
+            String.format("Location in item where the %s percentage will be (numpad style)", category));
 
         Position = config.getInt(
             "Position",
@@ -50,13 +51,13 @@ public class DurabilityOverlayConfig extends OverlayConfig {
             Position,
             1,
             9,
-            String.format("Location in item where the %s percentage will be (numpad style)",category));
+            String.format("Location in item where the %s percentage will be (numpad style)", category));
 
         ShowWhenFull = config.getBoolean(
             "ShowWhenFull",
             category,
             ShowWhenFull,
-            String.format("Show %s percentage when item is undamaged/full",category));
+            String.format("Show %s percentage when item is undamaged/full", category));
 
         Property dura_colorThresh = config.get(
             category,

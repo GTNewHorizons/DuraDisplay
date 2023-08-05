@@ -17,8 +17,8 @@ public class GuiConfigDuraDisplay extends GuiConfig {
             parent,
             Lists.newArrayList(
                 new ConfigElement<>(DuraDisplayConfig.config.getCategory(Configuration.CATEGORY_GENERAL)),
-                new ConfigElement<>(DuraDisplayConfig.config.getCategory(DuraDisplayConfig.CATEGORY_DURABILITY)),
-                new ConfigElement<>(DuraDisplayConfig.config.getCategory(DuraDisplayConfig.CATEGORY_CHARGE))),
+                new ConfigElement<>(DuraDisplayConfig.config.getCategory(DuraDisplayConfig.DurabilityConfig.category)),
+                new ConfigElement<>(DuraDisplayConfig.config.getCategory(DuraDisplayConfig.ChargeConfig.category))),
             Tags.MODID,
             "general",
             false,

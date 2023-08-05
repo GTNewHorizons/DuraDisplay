@@ -80,8 +80,7 @@ public class DurabilityRenderer {
             .apply(stack);
         if (list != null) {
             for (ItemStackOverlay overlay : list) {
-                if(overlay!=null)
-                    overlay.Render(fontRenderer, xPosition, yPosition, zLevel);
+                if (overlay != null) overlay.Render(fontRenderer, xPosition, yPosition, zLevel);
             }
         }
 

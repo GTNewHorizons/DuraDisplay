@@ -1,10 +1,10 @@
 package com.caedis.duradisplay.render;
 
+import java.util.ArrayList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
 
 public class DurabilityRenderer {
 
@@ -18,8 +18,6 @@ public class DurabilityRenderer {
         handlers.add(handler);
     }
 
-
-
     public static void Render(FontRenderer fontRenderer, ItemStack stack, int xPosition, int yPosition, float zLevel) {
         if (fontRenderer == null && (fontRenderer = Minecraft.getMinecraft().fontRenderer) == null) return;
 
@@ -31,7 +29,5 @@ public class DurabilityRenderer {
         }
 
     }
-
-
 
 }

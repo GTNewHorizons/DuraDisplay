@@ -1,28 +1,31 @@
 package com.caedis.duradisplay.render;
 
-import appeng.items.tools.powered.powersink.AEBasePoweredItem;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.function.Function;
+
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.caedis.duradisplay.config.DuraDisplayConfig;
 import com.caedis.duradisplay.config.DurabilityOverlayConfig;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
+
+import appeng.items.tools.powered.powersink.AEBasePoweredItem;
 import gregtech.api.items.GT_MetaBase_Item;
 import gregtech.api.items.GT_RadioactiveCell_Item;
 import ic2.api.item.ICustomDamageItem;
 import ic2.api.item.IElectricItem;
 import ic2.core.item.armor.ItemArmorFluidTank;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.weaponry.AmmoItem;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.function.Function;
 
 public class DurabilityOverlay extends ItemStackOverlay {
 

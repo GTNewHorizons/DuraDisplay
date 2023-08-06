@@ -12,6 +12,8 @@ public class DurabilityOverlayConfig extends OverlayConfig {
     public boolean ShowWhenFull = false;
     public boolean RenderBar = false;
 
+    public int color = 0xFFFFFF;
+
     public boolean UseColorThreshold;
     public double[] ColorThreshold = new double[] { 15, 50 };
 
@@ -30,20 +32,17 @@ public class DurabilityOverlayConfig extends OverlayConfig {
         this.ColorThreshold = colorThreshold;
     }
 
+    public DurabilityOverlayConfig(String category, int position) {
+        super(category);
+        this.Position = position;
+    }
+
     @Override
     public void loadConfig(Configuration config) {
 
-        Enabled = config.getBoolean("Enable", category, Enabled, "Enable durability module");
+        Enabled = config.getBoolean("Enable", category, Enabled, String.format("Enable %s module", category));
 
-        RenderBar = config.getBoolean("RenderBar", category, RenderBar, "Render durability bar");
-
-        Position = config.getInt(
-            "Position",
-            category,
-            Position,
-            1,
-            9,
-            String.format("Location in item where the %s percentage will be (numpad style)", category));
+        RenderBar = config.getBoolean("RenderBar", category, RenderBar, String.format("Render %s bar", category));
 
         Position = config.getInt(
             "Position",

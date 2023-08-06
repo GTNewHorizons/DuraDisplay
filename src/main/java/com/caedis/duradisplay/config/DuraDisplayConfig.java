@@ -1,17 +1,32 @@
 package com.caedis.duradisplay.config;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
+
+import com.caedis.duradisplay.render.ChargeOverlay;
+import com.caedis.duradisplay.render.DurabilityOverlay;
 
 import crazypants.enderio.config.Config;
 import gregtech.GT_Mod;
 
 public class DuraDisplayConfig {
 
-    public static DurabilityOverlayConfig DurabilityConfig = new DurabilityOverlayConfig("durability");
-    public static DurabilityOverlayConfig ChargeConfig = new DurabilityOverlayConfig("charge");
+    public static DurabilityOverlayConfig DurabilityConfig = DurabilityOverlay.config;
+    public static DurabilityOverlayConfig ChargeConfig = ChargeOverlay.config;
+
+    private static ArrayList<OverlayConfig> configs = null;
+
+    public static void addConfig(OverlayConfig config) {
+        if (configs != null) configs.add(config);
+        else {
+            configs = new ArrayList<>();
+            configs.add(config);
+        }
+    }
+
     private static boolean configLoaded = false;
 
     public static boolean Enable = true;

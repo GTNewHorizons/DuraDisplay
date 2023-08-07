@@ -1,5 +1,7 @@
 package com.caedis.duradisplay.config;
 
+import com.caedis.duradisplay.render.ChargeOverlay;
+import com.caedis.duradisplay.render.DurabilityOverlay;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
@@ -17,8 +19,8 @@ public class GuiConfigDuraDisplay extends GuiConfig {
             parent,
             Lists.newArrayList(
                 new ConfigElement<>(DuraDisplayConfig.config.getCategory(Configuration.CATEGORY_GENERAL)),
-                new ConfigElement<>(DuraDisplayConfig.config.getCategory(DuraDisplayConfig.DurabilityConfig.category)),
-                new ConfigElement<>(DuraDisplayConfig.config.getCategory(DuraDisplayConfig.ChargeConfig.category))),
+                new ConfigElement<>(DuraDisplayConfig.config.getCategory(DurabilityOverlay.config.category)),
+                new ConfigElement<>(DuraDisplayConfig.config.getCategory(ChargeOverlay.config.category))),
             Tags.MODID,
             "general",
             false,

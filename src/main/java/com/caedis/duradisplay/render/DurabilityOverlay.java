@@ -158,19 +158,17 @@ public class DurabilityOverlay extends ItemStackOverlay {
     }
 
     public static int getRGBDurabilityForDisplay(double dur) {
-        if (!DuraDisplayConfig.DurabilityConfig.UseColorThreshold)
-            return Color.HSBtoRGB(Math.max(0.0F, (float) dur) / 3.0F, 1.0F, 1.0F);
+        if (!config.UseColorThreshold) return Color.HSBtoRGB(Math.max(0.0F, (float) dur) / 3.0F, 1.0F, 1.0F);
         else {
             double durability = dur * 100;
-            if (durability <= DuraDisplayConfig.DurabilityConfig.ColorThreshold[0]) {
+            if (durability <= config.ColorThreshold[0]) {
                 return 0xFF0000;
-            } else if (durability
-                >= DuraDisplayConfig.DurabilityConfig.ColorThreshold[DuraDisplayConfig.DurabilityConfig.ColorThreshold.length
-                    - 1]) {
-                        return 0x55FF00;
-                    } else {
-                        return 0XFFD500;
-                    }
+            } else
+                if (durability >= config.ColorThreshold[config.ColorThreshold.length - 1]) {
+                    return 0x55FF00;
+                } else {
+                    return 0XFFD500;
+                }
         }
     }
 }

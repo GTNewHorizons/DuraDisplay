@@ -3,21 +3,17 @@ package com.caedis.duradisplay.config;
 import java.io.File;
 import java.util.ArrayList;
 
-import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.common.config.Configuration;
-
 import com.caedis.duradisplay.render.ChargeOverlay;
 import com.caedis.duradisplay.render.DurabilityOverlay;
+import net.minecraft.launchwrapper.Launch;
+import net.minecraftforge.common.config.Configuration;
 
 import crazypants.enderio.config.Config;
 import gregtech.GT_Mod;
 
 public class DuraDisplayConfig {
 
-    public static DurabilityOverlayConfig DurabilityConfig = DurabilityOverlay.config;
-    public static DurabilityOverlayConfig ChargeConfig = ChargeOverlay.config;
-
-    private static ArrayList<OverlayConfig> configs = null;
+    public static ArrayList<OverlayConfig> configs = null;
 
     public static void addConfig(OverlayConfig config) {
         if (configs != null) configs.add(config);
@@ -56,21 +52,19 @@ public class DuraDisplayConfig {
 
         Enable = config.getBoolean("Enable", Configuration.CATEGORY_GENERAL, Enable, "Enable/disable the entire mod");
 
-        DurabilityConfig.loadConfig(config);
-        ChargeConfig.loadConfig(config);
-        ChargeConfig.Position = 8;
+        DurabilityOverlay.config.loadConfig(config);
+        ChargeOverlay.config.loadConfig(config);
 
         if (config.hasChanged()) {
             config.save();
         }
 
         // Gregtech Bars
-        GT_Mod.gregtechproxy.mRenderItemDurabilityBar = Enable
-            && !(DurabilityConfig.Enabled && !DurabilityConfig.RenderBar);
-        GT_Mod.gregtechproxy.mRenderItemChargeBar = Enable && !(ChargeConfig.Enabled && !ChargeConfig.RenderBar);
+        GT_Mod.gregtechproxy.mRenderItemDurabilityBar = false;
+        GT_Mod.gregtechproxy.mRenderItemChargeBar = false;
 
         // EnderIO Bars
-        Config.renderChargeBar = Enable && !(ChargeConfig.Enabled && !ChargeConfig.RenderBar);
-        Config.renderDurabilityBar = Enable && !(DurabilityConfig.Enabled && !DurabilityConfig.RenderBar);
+        Config.renderChargeBar = false;
+        Config.renderDurabilityBar = false;
     }
 }

@@ -10,6 +10,7 @@ public class DurabilityOverlayConfig extends OverlayConfig {
     public boolean Enabled = true;
     public int Position = 2;
     public boolean ShowWhenFull = false;
+    public boolean ShowWhenEmpty = true;
     public boolean RenderBar = false;
 
     public int color = 0xFFFFFF;
@@ -57,6 +58,12 @@ public class DurabilityOverlayConfig extends OverlayConfig {
             category,
             ShowWhenFull,
             String.format("Show %s percentage when item is undamaged/full", category));
+
+        ShowWhenFull = config.getBoolean(
+            "ShowWhenFull",
+            category,
+            ShowWhenEmpty,
+            String.format("Show %s percentage when empty", category));
 
         Property dura_colorThresh = config.get(
             category,

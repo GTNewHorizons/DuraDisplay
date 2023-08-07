@@ -71,7 +71,7 @@ public class DurabilityOverlay extends ItemStackOverlay {
 
     @Override
     public void Render(FontRenderer fontRenderer, int xPosition, int yPosition, float zLevel) {
-        if (!DuraDisplayConfig.DurabilityConfig.ShowWhenFull && this.isFull) return;
+        if (!config.ShowWhenFull && this.isFull) return;
         super.Render(fontRenderer, xPosition, yPosition, zLevel);
     }
 
@@ -93,9 +93,9 @@ public class DurabilityOverlay extends ItemStackOverlay {
 
         ItemStackOverlay durabilityOverlay = new DurabilityOverlay();
 
-        double damage = item.getDamage(stack);
+        double damagePercent = item.getDurabilityForDisplay(stack);
         double max = item.getMaxDamage();
-        double current = max - damage;
+        double current = max *(1- damagePercent);
         return new double[] { current, max };
     }
 

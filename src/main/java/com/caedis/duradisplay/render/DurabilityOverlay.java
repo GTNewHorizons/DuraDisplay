@@ -95,7 +95,7 @@ public class DurabilityOverlay extends ItemStackOverlay {
 
         double damagePercent = item.getDurabilityForDisplay(stack);
         double max = item.getMaxDamage();
-        double current = max *(1- damagePercent);
+        double current = max * (1 - damagePercent);
         return new double[] { current, max };
     }
 

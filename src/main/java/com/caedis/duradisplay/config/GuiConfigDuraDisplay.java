@@ -1,12 +1,12 @@
 package com.caedis.duradisplay.config;
 
-import com.caedis.duradisplay.render.ChargeOverlay;
-import com.caedis.duradisplay.render.DurabilityOverlay;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
 
 import com.caedis.duradisplay.Tags;
+import com.caedis.duradisplay.render.ChargeOverlay;
+import com.caedis.duradisplay.render.DurabilityOverlay;
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.client.config.GuiConfig;

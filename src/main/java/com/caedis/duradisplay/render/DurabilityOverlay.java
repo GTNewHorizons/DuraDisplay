@@ -163,12 +163,11 @@ public class DurabilityOverlay extends ItemStackOverlay {
             double durability = dur * 100;
             if (durability <= config.ColorThreshold[0]) {
                 return 0xFF0000;
-            } else
-                if (durability >= config.ColorThreshold[config.ColorThreshold.length - 1]) {
-                    return 0x55FF00;
-                } else {
-                    return 0XFFD500;
-                }
+            } else if (durability >= config.ColorThreshold[config.ColorThreshold.length - 1]) {
+                return 0x55FF00;
+            } else {
+                return 0XFFD500;
+            }
         }
     }
 }

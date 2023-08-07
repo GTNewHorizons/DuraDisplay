@@ -3,10 +3,11 @@ package com.caedis.duradisplay.config;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.caedis.duradisplay.render.ChargeOverlay;
-import com.caedis.duradisplay.render.DurabilityOverlay;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
+
+import com.caedis.duradisplay.render.ChargeOverlay;
+import com.caedis.duradisplay.render.DurabilityOverlay;
 
 import crazypants.enderio.config.Config;
 import gregtech.GT_Mod;

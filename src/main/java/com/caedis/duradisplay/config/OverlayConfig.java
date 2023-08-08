@@ -1,26 +1,18 @@
 package com.caedis.duradisplay.config;
 
+import net.minecraftforge.common.config.Configuration;
+
 public abstract class OverlayConfig {
 
-    public boolean Enabled = true;
-    public int Position;
-    public boolean ShowWhenFull = false;
-    public boolean RenderBar = false;
+    protected final String category;
 
-    public boolean UseColorThreshold;
-    public double[] ColorThreshold = new double[] { 15, 50 };
-
-    public static class DurabilityOverlayConfig extends OverlayConfig {
-
-        public DurabilityOverlayConfig() {
-            Position = 2;
-        }
+    public OverlayConfig(String category) {
+        this.category = category;
     }
 
-    public static class ChargeOverlayConfig extends OverlayConfig {
-
-        public ChargeOverlayConfig() {
-            Position = 8;
-        }
+    public String getCategory() {
+        return category;
     }
+
+    public abstract void loadConfig(Configuration config);
 }

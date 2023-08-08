@@ -1,13 +1,11 @@
 package com.caedis.duradisplay.mixins.minecraft;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
@@ -15,11 +13,10 @@ import com.caedis.duradisplay.config.DuraDisplayConfig;
 import com.caedis.duradisplay.render.DurabilityOverlay;
 import com.caedis.duradisplay.render.DurabilityRenderer;
 
-@Mixin(value = RenderItem.class)
-public abstract class MixinRenderItem {
+import appeng.client.render.AppEngRenderItem;
 
-    @Shadow
-    private float zLevel;
+@Mixin(value = AppEngRenderItem.class)
+abstract public class MixinAppEngRenderItem {
 
     @SuppressWarnings("UnresolvedMixinReference")
     @Redirect(
@@ -32,7 +29,7 @@ public abstract class MixinRenderItem {
         if (!DuraDisplayConfig.Enable) return item0.showDurabilityBar(stack0);
         if (!DurabilityRenderer.Execute) return item0.showDurabilityBar(stack0);
 
-        DurabilityRenderer.Render(fontRenderer, stack0, xPosition, yPosition, zLevel);
+        DurabilityRenderer.Render(fontRenderer, stack0, xPosition, yPosition, 50);
         return DurabilityOverlay.config.RenderBar && item0.showDurabilityBar(stack0);
     }
 

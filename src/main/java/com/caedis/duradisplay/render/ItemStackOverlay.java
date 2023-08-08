@@ -6,15 +6,14 @@ import org.lwjgl.opengl.GL11;
 
 public abstract class ItemStackOverlay {
 
-    public boolean isFull;
-    public int color;
-    public String value;
+    public abstract String getValue();
 
     public abstract int getColor();
 
     public abstract int getLocation();
 
     public void Render(FontRenderer fontRenderer, int xPosition, int yPosition, float zLevel) {
+        String value = getValue();
         GL11.glPushMatrix();
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         GL11.glDisable(GL11.GL_LIGHTING);

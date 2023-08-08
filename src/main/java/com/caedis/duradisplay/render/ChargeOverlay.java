@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Function;
 
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -22,6 +21,15 @@ import tconstruct.library.tools.ToolCore;
 
 public class ChargeOverlay extends ItemStackOverlay {
 
+    private final double durability;
+
+    private final double maxDurability;
+
+    public ChargeOverlay(double durability, double maxDurability) {
+        this.durability = durability;
+        this.maxDurability = maxDurability;
+    }
+
     public static final DurabilityOverlayConfig config = new DurabilityOverlayConfig("charge", 8);
     private static final ArrayList<Pair<Class<?>, Function<ItemStack, double[]>>> handlers = new ArrayList<>();
 
@@ -35,29 +43,31 @@ public class ChargeOverlay extends ItemStackOverlay {
 
     @Nullable
     private static ItemStackOverlay getOverlayHandler(ItemStack stack) {
-        ChargeOverlay chargeOverlay = new ChargeOverlay();
+        if (!config.Enabled) return null;
         Optional<Pair<Class<?>, Function<ItemStack, double[]>>> result = handlers.stream()
             .filter(
                 p -> p.getLeft()
                     .isInstance(stack.getItem()))
             .findFirst();
-        if (!result.isPresent()) {
+        if (result.isPresent()) {
+            double[] d = result.get()
+                .getRight()
+                .apply(stack);
+            if (d == null) {
+                return null;
+            }
+            ChargeOverlay chargeOverlay = new ChargeOverlay(d[0], d[1]);
+            if (!config.ShowWhenFull && d[0] == d[1]) return null;
+            if (!config.ShowWhenEmpty && d[0] == 0) return null;
+            return chargeOverlay;
+        } else {
             return null;
         }
-        double[] d = result.get()
-            .getRight()
-            .apply(stack);
-        if (d == null) {
-            return null;
-        }
-        chargeOverlay.value = DurabilityFormatter.format(d[0], d[1], DurabilityFormatter.Format.percent);
-        return chargeOverlay;
     }
 
     @Override
-    public void Render(FontRenderer fontRenderer, int xPosition, int yPosition, float zLevel) {
-        if (!config.ShowWhenFull && this.isFull) return;
-        super.Render(fontRenderer, xPosition, yPosition, zLevel);
+    public String getValue() {
+        return DurabilityFormatter.format(durability, maxDurability, DurabilityFormatter.Format.percent);
     }
 
     @Override

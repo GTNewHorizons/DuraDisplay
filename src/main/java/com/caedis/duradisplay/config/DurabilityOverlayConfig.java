@@ -60,7 +60,7 @@ public class DurabilityOverlayConfig extends OverlayConfig {
             String.format("Show %s percentage when item is undamaged/full", category));
 
         ShowWhenFull = config.getBoolean(
-            "ShowWhenFull",
+            "ShowWhenEmpty",
             category,
             ShowWhenEmpty,
             String.format("Show %s percentage when empty", category));

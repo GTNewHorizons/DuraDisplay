@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Function;
 
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -29,6 +28,15 @@ import tconstruct.library.weaponry.AmmoItem;
 
 public class DurabilityOverlay extends ItemStackOverlay {
 
+    private final double durability;
+
+    private final double maxDurability;
+
+    public DurabilityOverlay(double durability, double maxDurability) {
+        this.durability = durability;
+        this.maxDurability = maxDurability;
+    }
+
     public static final DurabilityOverlayConfig config = new DurabilityOverlayConfig("durability", 2);
 
     private static final ArrayList<Pair<Class<?>, Function<ItemStack, double[]>>> handlers = new ArrayList<>();
@@ -49,35 +57,47 @@ public class DurabilityOverlay extends ItemStackOverlay {
 
     @Nullable
     private static ItemStackOverlay getOverlayHandler(ItemStack stack) {
-        DurabilityOverlay durabilityOverlay = new DurabilityOverlay();
+        if (!config.Enabled) return null;
         Optional<Pair<Class<?>, Function<ItemStack, double[]>>> result = handlers.stream()
             .filter(
                 p -> p.getLeft()
                     .isInstance(stack.getItem()))
             .findFirst();
-        if (!result.isPresent()) {
+        if (result.isPresent()) {
+            double[] d = result.get()
+                .getRight()
+                .apply(stack);
+            if (d == null) {
+                return null;
+            }
+            DurabilityOverlay durabilityOverlay = new DurabilityOverlay(d[0], d[1]);
+            if (!config.ShowWhenFull && d[0] == d[1]) return null;
+            if (!config.ShowWhenEmpty && (int) d[0] == 0) return null;
+            return durabilityOverlay;
+        } else {
             return null;
         }
-        double[] d = result.get()
-            .getRight()
-            .apply(stack);
-        if (d == null) {
-            return null;
-        }
-        durabilityOverlay.value = DurabilityFormatter.format(d[0], d[1], DurabilityFormatter.Format.percent);
-        durabilityOverlay.color = getRGBDurabilityForDisplay(d[0] / d[1]);
-        return durabilityOverlay;
     }
 
     @Override
-    public void Render(FontRenderer fontRenderer, int xPosition, int yPosition, float zLevel) {
-        if (!config.ShowWhenFull && this.isFull) return;
-        super.Render(fontRenderer, xPosition, yPosition, zLevel);
+    public String getValue() {
+        return DurabilityFormatter.format(durability, maxDurability, DurabilityFormatter.Format.percent);
     }
 
     @Override
     public int getColor() {
-        return color;
+        double percent = durability / maxDurability;
+        if (!config.UseColorThreshold) return Color.HSBtoRGB(Math.max(0.0F, (float) percent) / 3.0F, 1.0F, 1.0F);
+        else {
+            double dur = percent * 100;
+            if (dur <= config.ColorThreshold[0]) {
+                return 0xFF0000;
+            } else if (dur >= config.ColorThreshold[config.ColorThreshold.length - 1]) {
+                return 0x55FF00;
+            } else {
+                return 0XFFD500;
+            }
+        }
     }
 
     @Override
@@ -90,8 +110,6 @@ public class DurabilityOverlay extends ItemStackOverlay {
         assert item != null;
 
         if (!item.isDamageable()) return null;
-
-        ItemStackOverlay durabilityOverlay = new DurabilityOverlay();
 
         double damagePercent = item.getDurabilityForDisplay(stack);
         double max = item.getMaxDamage();
@@ -157,17 +175,4 @@ public class DurabilityOverlay extends ItemStackOverlay {
         return new double[] { current, max };
     }
 
-    public static int getRGBDurabilityForDisplay(double dur) {
-        if (!config.UseColorThreshold) return Color.HSBtoRGB(Math.max(0.0F, (float) dur) / 3.0F, 1.0F, 1.0F);
-        else {
-            double durability = dur * 100;
-            if (durability <= config.ColorThreshold[0]) {
-                return 0xFF0000;
-            } else if (durability >= config.ColorThreshold[config.ColorThreshold.length - 1]) {
-                return 0x55FF00;
-            } else {
-                return 0XFFD500;
-            }
-        }
-    }
 }

@@ -12,14 +12,14 @@ public abstract class ItemStackOverlay {
 
     public abstract int getLocation();
 
-    public void Render(FontRenderer fontRenderer, int xPosition, int yPosition, float zLevel) {
+    public void Render(FontRenderer fontRenderer, int xPosition, int yPosition) {
         String value = getValue();
         GL11.glPushMatrix();
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glTranslatef(0, 0, zLevel + 50);
+        GL11.glTranslatef(0, 0, 50);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         int stringWidth = fontRenderer.getStringWidth(value);
         int x = getX(xPosition, stringWidth);

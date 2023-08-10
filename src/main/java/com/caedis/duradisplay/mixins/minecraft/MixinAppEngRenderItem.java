@@ -29,7 +29,7 @@ abstract public class MixinAppEngRenderItem {
         if (!DuraDisplayConfig.Enable) return item0.showDurabilityBar(stack0);
         if (!DurabilityRenderer.Execute) return item0.showDurabilityBar(stack0);
 
-        DurabilityRenderer.Render(fontRenderer, stack0, xPosition, yPosition, 50);
+        DurabilityRenderer.Render(fontRenderer, stack0, xPosition, yPosition);
         return DurabilityOverlay.config.RenderBar && item0.showDurabilityBar(stack0);
     }
 

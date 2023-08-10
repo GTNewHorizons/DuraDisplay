@@ -18,13 +18,13 @@ public class DurabilityRenderer {
         handlers.add(handler);
     }
 
-    public static void Render(FontRenderer fontRenderer, ItemStack stack, int xPosition, int yPosition, float zLevel) {
+    public static void Render(FontRenderer fontRenderer, ItemStack stack, int xPosition, int yPosition) {
         if (fontRenderer == null && (fontRenderer = Minecraft.getMinecraft().fontRenderer) == null) return;
 
         for (com.caedis.duradisplay.render.ItemHandler f : handlers) {
             ItemStackOverlay fOverlay = f.getOverlay(stack);
             if (fOverlay != null) {
-                fOverlay.Render(fontRenderer, xPosition, yPosition, zLevel);
+                fOverlay.Render(fontRenderer, xPosition, yPosition);
             }
         }
 

@@ -77,7 +77,7 @@ public class ChargeOverlay extends ItemStackOverlay {
 
     @Override
     public int getLocation() {
-        return config.Position;
+        return config.NumPadPosition;
     }
 
     private static double[] handleIElectricItem(@NotNull ItemStack stack) {

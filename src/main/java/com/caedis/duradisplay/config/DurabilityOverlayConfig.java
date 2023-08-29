@@ -8,7 +8,7 @@ import net.minecraftforge.common.config.Property;
 public class DurabilityOverlayConfig extends OverlayConfig {
 
     public boolean Enabled = true;
-    public int Position = 2;
+    public int NumPadPosition = 2;
     public boolean ShowWhenFull = false;
     public boolean ShowWhenEmpty = true;
     public boolean RenderBar = false;
@@ -26,7 +26,7 @@ public class DurabilityOverlayConfig extends OverlayConfig {
         boolean renderBar, boolean useColorThreshold, double[] colorThreshold) {
         super(category);
         this.Enabled = enabled;
-        this.Position = position;
+        this.NumPadPosition = position;
         this.ShowWhenFull = showWhenFull;
         this.RenderBar = renderBar;
         this.UseColorThreshold = useColorThreshold;
@@ -35,7 +35,7 @@ public class DurabilityOverlayConfig extends OverlayConfig {
 
     public DurabilityOverlayConfig(String category, int position) {
         super(category);
-        this.Position = position;
+        this.NumPadPosition = position;
     }
 
     @Override
@@ -45,10 +45,10 @@ public class DurabilityOverlayConfig extends OverlayConfig {
 
         RenderBar = config.getBoolean("RenderBar", category, RenderBar, String.format("Render %s bar", category));
 
-        Position = config.getInt(
+        NumPadPosition = config.getInt(
             "Position",
             category,
-            Position,
+            NumPadPosition,
             1,
             9,
             String.format("Location in item where the %s percentage will be (numpad style)", category));

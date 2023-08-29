@@ -1,7 +1,6 @@
 package com.caedis.duradisplay.render;
 
 import net.minecraft.client.gui.FontRenderer;
-
 import org.lwjgl.opengl.GL11;
 
 public abstract class ItemStackOverlay {

@@ -1,15 +1,14 @@
 package duradisplay;
 
 import javax.annotation.processing.*;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.*;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
-import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.annotation.ElementType;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @SupportedAnnotationTypes("com.caedis.duradisplay.annotation.Config")
@@ -97,12 +96,12 @@ public class ConfigProcessor extends AbstractProcessor {
 
                     public class ConfigInfo {
                         private static final String[] configClassNames = new String[]{ %s };
-                        private static String[] categorys = null;
-                        private static OverlayConfig[] configs = null;
+                        private static String[] categories = null;
+                        private static Config[] configs = null;
 
                         public static String[] getCategories() {
-                            if (categorys == null) {
-                                categorys = Arrays.stream(configClassNames)
+                            if (categories == null) {
+                                categories = Arrays.stream(configClassNames)
                                     .map(n -> {
                                         try {
                                             return Class.forName(n).getField("category").get(null).toString();
@@ -111,19 +110,19 @@ public class ConfigProcessor extends AbstractProcessor {
                                         }
                                     }).toArray(String[]::new);
                             }
-                            return categorys;
+                            return categories;
                         }
 
-                        public static OverlayConfig[] getConfigs() {
+                        public static Config[] getConfigs() {
                             if (configs == null) {
                                 configs = Arrays.stream(configClassNames)
                                     .map(n -> {
                                         try {
-                                            return (OverlayConfig) Class.forName(n).getField("instance").get(null);
+                                            return (Config) Class.forName(n).getField("instance").get(null);
                                         } catch (Exception e) {
                                             throw new RuntimeException(e);
                                         }
-                                    }).toArray(OverlayConfig[]::new);
+                                    }).toArray(Config[]::new);
                             }
                             return configs;
                         }

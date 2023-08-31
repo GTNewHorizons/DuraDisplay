@@ -9,7 +9,7 @@ public final class ConfigCharge extends ConfigDurabilityLike {
 
     public static final String category = "charge";
 
-    protected ConfigCharge() {
+    private ConfigCharge() {
         super(
             true,
             OverlayDuarbilityLike.Style.NumPad,

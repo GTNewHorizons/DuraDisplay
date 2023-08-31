@@ -102,21 +102,21 @@ public abstract class OverlayDuarbilityLike extends Overlay<ConfigDurabilityLike
     }
 
     protected int getColor(DurabilityLikeInfo info) {
-        if (config.useColorThreshold) return ColorUtils.getThresholdColor(info.percent(), config.colorThreshold);
-        else return config.color;
+        if (config().useColorThreshold) return ColorUtils.getThresholdColor(info.percent(), config().colorThreshold);
+        else return config().color;
     }
 
     protected String getValue(DurabilityLikeInfo info) {
-        return DurabilityFormatter.format(info.current, info.max, config.textFormat);
+        return DurabilityFormatter.format(info.current, info.max, config().textFormat);
     }
 
     @Override
     public @Nullable OverlayRenderer getRenderer(@NotNull ItemStack itemStack) {
-        if (!config.enabled) return null;
+        if (!config().enabled) return null;
         var info = getDurabilityLikeInfo(itemStack);
-        if (!config.showWhenEmpty && info.isEmpty()) return null;
-        if (!config.showWhenFull && info.isFull()) return null;
+        if (!config().showWhenEmpty && info.isEmpty()) return null;
+        if (!config().showWhenFull && info.isFull()) return null;
         String value = DurabilityFormatter.format(info.current, info.max, DurabilityFormatter.Format.percent);
-        return new NumPadRenderer(getValue(info), getColor(info), config.numPadPosition);
+        return new NumPadRenderer(getValue(info), getColor(info), config().numPadPosition);
     }
 }

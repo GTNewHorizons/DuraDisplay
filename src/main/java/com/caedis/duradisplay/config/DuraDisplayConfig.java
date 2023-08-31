@@ -6,19 +6,13 @@ import java.util.ArrayList;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 
+import com.caedis.duradisplay.DuraDisplay;
+
 import gregtech.GT_Mod;
 
 public class DuraDisplayConfig {
 
     public static ArrayList<Config> configs = null;
-
-    public static void addConfig(Config config) {
-        if (configs != null) configs.add(config);
-        else {
-            configs = new ArrayList<>();
-            configs.add(config);
-        }
-    }
 
     private static boolean configLoaded = false;
 
@@ -33,7 +27,9 @@ public class DuraDisplayConfig {
         configLoaded = true;
         final File configDir = new File(Launch.minecraftHome, "config");
         if (!configDir.isDirectory()) {
-            configDir.mkdirs();
+            if (!configDir.mkdirs()) {
+                DuraDisplay.LOG.warn("Could not create config directory: " + configDir.getAbsolutePath());
+            }
         }
         final File configFile = new File(configDir, "duradisplay.cfg");
         config = new Configuration(configFile);

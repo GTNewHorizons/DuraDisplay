@@ -18,7 +18,7 @@ import com.caedis.duradisplay.render.DurabilityRenderer;
 public abstract class MixinRenderItem {
 
     @Shadow
-    private float zLevel;
+    public float zLevel;
 
     @SuppressWarnings("UnresolvedMixinReference")
     @Redirect(

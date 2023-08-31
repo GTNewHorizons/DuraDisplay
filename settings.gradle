@@ -1,4 +1,3 @@
-
 pluginManagement {
     repositories {
         maven {
@@ -26,3 +25,4 @@ blowdryerSetup {
     github('GTNewHorizons/ExampleMod1.7.10', 'tag', '0.2.2')
     //devLocal '.' // Use this when testing config updates locally
 }
+include 'processor'

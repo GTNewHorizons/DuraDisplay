@@ -1,0 +1,29 @@
+plugins {
+    id("java")
+}
+
+group = "duradisplay"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor 'com.github.bsideup.jabel:jabel-javac-plugin:1.0.0'
+    compileOnly('com.github.bsideup.jabel:jabel-javac-plugin:1.0.0') {
+        transitive = false // We only care about the 1 annotation class
+    }
+}
+
+configure([tasks.compileJava]) {
+    sourceCompatibility = 17
+    options.release = 8
+
+    javaCompiler = javaToolchains.compilerFor {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.test {
+}

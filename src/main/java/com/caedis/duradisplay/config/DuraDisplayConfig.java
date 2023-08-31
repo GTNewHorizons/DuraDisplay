@@ -6,23 +6,13 @@ import java.util.ArrayList;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 
-import com.caedis.duradisplay.render.ChargeOverlay;
-import com.caedis.duradisplay.render.DurabilityOverlay;
+import com.caedis.duradisplay.DuraDisplay;
 
-import crazypants.enderio.config.Config;
 import gregtech.GT_Mod;
 
 public class DuraDisplayConfig {
 
-    public static ArrayList<OverlayConfig> configs = null;
-
-    public static void addConfig(OverlayConfig config) {
-        if (configs != null) configs.add(config);
-        else {
-            configs = new ArrayList<>();
-            configs.add(config);
-        }
-    }
+    public static ArrayList<Config> configs = null;
 
     private static boolean configLoaded = false;
 
@@ -37,7 +27,9 @@ public class DuraDisplayConfig {
         configLoaded = true;
         final File configDir = new File(Launch.minecraftHome, "config");
         if (!configDir.isDirectory()) {
-            configDir.mkdirs();
+            if (!configDir.mkdirs()) {
+                DuraDisplay.LOG.warn("Could not create config directory: " + configDir.getAbsolutePath());
+            }
         }
         final File configFile = new File(configDir, "duradisplay.cfg");
         config = new Configuration(configFile);
@@ -53,8 +45,9 @@ public class DuraDisplayConfig {
 
         Enable = config.getBoolean("Enable", Configuration.CATEGORY_GENERAL, Enable, "Enable/disable the entire mod");
 
-        DurabilityOverlay.config.loadConfig(config);
-        ChargeOverlay.config.loadConfig(config);
+        for (var c : ConfigInfo.getConfigs()) {
+            c.loadConfig(config);
+        }
 
         if (config.hasChanged()) {
             config.save();
@@ -65,7 +58,7 @@ public class DuraDisplayConfig {
         GT_Mod.gregtechproxy.mRenderItemChargeBar = false;
 
         // EnderIO Bars
-        Config.renderChargeBar = false;
-        Config.renderDurabilityBar = false;
+        crazypants.enderio.config.Config.renderChargeBar = false;
+        crazypants.enderio.config.Config.renderDurabilityBar = false;
     }
 }

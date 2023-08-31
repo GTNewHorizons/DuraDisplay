@@ -12,14 +12,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import com.caedis.duradisplay.config.DuraDisplayConfig;
-import com.caedis.duradisplay.render.DurabilityOverlay;
 import com.caedis.duradisplay.render.DurabilityRenderer;
 
 @Mixin(value = RenderItem.class)
 public abstract class MixinRenderItem {
 
     @Shadow
-    private float zLevel;
+    public float zLevel;
 
     @SuppressWarnings("UnresolvedMixinReference")
     @Redirect(
@@ -29,11 +28,11 @@ public abstract class MixinRenderItem {
             target = "Lnet/minecraft/item/Item;showDurabilityBar(Lnet/minecraft/item/ItemStack;)Z"))
     private boolean showDurabilityBar(Item item0, ItemStack stack0, FontRenderer fontRenderer,
         TextureManager textureManager, ItemStack stack, int xPosition, int yPosition, String string) {
-        if (!DuraDisplayConfig.Enable) return item0.showDurabilityBar(stack0);
         if (!DurabilityRenderer.Execute) return item0.showDurabilityBar(stack0);
+        if (!DuraDisplayConfig.Enable) return item0.showDurabilityBar(stack0);
 
-        DurabilityRenderer.Render(fontRenderer, stack0, xPosition, yPosition, zLevel);
-        return DurabilityOverlay.config.RenderBar && item0.showDurabilityBar(stack0);
+        DurabilityRenderer.Render(fontRenderer, stack0, xPosition, yPosition);
+        return false;
     }
 
 }

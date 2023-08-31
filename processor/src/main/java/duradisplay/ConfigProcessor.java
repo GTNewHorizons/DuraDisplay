@@ -1,6 +1,7 @@
 package duradisplay;
 
 import javax.annotation.processing.*;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 @SupportedAnnotationTypes("com.caedis.duradisplay.annotation.Config")
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class ConfigProcessor extends AbstractProcessor {
 
     private Messager messager;

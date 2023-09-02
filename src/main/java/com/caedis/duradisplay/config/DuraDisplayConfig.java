@@ -3,6 +3,7 @@ package com.caedis.duradisplay.config;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.caedis.duradisplay.utils.ModSelfDrawnBar;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 
@@ -44,6 +45,11 @@ public class DuraDisplayConfig {
     public static void reloadConfigObject() {
 
         Enable = config.getBoolean("Enable", Configuration.CATEGORY_GENERAL, Enable, "Enable/disable the entire mod");
+        if (Enable) {
+            ModSelfDrawnBar.pushDisable();
+        } else {
+            ModSelfDrawnBar.pop();
+        }
 
         for (var c : ConfigInfo.getConfigs()) {
             c.loadConfig(config);
@@ -53,12 +59,5 @@ public class DuraDisplayConfig {
             config.save();
         }
 
-        // Gregtech Bars
-        GT_Mod.gregtechproxy.mRenderItemDurabilityBar = false;
-        GT_Mod.gregtechproxy.mRenderItemChargeBar = false;
-
-        // EnderIO Bars
-        crazypants.enderio.config.Config.renderChargeBar = false;
-        crazypants.enderio.config.Config.renderDurabilityBar = false;
     }
 }

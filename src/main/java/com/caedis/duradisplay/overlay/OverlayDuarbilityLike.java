@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.caedis.duradisplay.config.ConfigDurabilityLike;
+import com.caedis.duradisplay.render.BarRenderer;
 import com.caedis.duradisplay.render.NumPadRenderer;
 import com.caedis.duradisplay.render.OverlayRenderer;
-import com.caedis.duradisplay.utils.ColorUtils;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 
 public abstract class OverlayDuarbilityLike extends Overlay<ConfigDurabilityLike> {
@@ -34,6 +34,10 @@ public abstract class OverlayDuarbilityLike extends Overlay<ConfigDurabilityLike
 
         public boolean isEmpty() {
             return current == 0 && max != 0;
+        }
+
+        public boolean isNaN() {
+            return current == 0 && max == 0;
         }
 
         public double percent() {
@@ -102,8 +106,7 @@ public abstract class OverlayDuarbilityLike extends Overlay<ConfigDurabilityLike
     }
 
     protected int getColor(DurabilityLikeInfo info) {
-        if (config().useColorThreshold) return ColorUtils.getThresholdColor(info.percent(), config().colorThreshold);
-        else return config().color;
+        return config().colorType.get(info.percent(), config());
     }
 
     protected String getValue(DurabilityLikeInfo info) {
@@ -114,9 +117,18 @@ public abstract class OverlayDuarbilityLike extends Overlay<ConfigDurabilityLike
     public @Nullable OverlayRenderer getRenderer(@NotNull ItemStack itemStack) {
         if (!config().enabled) return null;
         var info = getDurabilityLikeInfo(itemStack);
+        if (info.isNaN()) return null;
         if (!config().showWhenEmpty && info.isEmpty()) return null;
         if (!config().showWhenFull && info.isFull()) return null;
         String value = DurabilityFormatter.format(info.current, info.max, DurabilityFormatter.Format.percent);
+        switch (config().style) {
+            case Bar:
+                return new BarRenderer(getColor(info), info.percent());
+            // case VerticalBar:
+            // return new OverlayRenderer.VerticalBarRenderer(value, getColor(info), config().verticalBarPosition);
+            default:
+                break;
+        }
         return new NumPadRenderer(getValue(info), getColor(info), config().numPadPosition);
     }
 }

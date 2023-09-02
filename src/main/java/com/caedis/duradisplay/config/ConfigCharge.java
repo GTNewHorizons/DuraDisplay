@@ -1,6 +1,7 @@
 package com.caedis.duradisplay.config;
 
 import com.caedis.duradisplay.overlay.OverlayDuarbilityLike;
+import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 
 public final class ConfigCharge extends ConfigDurabilityLike {
@@ -16,7 +17,7 @@ public final class ConfigCharge extends ConfigDurabilityLike {
             false,
             true,
             0xFF55FFFF,
-            false,
+            ColorType.Single,
             new double[] { 30, 70 });
     }
 

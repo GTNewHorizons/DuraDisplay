@@ -3,6 +3,7 @@ package com.caedis.duradisplay.config;
 import java.util.Arrays;
 
 import com.caedis.duradisplay.overlay.OverlayDuarbilityLike;
+import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.ConfigLoad;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 
@@ -15,12 +16,12 @@ public abstract class ConfigDurabilityLike extends Config {
     public boolean showWhenFull;
     public boolean showWhenEmpty;
     public int color;
-    public boolean useColorThreshold;
+    public ColorType colorType;
     public double[] colorThreshold;
 
     protected ConfigDurabilityLike(boolean enabled, OverlayDuarbilityLike.Style style,
         DurabilityFormatter.Format textFormat, int numPadPosition, boolean showWhenFull, boolean showWhenEmpty,
-        int color, boolean useColorThreshold, double[] colorThreshold) {
+        int color, ColorType colorType, double[] colorThreshold) {
         this.enabled = enabled;
         this.style = style;
         this.textFormat = textFormat;
@@ -28,7 +29,7 @@ public abstract class ConfigDurabilityLike extends Config {
         this.showWhenFull = showWhenFull;
         this.showWhenEmpty = showWhenEmpty;
         this.color = color;
-        this.useColorThreshold = useColorThreshold;
+        this.colorType = colorType;
         this.colorThreshold = colorThreshold;
     }
 
@@ -66,11 +67,11 @@ public abstract class ConfigDurabilityLike extends Config {
             showWhenEmpty,
             String.format("Show %s percentage when empty", category()));
 
-        useColorThreshold = config.getBoolean(
-            "UseColorThreshold",
+        colorType = ConfigLoad.loadEnum(
             category() + ".Color",
-            useColorThreshold,
-            String.format("Use color threshold for %s", category()));
+            "ColorType",
+            colorType,
+            "ColorType of the Overlay, can be RYGDurability, Threshold, Vanilla, or Single");
 
         colorThreshold = Arrays.stream(
             config.get(

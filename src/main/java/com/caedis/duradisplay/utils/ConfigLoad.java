@@ -5,7 +5,6 @@ import java.util.Arrays;
 import net.minecraftforge.common.config.Configuration;
 
 import com.caedis.duradisplay.config.DuraDisplayConfig;
-import com.caedis.duradisplay.overlay.OverlayDuarbilityLike;
 
 public class ConfigLoad {
 
@@ -18,11 +17,9 @@ public class ConfigLoad {
             config.getString(
                 name,
                 category,
-                OverlayDuarbilityLike.Style.NumPad.toString(),
+                defaultValue.toString(),
                 comment,
-                Arrays.stream(
-                    defaultValue.getClass()
-                        .getEnumConstants())
+                Arrays.stream(enumType.getEnumConstants())
                     .map(Enum::toString)
                     .toArray(String[]::new)));
 

@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 
 import com.caedis.duradisplay.config.ConfigDurability;
 import com.caedis.duradisplay.config.ConfigDurabilityLike;
-import com.caedis.duradisplay.utils.ColorUtils;
 
 import appeng.items.tools.powered.powersink.AEBasePoweredItem;
 import gregtech.api.items.GT_MetaBase_Item;
@@ -37,15 +36,6 @@ public class OverlayDurability extends OverlayDuarbilityLike {
     @Override
     public ConfigDurabilityLike config() {
         return config;
-    }
-
-    @Override
-    protected int getColor(DurabilityLikeInfo info) {
-        if (config.useColorThreshold) {
-            return ColorUtils.getThresholdColor(info.percent(), config.colorThreshold);
-        } else {
-            return ColorUtils.getDurabilityColor(info.percent());
-        }
     }
 
     private static DurabilityLikeInfo handleDefault(@NotNull ItemStack stack) {

@@ -6,6 +6,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.swing.*;
 import javax.tools.Diagnostic;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,8 +36,8 @@ public class ConfigProcessor extends AbstractProcessor {
 
     private boolean isPublicStaticFinal(Element element) {
         return element.getModifiers().contains(Modifier.PUBLIC)
-               && element.getModifiers().contains(Modifier.STATIC)
-               && element.getModifiers().contains(Modifier.FINAL);
+            && element.getModifiers().contains(Modifier.STATIC)
+            && element.getModifiers().contains(Modifier.FINAL);
     }
 
     private boolean testField(TypeElement element, String qualifiedTypeName, String name) {

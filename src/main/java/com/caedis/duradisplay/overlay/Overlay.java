@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import com.caedis.duradisplay.config.Config;
 import com.caedis.duradisplay.render.OverlayRenderer;
 
+@com.caedis.duradisplay.annotation.Overlay
 public abstract class Overlay<T extends Config> {
 
     abstract T config();

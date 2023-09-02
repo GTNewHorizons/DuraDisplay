@@ -1,14 +1,14 @@
 package com.caedis.duradisplay.render;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 
 import com.caedis.duradisplay.overlay.Overlay;
-import com.caedis.duradisplay.overlay.OverlayCharge;
-import com.caedis.duradisplay.overlay.OverlayDurability;
+import com.caedis.duradisplay.overlay.OverlayInfo;
 
 public class DurabilityRenderer {
 
@@ -23,8 +23,8 @@ public class DurabilityRenderer {
     }
 
     static {
-        addHandlers(new OverlayDurability());
-        addHandlers(new OverlayCharge());
+        Arrays.stream(OverlayInfo.getOverlays())
+            .forEach(DurabilityRenderer::addHandlers);
     }
 
     public static void Render(FontRenderer fontRenderer, ItemStack stack, int xPosition, int yPosition) {

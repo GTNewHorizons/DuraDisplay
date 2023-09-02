@@ -1,13 +1,15 @@
 package com.caedis.duradisplay.config;
 
-import com.caedis.duradisplay.DuraDisplay;
-import com.caedis.duradisplay.utils.ModSelfDrawnBar;
+import java.io.File;
+
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 
-import java.io.File;
+import com.caedis.duradisplay.DuraDisplay;
+import com.caedis.duradisplay.utils.ModSelfDrawnBar;
 
 public class DuraDisplayConfig {
+
     private static boolean configLoaded = false;
 
     public static boolean Enable = true;

@@ -7,8 +7,6 @@ public final class ConfigCharge extends ConfigDurabilityLike {
 
     public static final ConfigCharge instance = new ConfigCharge();
 
-    public static final String category = "charge";
-
     private ConfigCharge() {
         super(
             true,
@@ -24,6 +22,6 @@ public final class ConfigCharge extends ConfigDurabilityLike {
 
     @Override
     public String category() {
-        return category;
+        return "charge";
     }
 }

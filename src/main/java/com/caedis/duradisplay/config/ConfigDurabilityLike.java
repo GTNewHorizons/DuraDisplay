@@ -2,8 +2,6 @@ package com.caedis.duradisplay.config;
 
 import java.util.Arrays;
 
-import net.minecraftforge.common.config.Configuration;
-
 import com.caedis.duradisplay.overlay.OverlayDuarbilityLike;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 
@@ -34,14 +32,14 @@ public abstract class ConfigDurabilityLike extends Config {
     }
 
     @Override
-    public void loadConfig(Configuration config) {
+    public void loadConfig() {
 
         enabled = config.getBoolean("Enable", category(), enabled, String.format("Enable %s module", category()));
 
         style = OverlayDuarbilityLike.Style.valueOf(
             config.getString(
                 "Style",
-                category(),
+                category() + ".NumPad",
                 OverlayDuarbilityLike.Style.NumPad.toString(),
                 "Style of the Overlay, can be NumPad, Bar, or VerticalBar",
                 Arrays.stream(OverlayDuarbilityLike.Style.values())
@@ -50,7 +48,7 @@ public abstract class ConfigDurabilityLike extends Config {
 
         numPadPosition = config.getInt(
             "NumPadPosition",
-            category(),
+            category() + ".NumPad",
             numPadPosition,
             1,
             9,
@@ -59,7 +57,7 @@ public abstract class ConfigDurabilityLike extends Config {
         textFormat = DurabilityFormatter.Format.valueOf(
             config.getString(
                 "TextFormat",
-                category(),
+                category() + ".NumPad",
                 DurabilityFormatter.Format.percent.toString(),
                 "Format of the text, can be percent, fraction, or both",
                 Arrays.stream(DurabilityFormatter.Format.values())
@@ -80,13 +78,13 @@ public abstract class ConfigDurabilityLike extends Config {
 
         useColorThreshold = config.getBoolean(
             "UseColorThreshold",
-            category(),
+            category() + ".Color",
             useColorThreshold,
             String.format("Use color threshold for %s", category()));
 
         colorThreshold = Arrays.stream(
             config.get(
-                category(),
+                category() + ".Color",
                 "ColorThresholds",
                 colorThreshold,
                 "List of numbers in ascending order from 0-100 that set the thresholds for durability color mapping. "

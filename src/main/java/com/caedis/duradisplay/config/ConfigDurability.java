@@ -20,10 +20,8 @@ public final class ConfigDurability extends ConfigDurabilityLike {
 
     public static final ConfigDurability instance = new ConfigDurability();
 
-    public static final String category = "durability";
-
     @Override
     public String category() {
-        return category;
+        return "durability";
     }
 }

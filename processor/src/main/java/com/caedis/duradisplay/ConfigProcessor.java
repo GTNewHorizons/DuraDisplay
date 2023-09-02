@@ -42,7 +42,7 @@ public class ConfigProcessor extends AbstractProcessor {
         ).findFirst();
 
         if (!field.isPresent()) {
-            error("Config class must have a public final static String field named category", element);
+            error(String.format("Config class must have a public final static %s field named %s", qualifiedTypeName, name), element);
             return false;
         }
 
@@ -76,7 +76,7 @@ public class ConfigProcessor extends AbstractProcessor {
         for (Element element : roundEnv.getElementsAnnotatedWith(targetAnnotation.get())) {
             if (element.getKind() == ElementKind.CLASS && !element.getModifiers().contains(Modifier.ABSTRACT)) {
                 var te = (TypeElement) element;
-                if (testFieldInstance(te) && testFieldCategory(te))
+                if (testFieldInstance(te))
                     fullNames.add(String.format("\"%s\"", te.getQualifiedName().toString()));
             }
         }
@@ -95,21 +95,10 @@ public class ConfigProcessor extends AbstractProcessor {
 
                     public class ConfigInfo {
                         private static final String[] configClassNames = new String[]{ %s };
-                        private static String[] categories = null;
                         private static Config[] configs = null;
 
                         public static String[] getCategories() {
-                            if (categories == null) {
-                                categories = Arrays.stream(configClassNames)
-                                    .map(n -> {
-                                        try {
-                                            return Class.forName(n).getField("category").get(null).toString();
-                                        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                    }).toArray(String[]::new);
-                            }
-                            return categories;
+                            return Arrays.stream(getConfigs()).sequential().map(Config::category).toArray(String[]::new);
                         }
 
                         public static Config[] getConfigs() {

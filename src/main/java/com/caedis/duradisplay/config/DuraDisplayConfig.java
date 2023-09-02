@@ -47,7 +47,7 @@ public class DuraDisplayConfig {
         }
 
         for (var c : ConfigInfo.getConfigs()) {
-            c.loadConfig(config);
+            c.loadConfig();
         }
 
         if (config.hasChanged()) {

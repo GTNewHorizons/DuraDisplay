@@ -3,6 +3,7 @@ package com.caedis.duradisplay.config;
 import java.util.Arrays;
 
 import com.caedis.duradisplay.overlay.OverlayDuarbilityLike;
+import com.caedis.duradisplay.utils.ConfigLoad;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 
 public abstract class ConfigDurabilityLike extends Config {
@@ -36,15 +37,11 @@ public abstract class ConfigDurabilityLike extends Config {
 
         enabled = config.getBoolean("Enable", category(), enabled, String.format("Enable %s module", category()));
 
-        style = OverlayDuarbilityLike.Style.valueOf(
-            config.getString(
-                "Style",
-                category() + ".NumPad",
-                OverlayDuarbilityLike.Style.NumPad.toString(),
-                "Style of the Overlay, can be NumPad, Bar, or VerticalBar",
-                Arrays.stream(OverlayDuarbilityLike.Style.values())
-                    .map(Enum::toString)
-                    .toArray(String[]::new)));
+        style = ConfigLoad.loadEnum(
+            category(),
+            "Style",
+            OverlayDuarbilityLike.Style.NumPad,
+            "Style of the Overlay, can be NumPad, Bar, or VerticalBar");
 
         numPadPosition = config.getInt(
             "NumPadPosition",
@@ -54,15 +51,8 @@ public abstract class ConfigDurabilityLike extends Config {
             9,
             String.format("Location in item where the %s percentage will be (numpad style)", category()));
 
-        textFormat = DurabilityFormatter.Format.valueOf(
-            config.getString(
-                "TextFormat",
-                category() + ".NumPad",
-                DurabilityFormatter.Format.percent.toString(),
-                "Format of the text, can be percent, fraction, or both",
-                Arrays.stream(DurabilityFormatter.Format.values())
-                    .map(Enum::toString)
-                    .toArray(String[]::new)));
+        textFormat = ConfigLoad
+            .loadEnum(category() + ".NumPad", "TextFormat", DurabilityFormatter.Format.percent, "Format of the text");
 
         showWhenFull = config.getBoolean(
             "ShowWhenFull",

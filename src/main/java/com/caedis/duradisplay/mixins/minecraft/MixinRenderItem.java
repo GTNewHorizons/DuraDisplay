@@ -20,7 +20,7 @@ public abstract class MixinRenderItem {
     @Shadow
     public float zLevel;
 
-    @SuppressWarnings("UnresolvedMixinReference")
+    @SuppressWarnings({ "UnresolvedMixinReference", "mapping" })
     @Redirect(
         method = "renderItemOverlayIntoGUI(Lnet/minecraft/client/gui/FontRenderer;Lnet/minecraft/client/renderer/texture/TextureManager;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V",
         at = @At(

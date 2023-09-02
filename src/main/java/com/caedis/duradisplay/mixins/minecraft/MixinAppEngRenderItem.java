@@ -17,6 +17,7 @@ import appeng.client.render.AppEngRenderItem;
 @Mixin(value = AppEngRenderItem.class)
 abstract public class MixinAppEngRenderItem {
 
+    @SuppressWarnings("mapping")
     @Redirect(
         method = "renderItemOverlayIntoGUI(Lnet/minecraft/client/gui/FontRenderer;Lnet/minecraft/client/renderer/texture/TextureManager;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V",
         at = @At(

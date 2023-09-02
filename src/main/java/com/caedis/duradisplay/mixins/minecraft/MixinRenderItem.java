@@ -1,24 +1,18 @@
 package com.caedis.duradisplay.mixins.minecraft;
 
+import com.caedis.duradisplay.config.DuraDisplayConfig;
+import com.caedis.duradisplay.render.DurabilityRenderer;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import com.caedis.duradisplay.config.DuraDisplayConfig;
-import com.caedis.duradisplay.render.DurabilityRenderer;
-
 @Mixin(value = RenderItem.class)
 public abstract class MixinRenderItem {
-
-    @Shadow
-    public float zLevel;
 
     @SuppressWarnings({ "UnresolvedMixinReference", "mapping" })
     @Redirect(

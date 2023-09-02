@@ -9,7 +9,6 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Set;
 
 @SupportedAnnotationTypes("com.caedis.duradisplay.annotation.Overlay")

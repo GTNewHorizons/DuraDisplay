@@ -1,4 +1,4 @@
-package duradisplay;
+package com.caedis.duradisplay;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;

@@ -45,12 +45,3 @@ dependencies {
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:GTplusplus:1.9.38:dev")
 
 }
-
-sourceSets {
-    generated {
-        java {
-            srcDirs = ['build/generated/sources/annotationProcessor/java/main']
-        }
-    }
-}
-

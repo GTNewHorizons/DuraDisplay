@@ -20,10 +20,10 @@ public class DurabilityFormatter {
                 return Double.isNaN(percent) ? null : String.format("%.0f%%", percent);
             }
             case remain -> {
-                return String.format("%.0f", max - current);
+                return String.format("%.0f", current);
             }
             case used -> {
-                return String.format("%.0f", current);
+                return String.format("%.0f", max - current);
             }
             case max -> {
                 return String.format("%.0f", max);

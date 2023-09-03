@@ -120,7 +120,7 @@ public abstract class OverlayDuarbilityLike extends Overlay<ConfigDurabilityLike
         if (info.isNaN()) return null;
         if (!config().showWhenEmpty && info.isEmpty()) return null;
         if (!config().showWhenFull && info.isFull()) return null;
-        String value = DurabilityFormatter.format(info.current, info.max, DurabilityFormatter.Format.percent);
+        String value = DurabilityFormatter.format(info.current, info.max, config().textFormat);
         switch (config().style) {
             case Bar:
                 return new BarRenderer(getColor(info), info.percent());

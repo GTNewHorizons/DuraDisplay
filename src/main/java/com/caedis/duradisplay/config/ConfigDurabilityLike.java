@@ -18,10 +18,11 @@ public abstract class ConfigDurabilityLike extends Config {
     public int color;
     public ColorType colorType;
     public double[] colorThreshold;
+    public boolean smoothBar;
 
     protected ConfigDurabilityLike(boolean enabled, OverlayDuarbilityLike.Style style,
         DurabilityFormatter.Format textFormat, int numPadPosition, boolean showWhenFull, boolean showWhenEmpty,
-        int color, ColorType colorType, double[] colorThreshold) {
+        int color, ColorType colorType, double[] colorThreshold, boolean smoothBar) {
         this.enabled = enabled;
         this.style = style;
         this.textFormat = textFormat;
@@ -31,6 +32,7 @@ public abstract class ConfigDurabilityLike extends Config {
         this.color = color;
         this.colorType = colorType;
         this.colorThreshold = colorThreshold;
+        this.smoothBar = smoothBar;
     }
 
     @Override
@@ -88,6 +90,8 @@ public abstract class ConfigDurabilityLike extends Config {
                 .getDoubleList())
             .sorted()
             .toArray();
+
+        smoothBar = config.getBoolean("SmoothBar", category() + ".BarStyle", smoothBar, "Smooth the bar length");
 
     }
 }

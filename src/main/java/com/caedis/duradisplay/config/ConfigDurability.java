@@ -16,7 +16,8 @@ public final class ConfigDurability extends ConfigDurabilityLike {
             true,
             0x00FF00,
             ColorType.Vanilla,
-            new double[] { 30, 70 });
+            new double[] { 30, 70 },
+            true);
     }
 
     public static final ConfigDurability instance = new ConfigDurability();

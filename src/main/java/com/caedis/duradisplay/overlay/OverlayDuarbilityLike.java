@@ -123,7 +123,7 @@ public abstract class OverlayDuarbilityLike extends Overlay<ConfigDurabilityLike
         String value = DurabilityFormatter.format(info.current, info.max, config().textFormat);
         switch (config().style) {
             case Bar:
-                return new BarRenderer(getColor(info), info.percent());
+                return new BarRenderer(getColor(info), info.percent(), config().smoothBar);
             // case VerticalBar:
             // return new OverlayRenderer.VerticalBarRenderer(value, getColor(info), config().verticalBarPosition);
             default:

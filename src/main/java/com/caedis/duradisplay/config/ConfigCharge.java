@@ -18,7 +18,8 @@ public final class ConfigCharge extends ConfigDurabilityLike {
             true,
             0xFF55FFFF,
             ColorType.Single,
-            new double[] { 30, 70 });
+            new double[] { 30, 70 },
+            true);
     }
 
     @Override

@@ -2,7 +2,11 @@ package com.caedis.duradisplay.utils;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.text.DecimalFormat;
+
 public class DurabilityFormatter {
+
+
 
     public enum Format {
         percent,
@@ -20,18 +24,29 @@ public class DurabilityFormatter {
                 return Double.isNaN(percent) ? null : String.format("%.0f%%", percent);
             }
             case remain -> {
-                return String.format("%.0f", current);
+                return shortenNumber(current);
             }
             case used -> {
-                return String.format("%.0f", max - current);
+                return shortenNumber(max-current);
             }
             case max -> {
-                return String.format("%.0f", max);
+                return shortenNumber(max);
             }
             case fraction -> {
                 return Double.isNaN(percent) ? null : String.format("%.0f/%.0f", current, max);
             }
         }
         return null;
+    }
+
+    // Logic from Durability101
+    public static String shortenNumber(double number) {
+        DecimalFormat decimalFormat = new DecimalFormat("0.#");
+
+        if (number >= 1000000000) return decimalFormat.format(number / 1000000000) + "b";
+        if (number >= 1000000) return decimalFormat.format(number / 1000000) + "m";
+        if (number >= 1000) return decimalFormat.format(number / 1000) + "k";
+
+        return Double.toString(number).replaceAll("\\.?0*$", "");
     }
 }

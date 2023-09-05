@@ -11,14 +11,9 @@ import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 
-import appeng.items.tools.powered.powersink.AEBasePoweredItem;
-import gregtech.api.items.GT_MetaBase_Item;
 import gregtech.api.items.GT_RadioactiveCell_Item;
 import ic2.api.item.ICustomDamageItem;
-import ic2.api.item.IElectricItem;
 import ic2.core.item.armor.ItemArmorFluidTank;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.weaponry.AmmoItem;
 
 public class OverlayDurability extends OverlayDurabilityLike {
 
@@ -41,15 +36,15 @@ public class OverlayDurability extends OverlayDurabilityLike {
                     return "durability";
                 }
             });
-        addHandler(GT_MetaBase_Item.class, OverlayDurability::handleGregTech);
-        addHandler(GT_RadioactiveCell_Item.class, OverlayDurability::handleGregTechRadioactiveCell);
-        addHandler(AmmoItem.class, i -> null);
-        addHandler(AEBasePoweredItem.class, i -> null);
-        addHandler(IElectricItem.class, i -> null);
-        addHandler(ToolCore.class, OverlayDurability::handleToolCore);
-        addHandler(ItemArmorFluidTank.class, OverlayDurability::handleItemArmorFluidTank);
-        addHandler(ICustomDamageItem.class, OverlayDurability::handleICustomDamageItem);
-        addHandler(Item.class, OverlayDurability::handleDefault);
+        addHandler("gregtech.api.items.GT_MetaBase_Item", OverlayDurability::handleGregTech);
+        addHandler("gregtech.api.items.GT_RadioactiveCell_Item", OverlayDurability::handleGregTechRadioactiveCell);
+        addHandler("tconstruct.library.weaponry.AmmoItem", i -> null);
+        addHandler("appeng.items.tools.powered.powersink.AEBasePoweredItem", i -> null);
+        addHandler("ic2.api.item.IElectricItem", i -> null);
+        addHandler("tconstruct.library.tools.ToolCore", OverlayDurability::handleToolCore);
+        addHandler("ic2.core.item.armor.ItemArmorFluidTank", OverlayDurability::handleItemArmorFluidTank);
+        addHandler("ic2.api.item.ICustomDamageItem", OverlayDurability::handleICustomDamageItem);
+        addHandler("net.minecraft.item.Item", OverlayDurability::handleDefault);
     }
 
     @Override

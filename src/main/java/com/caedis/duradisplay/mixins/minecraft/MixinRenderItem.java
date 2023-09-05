@@ -24,8 +24,8 @@ public abstract class MixinRenderItem {
             target = "Lnet/minecraft/item/Item;showDurabilityBar(Lnet/minecraft/item/ItemStack;)Z"))
     private boolean showDurabilityBar(Item item0, ItemStack stack0, FontRenderer fontRenderer,
         TextureManager textureManager, ItemStack stack, int xPosition, int yPosition, String string) {
-        if (!DurabilityRenderer.Execute) return item0.showDurabilityBar(stack0);
-        if (!DuraDisplayConfig.Enable) return item0.showDurabilityBar(stack0);
+        if (!DurabilityRenderer.Execute) return stack0.isItemDamaged();
+        if (!DuraDisplayConfig.Enable) return stack0.isItemDamaged();
 
         DurabilityRenderer.Render(fontRenderer, stack0, xPosition, yPosition);
         return false;

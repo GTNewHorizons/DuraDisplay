@@ -16,6 +16,8 @@ public class AppEngItemRenderHook implements IItemDisplayRegistry.ItemRenderHook
 
     @Override
     public boolean renderOverlay(FontRenderer fr, TextureManager tm, ItemStack is, int x, int y) {
+        if (!DurabilityRenderer.Execute) return false;
+        if (!DuraDisplayConfig.Enable) return false;
         DurabilityRenderer.Render(fr, is, x, y);
         return false;
     }

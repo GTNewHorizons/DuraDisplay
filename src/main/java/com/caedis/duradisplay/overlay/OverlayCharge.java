@@ -12,7 +12,6 @@ import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import cofh.api.energy.IEnergyContainerItem;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
-import tconstruct.library.tools.ToolCore;
 
 public class OverlayCharge extends OverlayDurabilityLike {
 
@@ -35,9 +34,9 @@ public class OverlayCharge extends OverlayDurabilityLike {
                     return "charge";
                 }
             });
-        addHandler(IElectricItem.class, OverlayCharge::handleIElectricItem);
-        addHandler(ToolCore.class, OverlayCharge::handleToolCore);
-        addHandler(IEnergyContainerItem.class, OverlayCharge::handleEnergyContainer);
+        addHandler("ic2.api.item.IElectricItem", OverlayCharge::handleIElectricItem);
+        addHandler("tconstruct.library.tools.ToolCore", OverlayCharge::handleToolCore);
+        addHandler("cofh.api.energy.IEnergyContainerItem", OverlayCharge::handleEnergyContainer);
     }
 
     @Override

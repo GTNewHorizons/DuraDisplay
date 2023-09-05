@@ -34,7 +34,7 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
 
     private final @NotNull ArrayList<Pair<@NotNull Class<?>, @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo>>> handlers = new ArrayList<>();
 
-    protected final void addHandler(@Nullable Class<?> clazz,
+    private final void addHandler(@Nullable Class<?> clazz,
         @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo> handler) {
         if (clazz != null) handlers.add(Pair.of(clazz, handler));
     }

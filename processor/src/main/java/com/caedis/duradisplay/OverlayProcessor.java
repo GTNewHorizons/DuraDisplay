@@ -63,7 +63,7 @@ public class OverlayProcessor extends AbstractProcessor {
                     import java.util.Arrays;
 
                     public class OverlayInfo {
-                        private static final String[] overlayClassNames = { "com.caedis.duradisplay.overlay.OverlayCharge", "com.caedis.duradisplay.overlay.OverlayDurability" };
+                        private static final String[] overlayClassNames = { %s };
                         private static Overlay[] overlays = {};
 
                         @NotNull

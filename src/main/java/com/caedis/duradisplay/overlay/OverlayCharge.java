@@ -48,6 +48,7 @@ public class OverlayCharge extends OverlayDurabilityLike {
     }
 
     @Override
+    @NotNull
     ConfigDurabilityLike config() {
         return config;
     }

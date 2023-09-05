@@ -1,6 +1,7 @@
 package com.caedis.duradisplay.overlay;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.function.Function;
 
 import net.minecraft.item.ItemStack;
@@ -34,7 +35,7 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
 
     private final @NotNull ArrayList<Pair<@NotNull Class<?>, @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo>>> handlers = new ArrayList<>();
 
-    private final void addHandler(@Nullable Class<?> clazz,
+    private void addHandler(@Nullable Class<?> clazz,
         @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo> handler) {
         if (clazz != null) handlers.add(Pair.of(clazz, handler));
     }
@@ -75,14 +76,8 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
         if (info.isNaN()) return null;
         if (!config().showWhenEmpty && info.isEmpty()) return null;
         if (!config().showWhenFull && info.isFull()) return null;
-        String value = DurabilityFormatter.format(info.current, info.max, config().textFormat);
-        switch (config().style) {
-            case Bar:
-                return new BarRenderer(getColor(info), info.percent(), config().smoothBar);
-            // case VerticalBar:
-            // return new OverlayRenderer.VerticalBarRenderer(value, getColor(info), config().verticalBarPosition);
-            default:
-                break;
+        if (Objects.requireNonNull(config().style) == Style.Bar) {
+            return new BarRenderer(getColor(info), info.percent(), config().smoothBar);
         }
         return new NumPadRenderer(getValue(info), getColor(info), config().numPadPosition);
     }

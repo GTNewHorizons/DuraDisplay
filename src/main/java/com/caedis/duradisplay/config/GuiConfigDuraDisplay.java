@@ -13,7 +13,7 @@ import com.caedis.duradisplay.overlay.OverlayInfo;
 import cpw.mods.fml.client.config.GuiConfig;
 import cpw.mods.fml.client.config.IConfigElement;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "rawtypes" })
 public class GuiConfigDuraDisplay extends GuiConfig {
 
     public GuiConfigDuraDisplay(GuiScreen parent) {

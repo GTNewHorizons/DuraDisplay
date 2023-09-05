@@ -24,6 +24,7 @@ public class DuraDisplay {
 
     public static final Logger LOG = LogManager.getLogger(Tags.MODID);
 
+    @SuppressWarnings("unused")
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         if (FMLCommonHandler.instance()

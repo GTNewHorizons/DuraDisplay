@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import com.caedis.duradisplay.config.ConfigDurabilityLike;
 import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
+import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 
 import appeng.items.tools.powered.powersink.AEBasePoweredItem;
 import gregtech.api.items.GT_MetaBase_Item;

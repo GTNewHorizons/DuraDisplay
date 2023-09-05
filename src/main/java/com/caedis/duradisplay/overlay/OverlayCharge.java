@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import com.caedis.duradisplay.config.ConfigDurabilityLike;
 import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
+import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 
 import cofh.api.energy.IEnergyContainerItem;
 import ic2.api.item.ElectricItem;

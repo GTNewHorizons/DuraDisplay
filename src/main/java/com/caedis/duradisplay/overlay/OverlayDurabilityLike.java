@@ -1,7 +1,6 @@
 package com.caedis.duradisplay.overlay;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.function.Function;
 
 import net.minecraft.item.ItemStack;
@@ -16,63 +15,9 @@ import com.caedis.duradisplay.render.BarRenderer;
 import com.caedis.duradisplay.render.NumPadRenderer;
 import com.caedis.duradisplay.render.OverlayRenderer;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
+import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 
 public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike> {
-
-    public static final class DurabilityLikeInfo {
-
-        private final double current;
-        private final double max;
-
-        public DurabilityLikeInfo(double current, double max) {
-            this.current = current;
-            this.max = max;
-        }
-
-        public boolean isFull() {
-            return current != 0 && current == max;
-        }
-
-        public boolean isEmpty() {
-            return current == 0 && max != 0;
-        }
-
-        public boolean isNaN() {
-            return current == 0 && max == 0;
-        }
-
-        public double percent() {
-            return current / max;
-        }
-
-        public double current() {
-            return current;
-        }
-
-        public double max() {
-            return max;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) return true;
-            if (obj == null || obj.getClass() != this.getClass()) return false;
-            var that = (DurabilityLikeInfo) obj;
-            return Double.doubleToLongBits(this.current) == Double.doubleToLongBits(that.current)
-                && Double.doubleToLongBits(this.max) == Double.doubleToLongBits(that.max);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(current, max);
-        }
-
-        @Override
-        public String toString() {
-            return "DurabilityLikeInfo[" + "current=" + current + ", " + "max=" + max + ']';
-        }
-
-    }
 
     public enum Style {
         NumPad,

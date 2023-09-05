@@ -1,7 +1,5 @@
 package com.caedis.duradisplay.overlay;
 
-import com.caedis.duradisplay.utils.ColorType;
-import com.caedis.duradisplay.utils.DurabilityFormatter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,6 +7,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import org.jetbrains.annotations.NotNull;
 
 import com.caedis.duradisplay.config.ConfigDurabilityLike;
+import com.caedis.duradisplay.utils.ColorType;
+import com.caedis.duradisplay.utils.DurabilityFormatter;
 
 import appeng.items.tools.powered.powersink.AEBasePoweredItem;
 import gregtech.api.items.GT_MetaBase_Item;
@@ -22,21 +22,24 @@ import tconstruct.library.weaponry.AmmoItem;
 public class OverlayDurability extends OverlayDurabilityLike {
 
     public OverlayDurability() {
-        super(new ConfigDurabilityLike(true,
-            OverlayDurabilityLike.Style.NumPad,
-            DurabilityFormatter.Format.percent,
-            2,
-            false,
-            true,
-            0x00FF00,
-            ColorType.Vanilla,
-            new double[]{30, 70},
-            true) {
-            @Override
-            public @NotNull String category() {
-                return "durability";
-            }
-        });
+        super(
+            new ConfigDurabilityLike(
+                true,
+                OverlayDurabilityLike.Style.NumPad,
+                DurabilityFormatter.Format.percent,
+                2,
+                false,
+                true,
+                0x00FF00,
+                ColorType.Vanilla,
+                new double[] { 30, 70 },
+                true) {
+
+                @Override
+                public @NotNull String category() {
+                    return "durability";
+                }
+            });
         addHandler(GT_MetaBase_Item.class, OverlayDurability::handleGregTech);
         addHandler(GT_RadioactiveCell_Item.class, OverlayDurability::handleGregTechRadioactiveCell);
         addHandler(AmmoItem.class, i -> null);

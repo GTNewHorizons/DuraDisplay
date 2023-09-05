@@ -2,6 +2,7 @@ package com.caedis.duradisplay.config;
 
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
+
 import org.jetbrains.annotations.NotNull;
 
 public abstract class Config {

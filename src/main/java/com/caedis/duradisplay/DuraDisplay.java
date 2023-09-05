@@ -42,6 +42,7 @@ public class DuraDisplay {
         }
     }
 
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.modID.equals(Tags.MODID)) {

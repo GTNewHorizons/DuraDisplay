@@ -19,7 +19,7 @@ import ic2.core.item.armor.ItemArmorFluidTank;
 
 public class OverlayDurability extends OverlayDurabilityLike {
 
-    public OverlayDurability() {
+    private OverlayDurability() {
         super(
             new ConfigDurabilityLike(
                 true,

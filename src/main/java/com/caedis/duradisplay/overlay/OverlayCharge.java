@@ -15,7 +15,7 @@ import tconstruct.library.tools.ToolCore;
 public class OverlayCharge extends OverlayDurabilityLike {
 
     public OverlayCharge() {
-        super(ConfigCharge.instance);
+        super(new ConfigCharge());
         addHandler(IElectricItem.class, OverlayCharge::handleIElectricItem);
         addHandler(ToolCore.class, OverlayCharge::handleToolCore);
         addHandler(IEnergyContainerItem.class, OverlayCharge::handleEnergyContainer);

@@ -55,18 +55,20 @@ public class OverlayProcessor extends AbstractProcessor {
             writer.println(String.format("""
                     package com.caedis.duradisplay.overlay;
 
+                    import com.caedis.duradisplay.config.Config;
                     import com.caedis.duradisplay.overlay.Overlay;
+                    import org.jetbrains.annotations.NotNull;
                     import org.jetbrains.annotations.Nullable;
 
                     import java.util.Arrays;
 
                     public class OverlayInfo {
-                        private static final String[] overlayClassNames = { %s };
-                        private static Overlay[] overlays = null;
+                        private static final String[] overlayClassNames = { "com.caedis.duradisplay.overlay.OverlayCharge", "com.caedis.duradisplay.overlay.OverlayDurability" };
+                        private static Overlay[] overlays = {};
 
-                        @Nullable
+                        @NotNull
                         public static Overlay[] getOverlays() {
-                            if (overlays == null) {
+                            if (overlays.length == 0) {
                                 overlays = Arrays.stream(overlayClassNames)
                                     .map(n -> {
                                         try {
@@ -75,14 +77,17 @@ public class OverlayProcessor extends AbstractProcessor {
                                             throw new RuntimeException(e);
                                         }
                                     }).toArray(Overlay[]::new);
-                                return overlays;
                             }
-                            return null;
+                            return overlays;
+                        }
+
+                        @Nullable
+                        public static Config[] getConfigs() {
+                            return Arrays.stream(getOverlays()).map(Overlay::config).toArray(Config[]::new);
                         }
                     }
 
-
-                                                                """,
+                                                                                    """,
                 String.join(", ", names)));
         } catch (IOException e) {
             throw new RuntimeException(e);

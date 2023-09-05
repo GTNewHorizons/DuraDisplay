@@ -6,9 +6,7 @@ import com.caedis.duradisplay.utils.DurabilityFormatter;
 
 public final class ConfigCharge extends ConfigDurabilityLike {
 
-    public static final ConfigCharge instance = new ConfigCharge();
-
-    private ConfigCharge() {
+    public ConfigCharge() {
         super(
             true,
             OverlayDurabilityLike.Style.NumPad,

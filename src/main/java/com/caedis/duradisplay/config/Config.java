@@ -3,7 +3,6 @@ package com.caedis.duradisplay.config;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 
-@com.caedis.duradisplay.annotation.Config
 public abstract class Config {
 
     protected Configuration config;

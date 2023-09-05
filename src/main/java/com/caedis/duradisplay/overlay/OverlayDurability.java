@@ -21,7 +21,7 @@ import tconstruct.library.weaponry.AmmoItem;
 public class OverlayDurability extends OverlayDurabilityLike {
 
     public OverlayDurability() {
-        super(ConfigDurability.instance);
+        super(new ConfigDurability());
         addHandler(GT_MetaBase_Item.class, OverlayDurability::handleGregTech);
         addHandler(GT_RadioactiveCell_Item.class, OverlayDurability::handleGregTechRadioactiveCell);
         addHandler(AmmoItem.class, i -> null);

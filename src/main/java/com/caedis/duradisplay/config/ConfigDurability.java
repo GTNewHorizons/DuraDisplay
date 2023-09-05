@@ -6,7 +6,7 @@ import com.caedis.duradisplay.utils.DurabilityFormatter;
 
 public final class ConfigDurability extends ConfigDurabilityLike {
 
-    private ConfigDurability() {
+    public ConfigDurability() {
         super(
             true,
             OverlayDurabilityLike.Style.NumPad,
@@ -19,8 +19,6 @@ public final class ConfigDurability extends ConfigDurabilityLike {
             new double[] { 30, 70 },
             true);
     }
-
-    public static final ConfigDurability instance = new ConfigDurability();
 
     @Override
     public String category() {

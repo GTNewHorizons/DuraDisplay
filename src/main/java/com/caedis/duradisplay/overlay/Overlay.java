@@ -9,9 +9,10 @@ import com.caedis.duradisplay.config.Config;
 import com.caedis.duradisplay.render.OverlayRenderer;
 
 @com.caedis.duradisplay.annotation.Overlay
-public abstract class Overlay<T extends Config> {
+public abstract class Overlay<C extends Config> {
 
-    abstract T config();
+    @Nullable
+    abstract C config();
 
     @Nullable
     public OverlayRenderer getRenderer(@NotNull ItemStack itemStack) {

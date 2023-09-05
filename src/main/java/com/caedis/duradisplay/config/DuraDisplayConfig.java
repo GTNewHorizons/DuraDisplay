@@ -6,6 +6,7 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 
 import com.caedis.duradisplay.DuraDisplay;
+import com.caedis.duradisplay.overlay.OverlayInfo;
 import com.caedis.duradisplay.utils.ModSelfDrawnBar;
 
 public class DuraDisplayConfig {
@@ -46,7 +47,7 @@ public class DuraDisplayConfig {
             ModSelfDrawnBar.pop();
         }
 
-        for (var c : ConfigInfo.getConfigs()) {
+        for (var c : OverlayInfo.getConfigs()) {
             c.loadConfig();
         }
 

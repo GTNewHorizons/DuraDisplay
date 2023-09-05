@@ -42,13 +42,13 @@ public class DuraDisplayConfig {
 
         Enable = config.getBoolean("Enable", Configuration.CATEGORY_GENERAL, Enable, "Enable/disable the entire mod");
         if (Enable) {
-            ModSelfDrawnBar.pushDisable();
+            ModSelfDrawnBar.change(false);
         } else {
-            ModSelfDrawnBar.pop();
+            ModSelfDrawnBar.restore();
         }
 
         for (var c : OverlayInfo.getConfigs()) {
-            c.loadConfig();
+            if (c != null) c.loadConfig();
         }
 
         if (config.hasChanged()) {

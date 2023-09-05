@@ -93,5 +93,8 @@ public abstract class ConfigDurabilityLike extends Config {
 
         smoothBar = config.getBoolean("SmoothBar", category() + ".BarStyle", smoothBar, "Smooth the bar length");
 
+        postLoadConfig();
     }
+
+    public abstract void postLoadConfig();
 }

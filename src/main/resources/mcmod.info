@@ -14,7 +14,7 @@
 		"screenshots": [],
 		"parent": "",
 		"requiredMods": [],
-		"dependencies": [],
+		"dependencies": ["Gregtech", "EnderIO"],
 		"dependants": [],
 		"useDependencyInformation": true
 	}]

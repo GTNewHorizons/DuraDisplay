@@ -5,9 +5,11 @@ import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import com.caedis.duradisplay.config.ConfigDurabilityLike;
+import com.caedis.duradisplay.config.DuraDisplayConfig;
 import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
+import com.caedis.duradisplay.utils.ModSelfDrawnBar;
 
 import cofh.api.energy.IEnergyContainerItem;
 import ic2.api.item.ElectricItem;
@@ -28,6 +30,12 @@ public class OverlayCharge extends OverlayDurabilityLike {
                 ColorType.Single,
                 new double[] { 30, 70 },
                 true) {
+
+                @Override
+                public void postLoadConfig() {
+                    if (enabled && DuraDisplayConfig.Enable) ModSelfDrawnBar.changeChargebar(false);
+                    else ModSelfDrawnBar.restoreChargebar();
+                }
 
                 @Override
                 public @NotNull String category() {

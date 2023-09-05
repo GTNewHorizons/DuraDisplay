@@ -7,9 +7,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import org.jetbrains.annotations.NotNull;
 
 import com.caedis.duradisplay.config.ConfigDurabilityLike;
+import com.caedis.duradisplay.config.DuraDisplayConfig;
 import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
+import com.caedis.duradisplay.utils.ModSelfDrawnBar;
 
 import gregtech.api.items.GT_RadioactiveCell_Item;
 import ic2.api.item.ICustomDamageItem;
@@ -30,6 +32,12 @@ public class OverlayDurability extends OverlayDurabilityLike {
                 ColorType.Vanilla,
                 new double[] { 30, 70 },
                 true) {
+
+                @Override
+                public void postLoadConfig() {
+                    if (enabled && DuraDisplayConfig.Enable) ModSelfDrawnBar.changeDurabilitybar(false);
+                    else ModSelfDrawnBar.restoreDurabilitybar();
+                }
 
                 @Override
                 public @NotNull String category() {

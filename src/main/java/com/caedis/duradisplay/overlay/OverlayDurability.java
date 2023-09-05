@@ -18,7 +18,7 @@ import ic2.core.item.armor.ItemArmorFluidTank;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.weaponry.AmmoItem;
 
-public class OverlayDurability extends OverlayDuarbilityLike {
+public class OverlayDurability extends OverlayDurabilityLike {
 
     public OverlayDurability() {
         super(ConfigDurability.instance);

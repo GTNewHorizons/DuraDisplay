@@ -10,13 +10,14 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.caedis.duradisplay.DuraDisplay;
 import com.caedis.duradisplay.config.ConfigDurabilityLike;
 import com.caedis.duradisplay.render.BarRenderer;
 import com.caedis.duradisplay.render.NumPadRenderer;
 import com.caedis.duradisplay.render.OverlayRenderer;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 
-public abstract class OverlayDuarbilityLike extends Overlay<ConfigDurabilityLike> {
+public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike> {
 
     public static final class DurabilityLikeInfo {
 
@@ -82,7 +83,7 @@ public abstract class OverlayDuarbilityLike extends Overlay<ConfigDurabilityLike
     @NotNull
     protected final ConfigDurabilityLike config;
 
-    protected OverlayDuarbilityLike(@NotNull ConfigDurabilityLike config) {
+    protected OverlayDurabilityLike(@NotNull ConfigDurabilityLike config) {
         this.config = config;
     }
 
@@ -91,6 +92,15 @@ public abstract class OverlayDuarbilityLike extends Overlay<ConfigDurabilityLike
     protected final void addHandler(@Nullable Class<?> clazz,
         @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo> handler) {
         if (clazz != null) handlers.add(Pair.of(clazz, handler));
+    }
+
+    protected final void addHandler(@NotNull String className,
+        @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo> handler) {
+        try {
+            addHandler(Class.forName(className), handler);
+        } catch (ClassNotFoundException e) {
+            DuraDisplay.LOG.info(String.format("Class %s not found, Overlay won't be added", className));
+        }
     }
 
     protected @NotNull DurabilityLikeInfo getDurabilityLikeInfo(@NotNull ItemStack itemStack) {

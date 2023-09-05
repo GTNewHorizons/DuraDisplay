@@ -1,6 +1,6 @@
 package com.caedis.duradisplay.config;
 
-import com.caedis.duradisplay.overlay.OverlayDuarbilityLike;
+import com.caedis.duradisplay.overlay.OverlayDurabilityLike;
 import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 
@@ -9,7 +9,7 @@ public final class ConfigDurability extends ConfigDurabilityLike {
     private ConfigDurability() {
         super(
             true,
-            OverlayDuarbilityLike.Style.NumPad,
+            OverlayDurabilityLike.Style.NumPad,
             DurabilityFormatter.Format.percent,
             2,
             false,

@@ -2,7 +2,7 @@ package com.caedis.duradisplay.config;
 
 import java.util.Arrays;
 
-import com.caedis.duradisplay.overlay.OverlayDuarbilityLike;
+import com.caedis.duradisplay.overlay.OverlayDurabilityLike;
 import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.ConfigLoad;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
@@ -10,7 +10,7 @@ import com.caedis.duradisplay.utils.DurabilityFormatter;
 public abstract class ConfigDurabilityLike extends Config {
 
     public boolean enabled;
-    public OverlayDuarbilityLike.Style style;
+    public OverlayDurabilityLike.Style style;
     public DurabilityFormatter.Format textFormat;
     public int numPadPosition;
     public boolean showWhenFull;
@@ -20,7 +20,7 @@ public abstract class ConfigDurabilityLike extends Config {
     public double[] colorThreshold;
     public boolean smoothBar;
 
-    protected ConfigDurabilityLike(boolean enabled, OverlayDuarbilityLike.Style style,
+    protected ConfigDurabilityLike(boolean enabled, OverlayDurabilityLike.Style style,
         DurabilityFormatter.Format textFormat, int numPadPosition, boolean showWhenFull, boolean showWhenEmpty,
         int color, ColorType colorType, double[] colorThreshold, boolean smoothBar) {
         this.enabled = enabled;
@@ -43,7 +43,7 @@ public abstract class ConfigDurabilityLike extends Config {
         style = ConfigLoad.loadEnum(
             category(),
             "Style",
-            OverlayDuarbilityLike.Style.NumPad,
+            OverlayDurabilityLike.Style.NumPad,
             "Style of the Overlay, can be NumPad, Bar, or VerticalBar");
 
         numPadPosition = config.getInt(

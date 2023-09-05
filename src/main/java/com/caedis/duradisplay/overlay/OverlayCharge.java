@@ -12,7 +12,7 @@ import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import tconstruct.library.tools.ToolCore;
 
-public class OverlayCharge extends OverlayDuarbilityLike {
+public class OverlayCharge extends OverlayDurabilityLike {
 
     public OverlayCharge() {
         super(ConfigCharge.instance);

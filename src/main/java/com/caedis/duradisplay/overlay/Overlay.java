@@ -11,7 +11,7 @@ import com.caedis.duradisplay.render.OverlayRenderer;
 @com.caedis.duradisplay.annotation.Overlay
 public abstract class Overlay<C extends Config> {
 
-    @Nullable
+    @NotNull
     abstract C config();
 
     @Nullable

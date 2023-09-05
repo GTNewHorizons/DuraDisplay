@@ -1,10 +1,11 @@
 package com.caedis.duradisplay.overlay;
 
+import com.caedis.duradisplay.utils.ColorType;
+import com.caedis.duradisplay.utils.DurabilityFormatter;
 import net.minecraft.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.caedis.duradisplay.config.ConfigCharge;
 import com.caedis.duradisplay.config.ConfigDurabilityLike;
 
 import cofh.api.energy.IEnergyContainerItem;
@@ -15,7 +16,22 @@ import tconstruct.library.tools.ToolCore;
 public class OverlayCharge extends OverlayDurabilityLike {
 
     public OverlayCharge() {
-        super(new ConfigCharge());
+        super(new ConfigDurabilityLike(
+            true,
+            OverlayDurabilityLike.Style.NumPad,
+            DurabilityFormatter.Format.percent,
+            8,
+            false,
+            true,
+            0xFF55FFFF,
+            ColorType.Single,
+            new double[]{30, 70},
+            true) {
+            @Override
+            public @NotNull String category() {
+                return "charge";
+            }
+        });
         addHandler(IElectricItem.class, OverlayCharge::handleIElectricItem);
         addHandler(ToolCore.class, OverlayCharge::handleToolCore);
         addHandler(IEnergyContainerItem.class, OverlayCharge::handleEnergyContainer);

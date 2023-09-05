@@ -1,12 +1,10 @@
 package com.caedis.duradisplay.utils;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.text.DecimalFormat;
 
+import org.jetbrains.annotations.Nullable;
+
 public class DurabilityFormatter {
-
-
 
     public enum Format {
         percent,
@@ -27,7 +25,7 @@ public class DurabilityFormatter {
                 return shortenNumber(current);
             }
             case used -> {
-                return shortenNumber(max-current);
+                return shortenNumber(max - current);
             }
             case max -> {
                 return shortenNumber(max);
@@ -47,6 +45,7 @@ public class DurabilityFormatter {
         if (number >= 1000000) return decimalFormat.format(number / 1000000) + "m";
         if (number >= 1000) return decimalFormat.format(number / 1000) + "k";
 
-        return Double.toString(number).replaceAll("\\.?0*$", "");
+        return Double.toString(number)
+            .replaceAll("\\.?0*$", "");
     }
 }

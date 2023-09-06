@@ -42,11 +42,8 @@ public abstract class ConfigDurabilityLike extends Config {
 
         enabled = config.getBoolean("Enable", category(), enabled, String.format("Enable %s module", category()));
 
-        style = ConfigLoad.loadEnum(
-            category(),
-            "Style",
-            style,
-            "Style of the Overlay, can be NumPad, Bar, or VerticalBar");
+        style = ConfigLoad
+            .loadEnum(category(), "Style", style, "Style of the Overlay, can be NumPad, Bar, or VerticalBar");
 
         numPadPosition = config.getInt(
             "NumPadPosition",
@@ -93,7 +90,7 @@ public abstract class ConfigDurabilityLike extends Config {
             .sorted()
             .toArray();
 
-        color= config.getInt(
+        color = config.getInt(
             "Color",
             category() + ".Color",
             color,

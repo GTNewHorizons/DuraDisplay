@@ -1,5 +1,7 @@
 package com.caedis.duradisplay.overlay;
 
+import java.util.Set;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,6 +14,7 @@ import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.caedis.duradisplay.utils.ModSelfDrawnBar;
+import com.google.common.collect.Sets;
 
 import gregtech.api.items.GT_RadioactiveCell_Item;
 import ic2.api.item.ICustomDamageItem;
@@ -40,7 +43,6 @@ public class OverlayDurability extends OverlayDurabilityLike {
                     else ModSelfDrawnBar.restoreDurabilitybar();
                     configCategory.setComment("""
                         Durability is the default module that shows durability of items
-                        including tools and items maxDurability>=100
                                                                         """);
                 }
 
@@ -59,8 +61,21 @@ public class OverlayDurability extends OverlayDurabilityLike {
         addHandler("ic2.api.item.ICustomDamageItem", OverlayDurability::handleICustomDamageItem);
         addHandler("vazkii.botania.common.item.brew.ItemBrewBase", i -> null);
         addHandler("WayofTime.alchemicalWizardry.common.items.potion.AlchemyFlask", i -> null);
+        addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", i -> null);
+        addHandler("buildcraft.core.ItemPaintbrush", i -> null);
+        addHandler("ic2.core.item.tool.ItemToolPainter", i -> null);
         addHandler("net.minecraft.item.Item", OverlayDurability::handleDefault);
     }
+
+    public static final Set<String> BlockListUnLocalized = Sets.newHashSet(
+        "item.flintAndSteel",
+        "ic2.itemWeedEx",
+        "item.for.waxCast",
+        "item.for.solderingIron",
+        "ic2.itemTreetap",
+        "item.appliedenergistics2.ToolCertusQuartzCuttingKnife",
+        "item.appliedenergistics2.ToolNetherQuartzCuttingKnife",
+        "ic2.itemToolForgeHammer");
 
     @Override
     public @NotNull ConfigDurabilityLike config() {
@@ -73,8 +88,9 @@ public class OverlayDurability extends OverlayDurabilityLike {
 
         if (!item.isDamageable()) return null;
 
+        if (BlockListUnLocalized.contains(stack.getUnlocalizedName())) return null;
+
         double max = item.getMaxDamage();
-        if (max < 100) return null;
         double current = max - item.getDamage(stack);
         return new DurabilityLikeInfo(current, max);
     }

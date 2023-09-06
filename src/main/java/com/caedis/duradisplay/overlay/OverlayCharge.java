@@ -24,7 +24,7 @@ public class OverlayCharge extends OverlayDurabilityLike {
                 OverlayDurabilityLike.Style.NumPad,
                 DurabilityFormatter.Format.percent,
                 8,
-                false,
+                true,
                 true,
                 0xFF55FFFF,
                 ColorType.Single,

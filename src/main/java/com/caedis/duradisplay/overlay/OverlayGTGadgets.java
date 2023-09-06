@@ -50,11 +50,19 @@ public class OverlayGTGadgets extends OverlayDurabilityLike {
         var tag = stack.getTagCompound();
         if (tag.hasKey("GT.RemainingPaint")) {
             long paint = tag.getLong("GT.RemainingPaint");
-            return new DurabilityLikeInfo(paint, paint);
+            return new DurabilityLikeInfo(paint, 512);
         }
         if (tag.hasKey("GT.LighterFuel")) {
+            long max;
             long paint = tag.getLong("GT.LighterFuel");
-            return new DurabilityLikeInfo(paint, paint);
+            switch (stack.getUnlocalizedName()) {
+                case "gt.metaitem.01.32478" -> max = 1000;
+                case "gt.metaitem.01.32475" -> max = 100;
+                case "gt.metaitem.01.32472" -> max = 16;
+                default -> max = 0;
+            }
+
+            return new DurabilityLikeInfo(paint, max);
         }
         return null;
     }

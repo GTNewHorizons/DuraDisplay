@@ -29,7 +29,8 @@ public class OverlayCharge extends OverlayDurabilityLike {
                 0xFF55FFFF,
                 ColorType.Single,
                 new double[] { 30, 70 },
-                true) {
+                true,
+                2) {
 
                 @Override
                 public void postLoadConfig() {

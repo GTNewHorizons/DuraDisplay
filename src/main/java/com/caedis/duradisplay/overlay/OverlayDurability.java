@@ -32,7 +32,8 @@ public class OverlayDurability extends OverlayDurabilityLike {
                 0x00FF00,
                 ColorType.Vanilla,
                 new double[] { 30, 70 },
-                true) {
+                true,
+                0) {
 
                 @Override
                 public void postLoadConfig() {
@@ -98,7 +99,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
             .getCompoundTag("InfiTool");
 
         if (tags.getInteger("Unbreaking") < 10) {
-            int damage = tags.getInteger("Damage");;
+            int damage = tags.getInteger("Damage");
             int max = tags.getInteger("TotalDurability");
             int current = max - damage;
             return new DurabilityLikeInfo(current, max);

@@ -77,7 +77,7 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
         if (!config().showWhenEmpty && info.isEmpty()) return null;
         if (!config().showWhenFull && info.isFull()) return null;
         if (Objects.requireNonNull(config().style) == Style.Bar) {
-            return new BarRenderer(getColor(info), info.percent(), config().smoothBar);
+            return new BarRenderer(getColor(info), info.percent(), config().smoothBar, config().barLocation);
         }
         return new NumPadRenderer(getValue(info), getColor(info), config().numPadPosition);
     }

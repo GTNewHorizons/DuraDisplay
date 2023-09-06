@@ -10,11 +10,13 @@ public class BarRenderer extends OverlayRenderer {
     private final int color;
     private final double durabilityPercent;
     private final boolean smoothBar;
+    private final int location;
 
-    public BarRenderer(int color, double durabilityPercent, boolean smoothBar) {
+    public BarRenderer(int color, double durabilityPercent, boolean smoothBar, int location) {
         this.color = color;
         this.durabilityPercent = durabilityPercent;
         this.smoothBar = smoothBar;
+        this.location = location;
     }
 
     private static final Tessellator tessellator = Tessellator.instance;
@@ -34,9 +36,9 @@ public class BarRenderer extends OverlayRenderer {
 
         final int i1 = (255 - k) / 4 << 16 | 16128;
 
-        renderQuad(xPosition + 1, yPosition + 13, 14, 2, 0);
-        renderQuad(xPosition + 1, yPosition + 13, 14, 1, i1);
-        renderQuad(xPosition + 1, yPosition + 13, length, 1, color);
+        renderQuad(xPosition + 2, yPosition + 14 - location, 13, 2, 0);
+        renderQuad(xPosition + 2, yPosition + 14 - location, 12, 1, i1);
+        renderQuad(xPosition + 2, yPosition + 14 - location, length, 1, color);
 
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glEnable(GL11.GL_TEXTURE_2D);

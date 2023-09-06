@@ -53,8 +53,7 @@ public abstract class ConfigDurabilityLike extends Config {
             9,
             String.format("Location in item where the %s percentage will be (numpad style)", category()));
 
-        textFormat = ConfigLoad
-            .loadEnum(category() + ".NumPad", "TextFormat", DurabilityFormatter.Format.percent, "Format of the text");
+        textFormat = ConfigLoad.loadEnum(category() + ".NumPad", "TextFormat", textFormat, "Format of the text");
 
         showWhenFull = config.getBoolean(
             "ShowWhenFull",

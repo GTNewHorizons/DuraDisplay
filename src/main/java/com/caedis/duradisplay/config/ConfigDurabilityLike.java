@@ -45,7 +45,7 @@ public abstract class ConfigDurabilityLike extends Config {
         style = ConfigLoad.loadEnum(
             category(),
             "Style",
-            OverlayDurabilityLike.Style.NumPad,
+            style,
             "Style of the Overlay, can be NumPad, Bar, or VerticalBar");
 
         numPadPosition = config.getInt(
@@ -92,6 +92,14 @@ public abstract class ConfigDurabilityLike extends Config {
                 .getDoubleList())
             .sorted()
             .toArray();
+
+        color= config.getInt(
+            "Color",
+            category() + ".Color",
+            color,
+            Integer.MIN_VALUE,
+            Integer.MAX_VALUE,
+            "Color of the Overlay");
 
         smoothBar = config.getBoolean("SmoothBar", category() + ".BarStyle", smoothBar, "Smooth the bar length");
 

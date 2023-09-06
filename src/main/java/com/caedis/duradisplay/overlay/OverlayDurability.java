@@ -16,7 +16,6 @@ import com.caedis.duradisplay.utils.ModSelfDrawnBar;
 import gregtech.api.items.GT_RadioactiveCell_Item;
 import ic2.api.item.ICustomDamageItem;
 import ic2.core.item.armor.ItemArmorFluidTank;
-import vazkii.botania.common.item.brew.ItemBrewBase;
 
 public class OverlayDurability extends OverlayDurabilityLike {
 
@@ -54,7 +53,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
         addHandler("tconstruct.library.tools.ToolCore", OverlayDurability::handleToolCore);
         addHandler("ic2.core.item.armor.ItemArmorFluidTank", OverlayDurability::handleItemArmorFluidTank);
         addHandler("ic2.api.item.ICustomDamageItem", OverlayDurability::handleICustomDamageItem);
-        addHandler("vazkii.botania.common.item.brew.ItemBrewBase", OverlayDurability::handleBotaniaBrew);
+        addHandler("vazkii.botania.common.item.brew.ItemBrewBase", i -> null);
         addHandler("net.minecraft.item.Item", OverlayDurability::handleDefault);
     }
 
@@ -136,12 +135,4 @@ public class OverlayDurability extends OverlayDurabilityLike {
         return new DurabilityLikeInfo(current, max);
     }
 
-    private static DurabilityLikeInfo handleBotaniaBrew(@NotNull ItemStack stack) {
-        ItemBrewBase brew = ((ItemBrewBase) stack.getItem());
-        assert brew != null;
-
-        double current = brew.getSwigsLeft(stack);
-        double max = brew.getMaxDamage();
-        return new DurabilityLikeInfo(current, max);
-    }
 }

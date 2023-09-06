@@ -36,6 +36,10 @@ public class OverlayCharge extends OverlayDurabilityLike {
                 public void postLoadConfig() {
                     if (enabled && DuraDisplayConfig.Enable) ModSelfDrawnBar.changeChargebar(false);
                     else ModSelfDrawnBar.restoreChargebar();
+                    configCategory.setComment("""
+                        Charge is the module that shows charge(Electricity/Power) of items
+                        GT EU, IC2 EU, RF included
+                                                                    """);
                 }
 
                 @Override

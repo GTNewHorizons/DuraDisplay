@@ -30,11 +30,17 @@ public class OverlayGadgets extends OverlayDurabilityLike {
                 2) {
 
                 @Override
-                public void postLoadConfig() {}
+                public void postLoadConfig() {
+                    configCategory.setComment("""
+                        Gadgets are items that show UseCount(remain) as default
+                        including those maxDurability<100
+                        and GregTech lighters and Paint Sprayer
+                                                                        """);
+                }
 
                 @Override
                 public @NotNull String category() {
-                    return "gregtech_gadgets";
+                    return "gadgets";
                 }
             });
         addHandler("gregtech.api.items.GT_MetaBase_Item", OverlayGadgets::handleGregtech);

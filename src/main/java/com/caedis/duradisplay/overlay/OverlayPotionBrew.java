@@ -33,11 +33,16 @@ public class OverlayPotionBrew extends OverlayDurabilityLike {
                 2) {
 
                 @Override
-                public void postLoadConfig() {}
+                public void postLoadConfig() {
+                    configCategory.setComment("""
+                        PotionBrew is the module that shows the remaining swigs of potions and brews
+                        currently Botania brews and Blood Magic AlchemyFlask
+                                                                        """);
+                }
 
                 @Override
                 public @NotNull String category() {
-                    return "botania_brew";
+                    return "potion_brew";
                 }
             });
         addHandler("vazkii.botania.common.item.brew.ItemBrewBase", OverlayPotionBrew::handleBotaniaBrew);

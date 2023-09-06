@@ -38,6 +38,10 @@ public class OverlayDurability extends OverlayDurabilityLike {
                 public void postLoadConfig() {
                     if (enabled && DuraDisplayConfig.Enable) ModSelfDrawnBar.changeDurabilitybar(false);
                     else ModSelfDrawnBar.restoreDurabilitybar();
+                    configCategory.setComment("""
+                        Durability is the default module that shows durability of items
+                        including tools and items maxDurability>=100
+                                                                        """);
                 }
 
                 @Override
@@ -69,9 +73,9 @@ public class OverlayDurability extends OverlayDurabilityLike {
 
         if (!item.isDamageable()) return null;
 
-        double damagePercent = item.getDurabilityForDisplay(stack);
         double max = item.getMaxDamage();
-        double current = max * (1 - damagePercent);
+        if (max < 100) return null;
+        double current = max - item.getDamage(stack);
         return new DurabilityLikeInfo(current, max);
     }
 

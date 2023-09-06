@@ -45,7 +45,6 @@ public class DurabilityFormatter {
         if (number >= 1000000) return decimalFormat.format(number / 1000000) + "m";
         if (number >= 1000) return decimalFormat.format(number / 1000) + "k";
 
-        return Double.toString(number)
-            .replaceAll("\\.?0*$", "");
+        return decimalFormat.format(number);
     }
 }

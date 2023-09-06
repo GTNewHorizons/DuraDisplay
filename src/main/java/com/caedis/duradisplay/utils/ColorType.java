@@ -23,11 +23,11 @@ public enum ColorType {
         public int get(double percent, ConfigDurabilityLike config) {
             double dur = percent * 100;
             if (dur <= config.colorThreshold[0]) {
-                return 0xFF0000;
+                return config.colorThresholdColors[0];
             } else if (dur >= config.colorThreshold[config.colorThreshold.length - 1]) {
-                return 0x55FF00;
+                return config.colorThresholdColors[1];
             } else {
-                return 0XFFD500;
+                return config.colorThresholdColors[2];
             }
         }
 

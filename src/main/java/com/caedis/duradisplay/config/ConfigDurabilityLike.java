@@ -18,6 +18,7 @@ public abstract class ConfigDurabilityLike extends Config {
     public int color;
     public ColorType colorType;
     public double[] colorThreshold;
+    public int[] colorThresholdColors = { 0xFF0000, 0x55FF00, 0XFFD500 };
     public boolean smoothBar;
     public int barLocation;
 
@@ -79,8 +80,8 @@ public abstract class ConfigDurabilityLike extends Config {
                 "ColorThresholds",
                 colorThreshold,
                 "List of numbers in ascending order from 0-100 that set the thresholds for durability color mapping. "
-                    + "Colors are from Red -> Yellow -> Green with Red being less than or equal to the first value "
-                    + "and Green being greater than or equal to the last value",
+                    + "Colors are the list of colors in ColorThresholdColors\n"
+                    + "By default from Red -> Yellow -> Green by default",
                 0.0,
                 100.0,
                 true,
@@ -96,6 +97,22 @@ public abstract class ConfigDurabilityLike extends Config {
             Integer.MIN_VALUE,
             Integer.MAX_VALUE,
             "Color of the Overlay");
+
+        colorThresholdColors = Arrays
+            .stream(
+                config
+                    .get(
+                        category() + ".Color",
+                        "ColorThresholdColors",
+                        colorThresholdColors,
+                        "Colors used in Threshold color mode",
+                        Integer.MIN_VALUE,
+                        Integer.MAX_VALUE,
+                        true,
+                        3)
+                    .getIntList())
+            .sorted()
+            .toArray();
 
         smoothBar = config.getBoolean("SmoothBar", category() + ".BarStyle", smoothBar, "Smooth the bar length");
 

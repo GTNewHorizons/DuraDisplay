@@ -54,6 +54,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
         addHandler("ic2.core.item.armor.ItemArmorFluidTank", OverlayDurability::handleItemArmorFluidTank);
         addHandler("ic2.api.item.ICustomDamageItem", OverlayDurability::handleICustomDamageItem);
         addHandler("vazkii.botania.common.item.brew.ItemBrewBase", i -> null);
+        addHandler("WayofTime.alchemicalWizardry.common.items.potion.AlchemyFlask", i -> null);
         addHandler("net.minecraft.item.Item", OverlayDurability::handleDefault);
     }
 
@@ -62,7 +63,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
         return config;
     }
 
-    private static DurabilityLikeInfo handleDefault(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleDefault(@NotNull ItemStack stack) {
         Item item = stack.getItem();
         assert item != null;
 
@@ -74,7 +75,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
         return new DurabilityLikeInfo(current, max);
     }
 
-    private static DurabilityLikeInfo handleGregTech(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleGregTech(@NotNull ItemStack stack) {
         if (!stack.hasTagCompound()) return null;
         NBTTagCompound nbt = stack.getTagCompound();
 
@@ -91,7 +92,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
 
     }
 
-    private static DurabilityLikeInfo handleToolCore(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleToolCore(@NotNull ItemStack stack) {
         if (!stack.hasTagCompound() || !stack.getTagCompound()
             .hasKey("InfiTool")) return null;
         NBTTagCompound tags = stack.getTagCompound()
@@ -107,7 +108,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
         return null;
     }
 
-    private static DurabilityLikeInfo handleGregTechRadioactiveCell(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleGregTechRadioactiveCell(@NotNull ItemStack stack) {
         GT_RadioactiveCell_Item bei = ((GT_RadioactiveCell_Item) stack.getItem());
 
         assert bei != null;
@@ -118,14 +119,14 @@ public class OverlayDurability extends OverlayDurabilityLike {
         return new DurabilityLikeInfo(current, max);
     }
 
-    private static DurabilityLikeInfo handleItemArmorFluidTank(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleItemArmorFluidTank(@NotNull ItemStack stack) {
         ItemArmorFluidTank bei = ((ItemArmorFluidTank) stack.getItem());
         assert bei != null;
 
         return new DurabilityLikeInfo(bei.getCharge(stack), bei.getCapacity(stack));
     }
 
-    private static DurabilityLikeInfo handleICustomDamageItem(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleICustomDamageItem(@NotNull ItemStack stack) {
         ICustomDamageItem bei = ((ICustomDamageItem) stack.getItem());
         assert bei != null;
 

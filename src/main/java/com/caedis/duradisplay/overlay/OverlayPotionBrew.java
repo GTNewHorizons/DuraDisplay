@@ -11,11 +11,13 @@ import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 
 import vazkii.botania.common.item.brew.ItemBrewBase;
 
+// Overlay for brew and potions
+// currently Botania brew and Blood Magic AlchemyFlask
 @SuppressWarnings("unused")
-public class OverlayBotaniaBrew extends OverlayDurabilityLike {
+public class OverlayPotionBrew extends OverlayDurabilityLike {
 
     @SuppressWarnings("unused")
-    public OverlayBotaniaBrew() {
+    public OverlayPotionBrew() {
         super(
             new ConfigDurabilityLike(
                 true,
@@ -38,7 +40,9 @@ public class OverlayBotaniaBrew extends OverlayDurabilityLike {
                     return "botania_brew";
                 }
             });
-        addHandler("vazkii.botania.common.item.brew.ItemBrewBase", OverlayBotaniaBrew::handleBotaniaBrew);
+        addHandler("vazkii.botania.common.item.brew.ItemBrewBase", OverlayPotionBrew::handleBotaniaBrew);
+        addHandler("WayofTime.alchemicalWizardry.common.items.potion.AlchemyFlask", OverlayDurability::handleDefault);
+
     }
 
     @Override
@@ -47,7 +51,7 @@ public class OverlayBotaniaBrew extends OverlayDurabilityLike {
         return config;
     }
 
-    private static DurabilityLikeInfo handleBotaniaBrew(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleBotaniaBrew(@NotNull ItemStack stack) {
         ItemBrewBase brew = ((ItemBrewBase) stack.getItem());
         assert brew != null;
 

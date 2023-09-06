@@ -54,14 +54,14 @@ public class OverlayCharge extends OverlayDurabilityLike {
         return config;
     }
 
-    private static DurabilityLikeInfo handleIElectricItem(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleIElectricItem(@NotNull ItemStack stack) {
         IElectricItem bei = ((IElectricItem) stack.getItem());
         assert bei != null;
 
         return new DurabilityLikeInfo(ElectricItem.manager.getCharge(stack), bei.getMaxCharge(stack));
     }
 
-    private static DurabilityLikeInfo handleEnergyContainer(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleEnergyContainer(@NotNull ItemStack stack) {
 
         IEnergyContainerItem eci = ((IEnergyContainerItem) stack.getItem());
         assert eci != null;
@@ -69,7 +69,7 @@ public class OverlayCharge extends OverlayDurabilityLike {
         return new DurabilityLikeInfo(eci.getEnergyStored(stack), eci.getMaxEnergyStored(stack));
     }
 
-    private static DurabilityLikeInfo handleToolCore(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleToolCore(@NotNull ItemStack stack) {
 
         if (!stack.hasTagCompound() && !stack.getTagCompound()
             .hasKey("Energy")) return null;

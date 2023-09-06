@@ -10,9 +10,11 @@ import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 
-public class OverlayGTGadgets extends OverlayDurabilityLike {
+// Gadgets are items to show UseCount(remain) as default
+// GT Lighter and GT Paint Sprayer for example
+public class OverlayGadgets extends OverlayDurabilityLike {
 
-    public OverlayGTGadgets() {
+    public OverlayGadgets() {
         super(
             new ConfigDurabilityLike(
                 true,
@@ -35,7 +37,7 @@ public class OverlayGTGadgets extends OverlayDurabilityLike {
                     return "gregtech_gadgets";
                 }
             });
-        addHandler("gregtech.api.items.GT_MetaBase_Item", OverlayGTGadgets::handleGregtech);
+        addHandler("gregtech.api.items.GT_MetaBase_Item", OverlayGadgets::handleGregtech);
     }
 
     @Override
@@ -45,7 +47,7 @@ public class OverlayGTGadgets extends OverlayDurabilityLike {
     }
 
     @Nullable
-    private static DurabilityLikeInfo handleGregtech(@NotNull ItemStack stack) {
+    public static DurabilityLikeInfo handleGregtech(@NotNull ItemStack stack) {
         if (!stack.hasTagCompound()) return null;
         var tag = stack.getTagCompound();
         if (tag.hasKey("GT.RemainingPaint")) {

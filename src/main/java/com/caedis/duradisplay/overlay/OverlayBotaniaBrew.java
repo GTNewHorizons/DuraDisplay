@@ -11,8 +11,10 @@ import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 
 import vazkii.botania.common.item.brew.ItemBrewBase;
 
+@SuppressWarnings("unused")
 public class OverlayBotaniaBrew extends OverlayDurabilityLike {
 
+    @SuppressWarnings("unused")
     public OverlayBotaniaBrew() {
         super(
             new ConfigDurabilityLike(
@@ -29,9 +31,7 @@ public class OverlayBotaniaBrew extends OverlayDurabilityLike {
                 2) {
 
                 @Override
-                public void postLoadConfig() {
-                    return;
-                }
+                public void postLoadConfig() {}
 
                 @Override
                 public @NotNull String category() {

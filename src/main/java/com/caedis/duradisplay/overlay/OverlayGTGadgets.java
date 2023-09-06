@@ -28,9 +28,7 @@ public class OverlayGTGadgets extends OverlayDurabilityLike {
                 2) {
 
                 @Override
-                public void postLoadConfig() {
-                    return;
-                }
+                public void postLoadConfig() {}
 
                 @Override
                 public @NotNull String category() {

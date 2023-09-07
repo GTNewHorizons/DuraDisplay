@@ -91,7 +91,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
 
         if (BlockListUnLocalized.contains(stack.getUnlocalizedName())) return null;
 
-        double max = item.getMaxDamage();
+        double max = item.getMaxDamage(stack);
         double current = max - item.getDamage(stack);
         return new DurabilityLikeInfo(current, max);
     }

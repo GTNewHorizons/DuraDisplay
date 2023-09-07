@@ -76,7 +76,7 @@ public class OverlayCharge extends OverlayDurabilityLike {
 
     public static DurabilityLikeInfo handleToolCore(@NotNull ItemStack stack) {
 
-        if (!stack.hasTagCompound() && !stack.getTagCompound()
+        if (!stack.hasTagCompound() || !stack.getTagCompound()
             .hasKey("Energy")) return null;
         return handleEnergyContainer(stack);
     }

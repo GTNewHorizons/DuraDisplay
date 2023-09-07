@@ -65,6 +65,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
         addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", i -> null);
         addHandler("buildcraft.core.ItemPaintbrush", i -> null);
         addHandler("ic2.core.item.tool.ItemToolPainter", i -> null);
+        addHandler("thaumcraft.api.IScribeTools", i -> null);
         addHandler("net.minecraft.item.Item", OverlayDurability::handleDefault);
     }
 
@@ -76,7 +77,8 @@ public class OverlayDurability extends OverlayDurabilityLike {
         "ic2.itemTreetap",
         "item.appliedenergistics2.ToolCertusQuartzCuttingKnife",
         "item.appliedenergistics2.ToolNetherQuartzCuttingKnife",
-        "ic2.itemToolForgeHammer");
+        "ic2.itemToolForgeHammer",
+        "item.spellCloth");
 
     @Override
     public @NotNull ConfigDurabilityLike config() {

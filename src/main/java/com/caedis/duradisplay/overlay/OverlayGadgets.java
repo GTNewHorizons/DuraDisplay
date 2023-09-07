@@ -52,6 +52,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
         addHandler("buildcraft.core.ItemPaintbrush", OverlayGadgets::handleBCBrush);
         addHandler("ic2.core.item.tool.ItemToolPainter", OverlayDurability::handleDefault);
         addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", OverlayDurability::handleDefault);
+        addHandler("thaumcraft.api.IScribeTools", OverlayDurability::handleDefault);
         addHandler("net.minecraft.item.Item", OverlayGadgets::handleByAllowList);
     }
 
@@ -62,7 +63,8 @@ public class OverlayGadgets extends OverlayDurabilityLike {
         "item.for.solderingIron",
         "ic2.itemTreetap",
         "item.appliedenergistics2.ToolCertusQuartzCuttingKnife",
-        "ic2.itemToolForgeHammer");
+        "ic2.itemToolForgeHammer",
+        "item.spellCloth");
 
     @Override
     @NotNull
@@ -96,24 +98,47 @@ public class OverlayGadgets extends OverlayDurabilityLike {
 
     @Nullable
     public static DurabilityLikeInfo handleGregtech(@NotNull ItemStack stack) {
-        if (!stack.hasTagCompound()) return null;
-        var tag = stack.getTagCompound();
-        if (tag.hasKey("GT.RemainingPaint")) {
-            long paint = tag.getLong("GT.RemainingPaint");
-            return new DurabilityLikeInfo(paint, 512);
-        }
-        if (tag.hasKey("GT.LighterFuel")) {
-            long max;
-            long paint = tag.getLong("GT.LighterFuel");
-            switch (stack.getUnlocalizedName()) {
-                case "gt.metaitem.01.32478" -> max = 1000;
-                case "gt.metaitem.01.32475" -> max = 100;
-                case "gt.metaitem.01.32472" -> max = 16;
-                default -> max = 0;
+        long max = 0;
+        long current = 0;
+        if (stack.stackSize != 1) return null;
+        var damage = stack.getItemDamage();
+        switch (damage) {
+            case 32472 -> max = 16;
+            case 32473 -> {
+                max = 16;
+                current = max;
             }
-
-            return new DurabilityLikeInfo(paint, max);
+            case 32474 -> {
+                max = 100;
+                current = max;
+            }
+            case 32475, 32476 -> max = 100;
+            case 32477 -> {
+                max = 1000;
+                current = max;
+            }
+            case 32478, 32479 -> max = 1000;
+            case 32430, 32431, 32432, 32433, 32434, 32435, 32436, 32437, 32438, 32439, 32440, 32441, 32442, 32443, 32444, 32445, 32446, 32447, 32448, 32449, 32450, 32451, 32452, 32453, 32454, 32455, 32456, 32457, 32458, 32459, 32460 -> {
+                max = 512;
+                if (damage % 2 == 0) {
+                    current = max;
+                }
+            }
+            default -> {
+                return null;
+            }
         }
-        return null;
+
+        if (stack.hasTagCompound()) {
+            var tag = stack.getTagCompound();
+            if (tag.hasKey("GT.RemainingPaint")) {
+                current = tag.getLong("GT.RemainingPaint");
+            }
+            if (tag.hasKey("GT.LighterFuel")) {
+                current = tag.getLong("GT.LighterFuel");
+
+            }
+        }
+        return new DurabilityLikeInfo(current, max);
     }
 }

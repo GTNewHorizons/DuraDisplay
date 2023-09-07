@@ -98,7 +98,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
 
     @Nullable
     public static DurabilityLikeInfo handleGregtech(@NotNull ItemStack stack) {
-        long max = 0;
+        long max;
         long current = 0;
         if (stack.stackSize != 1) return null;
         var damage = stack.getItemDamage();

@@ -18,13 +18,14 @@ public abstract class ConfigDurabilityLike extends Config {
     public int color;
     public ColorType colorType;
     public double[] colorThreshold;
-    public int[] colorThresholdColors = { 0xFF0000, 0x55FF00, 0XFFD500 };
+    public int[] threeColors;
     public boolean smoothBar;
     public int barLocation;
 
     protected ConfigDurabilityLike(boolean enabled, OverlayDurabilityLike.Style style,
         DurabilityFormatter.Format textFormat, int numPadPosition, boolean showWhenFull, boolean showWhenEmpty,
-        int color, ColorType colorType, double[] colorThreshold, boolean smoothBar, int barLocation) {
+        int color, ColorType colorType, double[] colorThreshold, int[] threeColors, boolean smoothBar,
+        int barLocation) {
         this.enabled = enabled;
         this.style = style;
         this.textFormat = textFormat;
@@ -34,6 +35,7 @@ public abstract class ConfigDurabilityLike extends Config {
         this.color = color;
         this.colorType = colorType;
         this.colorThreshold = colorThreshold;
+        this.threeColors = threeColors;
         this.smoothBar = smoothBar;
         this.barLocation = barLocation;
     }
@@ -72,7 +74,7 @@ public abstract class ConfigDurabilityLike extends Config {
             category() + ".Color",
             "ColorType",
             colorType,
-            "ColorType of the Overlay, can be RYGDurability, Threshold, Vanilla, or Single");
+            "ColorType of the Overlay, can be RYGDurability, Threshold, Vanilla, Single, Smooth");
 
         colorThreshold = Arrays.stream(
             config.get(
@@ -80,7 +82,7 @@ public abstract class ConfigDurabilityLike extends Config {
                 "ColorThresholds",
                 colorThreshold,
                 "List of numbers in ascending order from 0-100 that set the thresholds for durability color mapping. "
-                    + "Colors are the list of colors in ColorThresholdColors\n"
+                    + "Colors are the list of colors in ThreeColors\n"
                     + "By default from Red -> Yellow -> Green by default",
                 0.0,
                 100.0,
@@ -98,21 +100,17 @@ public abstract class ConfigDurabilityLike extends Config {
             Integer.MAX_VALUE,
             "Color of the Overlay");
 
-        colorThresholdColors = Arrays
-            .stream(
-                config
-                    .get(
-                        category() + ".Color",
-                        "ColorThresholdColors",
-                        colorThresholdColors,
-                        "Colors used in Threshold color mode",
-                        Integer.MIN_VALUE,
-                        Integer.MAX_VALUE,
-                        true,
-                        3)
-                    .getIntList())
-            .sorted()
-            .toArray();
+        threeColors = config
+            .get(
+                category() + ".Color",
+                "ThreeColors",
+                threeColors,
+                "Colors used in Threshold/Smooth color mode",
+                Integer.MIN_VALUE,
+                Integer.MAX_VALUE,
+                true,
+                3)
+            .getIntList();
 
         smoothBar = config.getBoolean("SmoothBar", category() + ".BarStyle", smoothBar, "Smooth the bar length");
 

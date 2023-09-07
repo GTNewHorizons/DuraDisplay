@@ -27,8 +27,9 @@ public class OverlayCharge extends OverlayDurabilityLike {
                 true,
                 true,
                 0xFF55FFFF,
-                ColorType.Single,
+                ColorType.Smooth,
                 new double[] { 30, 70 },
+                new int[] { 0xFFB9AA, 0xBDD6FF, 0x55FFFF },
                 true,
                 2) {
 

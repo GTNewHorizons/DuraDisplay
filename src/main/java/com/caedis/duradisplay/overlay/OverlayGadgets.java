@@ -30,6 +30,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
                 0xFFFFFFFF,
                 ColorType.Single,
                 new double[] { 30, 70 },
+                new int[] { 0xFF0000, 0xFFBDC8, 0xFFFFFFFF },
                 true,
                 2) {
 

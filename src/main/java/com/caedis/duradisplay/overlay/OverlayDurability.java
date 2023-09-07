@@ -32,8 +32,9 @@ public class OverlayDurability extends OverlayDurabilityLike {
                 false,
                 true,
                 0x00FF00,
-                ColorType.Vanilla,
+                ColorType.RYGDurability,
                 new double[] { 30, 70 },
+                new int[] { 0xFF0000, 0x55FF00, 0x00FF00 },
                 true,
                 0) {
 

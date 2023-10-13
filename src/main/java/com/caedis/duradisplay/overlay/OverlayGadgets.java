@@ -51,6 +51,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
             });
         addHandler("gregtech.api.items.GT_MetaBase_Item", OverlayGadgets::handleGregtech);
         addHandler("buildcraft.core.ItemPaintbrush", OverlayGadgets::handleBCBrush);
+        addHandler("tmechworks.items.SpoolOfWire", OverlayGadgets::handleMechworks);
         addHandler("ic2.core.item.tool.ItemToolPainter", OverlayDurability::handleDefault);
         addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", OverlayDurability::handleDefault);
         addHandler("thaumcraft.api.IScribeTools", OverlayDurability::handleDefault);
@@ -72,6 +73,15 @@ public class OverlayGadgets extends OverlayDurabilityLike {
     @NotNull
     ConfigDurabilityLike config() {
         return config;
+    }
+
+    private static DurabilityLikeInfo handleMechworks(@NotNull ItemStack stack) {
+        Item item = stack.getItem();
+        assert item != null;
+
+        double max = item.getMaxDamage();
+        double current = max - item.getDamage(stack);
+        return new DurabilityLikeInfo(current, max);
     }
 
     @Nullable

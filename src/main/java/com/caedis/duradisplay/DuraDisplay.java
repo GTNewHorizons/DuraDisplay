@@ -19,7 +19,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
     acceptedMinecraftVersions = "[1.7.10]",
     guiFactory = "com.caedis.duradisplay.config.GuiFactory",
     acceptableRemoteVersions = "*",
-    dependencies = "required-after:gregtech@[5.09.43.63,);" + " required-after:EnderIO@[2.4.18,);")
+    dependencies = "after:gregtech@[5.09.43.63,);" + " after:EnderIO@[2.4.18,);")
 public class DuraDisplay {
 
     public static final Logger LOG = LogManager.getLogger(Tags.MODID);

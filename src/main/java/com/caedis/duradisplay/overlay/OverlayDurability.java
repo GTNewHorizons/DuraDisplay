@@ -1,7 +1,5 @@
 package com.caedis.duradisplay.overlay;
 
-import java.util.Set;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,7 +12,6 @@ import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.caedis.duradisplay.utils.ModSelfDrawnBar;
-import com.google.common.collect.Sets;
 
 import gregtech.api.items.GT_RadioactiveCell_Item;
 import ic2.api.item.ICustomDamageItem;
@@ -81,7 +78,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
 
         if (!item.isDamageable()) return null;
 
-        //handled by OverlayGadgets
+        // handled by OverlayGadgets
         if (OverlayGadgets.AllowListUnLocalized.contains(stack.getUnlocalizedName())) return null;
 
         double max = item.getMaxDamage(stack);

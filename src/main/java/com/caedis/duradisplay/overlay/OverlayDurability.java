@@ -70,17 +70,6 @@ public class OverlayDurability extends OverlayDurabilityLike {
         addHandler("net.minecraft.item.Item", OverlayDurability::handleDefault);
     }
 
-    public static final Set<String> BlockListUnLocalized = Sets.newHashSet(
-        "item.flintAndSteel",
-        "ic2.itemWeedEx",
-        "item.for.waxCast",
-        "item.for.solderingIron",
-        "ic2.itemTreetap",
-        "item.appliedenergistics2.ToolCertusQuartzCuttingKnife",
-        "item.appliedenergistics2.ToolNetherQuartzCuttingKnife",
-        "ic2.itemToolForgeHammer",
-        "item.spellCloth");
-
     @Override
     public @NotNull ConfigDurabilityLike config() {
         return config;
@@ -92,7 +81,8 @@ public class OverlayDurability extends OverlayDurabilityLike {
 
         if (!item.isDamageable()) return null;
 
-        if (BlockListUnLocalized.contains(stack.getUnlocalizedName())) return null;
+        //handled by OverlayGadgets
+        if (OverlayGadgets.AllowListUnLocalized.contains(stack.getUnlocalizedName())) return null;
 
         double max = item.getMaxDamage(stack);
         double current = max - item.getDamage(stack);

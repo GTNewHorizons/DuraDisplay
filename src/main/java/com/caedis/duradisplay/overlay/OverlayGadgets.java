@@ -67,7 +67,8 @@ public class OverlayGadgets extends OverlayDurabilityLike {
         "item.appliedenergistics2.ToolCertusQuartzCuttingKnife",
         "item.appliedenergistics2.ToolNetherQuartzCuttingKnife",
         "ic2.itemToolForgeHammer",
-        "item.spellCloth");
+        "item.spellCloth",
+        "item.WoodenBrickForm");
 
     @Override
     @NotNull

@@ -51,7 +51,10 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
     }
 
     protected @NotNull DurabilityLikeInfo getDurabilityLikeInfo(@NotNull ItemStack itemStack) {
-        for (Pair<@NotNull Class<?>, @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo>> handler : handlers) {
+        int handlerSize = handlers.size();
+        for (int i = 0; i < handlerSize; i++) {
+            Pair<@NotNull Class<?>, @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo>> handler = handlers
+                .get(i);
             if (handler.getLeft()
                 .isInstance(itemStack.getItem())) {
                 DurabilityLikeInfo info = handler.getRight()

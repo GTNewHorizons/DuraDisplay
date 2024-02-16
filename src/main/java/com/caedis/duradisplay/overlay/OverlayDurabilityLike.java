@@ -51,15 +51,17 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
     }
 
     protected @NotNull DurabilityLikeInfo getDurabilityLikeInfo(@NotNull ItemStack itemStack) {
-        return handlers.stream()
-            .filter(
-                p -> p.getLeft()
-                    .isInstance(itemStack.getItem()))
-            .findFirst()
-            .map(
-                classFunctionPair -> classFunctionPair.getRight()
-                    .apply(itemStack))
-            .orElse(new DurabilityLikeInfo(0, 0));
+        for (Pair<@NotNull Class<?>, @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo>> handler : handlers) {
+            if (handler.getLeft()
+                .isInstance(itemStack.getItem())) {
+                DurabilityLikeInfo info = handler.getRight()
+                    .apply(itemStack);
+                if (info != null) {
+                    return info;
+                }
+            }
+        }
+        return new DurabilityLikeInfo(0, 0);
     }
 
     protected int getColor(DurabilityLikeInfo info) {

@@ -12,6 +12,8 @@ public final class DurabilityLikeInfo {
         this.max = max;
     }
 
+    public static final DurabilityLikeInfo empty = new DurabilityLikeInfo(0, 0);
+
     public boolean isFull() {
         return current != 0 && current == max;
     }

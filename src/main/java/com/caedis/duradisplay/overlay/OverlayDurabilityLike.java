@@ -62,9 +62,10 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
                 if (info != null) {
                     return info;
                 }
+                return DurabilityLikeInfo.empty;
             }
         }
-        return new DurabilityLikeInfo(0, 0);
+        return DurabilityLikeInfo.empty;
     }
 
     protected int getColor(DurabilityLikeInfo info) {

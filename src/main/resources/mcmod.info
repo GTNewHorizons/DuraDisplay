@@ -12,10 +12,6 @@
 		"credits": "",
 		"logoFile": "",
 		"screenshots": [],
-		"parent": "",
-		"requiredMods": [],
-		"dependencies": ["Gregtech", "EnderIO"],
-		"dependants": [],
-		"useDependencyInformation": true
+		"parent": ""
 	}]
 }

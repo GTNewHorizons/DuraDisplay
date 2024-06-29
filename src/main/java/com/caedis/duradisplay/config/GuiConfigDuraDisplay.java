@@ -3,6 +3,7 @@ package com.caedis.duradisplay.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.caedis.duradisplay.DuraDisplay;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.common.config.Configuration;
@@ -20,7 +21,7 @@ public class GuiConfigDuraDisplay extends GuiConfig {
         super(
             parent,
             getCategories(),
-            Tags.MODID,
+            DuraDisplay.MODID,
             "general",
             false,
             false,

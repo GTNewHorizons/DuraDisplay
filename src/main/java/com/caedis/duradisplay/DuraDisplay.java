@@ -13,16 +13,19 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 @Mod(
-    modid = Tags.MODID,
+    modid = DuraDisplay.MODID,
     version = Tags.VERSION,
-    name = Tags.MODNAME,
+    name = DuraDisplay.NAME,
     acceptedMinecraftVersions = "[1.7.10]",
     guiFactory = "com.caedis.duradisplay.config.GuiFactory",
     acceptableRemoteVersions = "*",
-    dependencies = "after:gregtech@[5.09.43.63,);" + " after:EnderIO@[2.4.18,);")
+    dependencies = "after:gregtech;" + " after:EnderIO@[2.4.18,);")
 public class DuraDisplay {
 
-    public static final Logger LOG = LogManager.getLogger(Tags.MODID);
+    public final static String MODID = "duradisplay";
+    public final static String NAME = "DuraDisplay";
+
+    public static final Logger LOG = LogManager.getLogger(MODID);
 
     @SuppressWarnings("unused")
     @Mod.EventHandler
@@ -45,7 +48,7 @@ public class DuraDisplay {
     @SuppressWarnings("unused")
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.modID.equals(Tags.MODID)) {
+        if (event.modID.equals(DuraDisplay.MODID)) {
             DuraDisplayConfig.config.save();
             DuraDisplayConfig.reloadConfigObject();
         }

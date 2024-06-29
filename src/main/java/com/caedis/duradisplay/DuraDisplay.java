@@ -21,6 +21,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
     acceptableRemoteVersions = "*",
     dependencies = "after:gregtech@[5.09.43.63,);" + " after:EnderIO@[2.4.18,);")
 public class DuraDisplay {
+
     public final static String MODID = "duradisplay";
     public final static String NAME = "DuraDisplay";
 

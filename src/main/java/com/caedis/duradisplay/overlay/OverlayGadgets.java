@@ -14,6 +14,8 @@ import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.google.common.collect.Sets;
 
+import gregtech.common.items.GT_MetaGenerated_Item_01;
+
 // Gadgets are items to show UseCount(remain) as default
 // GT Lighter and GT Paint Sprayer for example
 public class OverlayGadgets extends OverlayDurabilityLike {
@@ -113,45 +115,50 @@ public class OverlayGadgets extends OverlayDurabilityLike {
     public static DurabilityLikeInfo handleGregtech(@NotNull ItemStack stack) {
         long max;
         long current = 0;
-        if (stack.stackSize != 1) return null;
-        var damage = stack.getItemDamage();
-        switch (damage) {
-            case 32472 -> max = 16;
-            case 32473 -> {
-                max = 16;
-                current = max;
-            }
-            case 32474, 32475 -> max = 100;
-            case 32476 -> {
-                max = 100;
-                current = max;
-            }
-            case 32477, 32478 -> max = 1000;
-            case 32479 -> {
-                max = 1000;
-                current = max;
-            }
-            case 32430, 32431, 32432, 32433, 32434, 32435, 32436, 32437, 32438, 32439, 32440, 32441, 32442, 32443, 32444, 32445, 32446, 32447, 32448, 32449, 32450, 32451, 32452, 32453, 32454, 32455, 32456, 32457, 32458, 32459, 32460 -> {
-                max = 512;
-                if (damage % 2 == 0) {
+
+        if (stack.getItem() instanceof GT_MetaGenerated_Item_01) {
+            if (stack.stackSize != 1) return null;
+            var damage = stack.getItemDamage();
+            switch (damage) {
+                case 32472 -> max = 16; // Tool_MatchBox_Used
+                case 32473 -> { // Tool_MatchBox_Full
+                    max = 16;
                     current = max;
                 }
+                case 32474, 32475 -> max = 100; // Tool_Lighter_Invar_Empty, Tool_Lighter_Invar_Used
+                case 32476 -> { // Tool_Lighter_Invar_Full
+                    max = 100;
+                    current = max;
+                }
+                case 32477, 32478 -> max = 1000; // Tool_Lighter_Platinum_Empty, Tool_Lighter_Platinum_Used
+                case 32479 -> { // Tool_Lighter_Platinum_Full
+                    max = 1000;
+                    current = max;
+                }
+                // spray cans
+                case 32430, 32431, 32432, 32433, 32434, 32435, 32436, 32437, 32438, 32439, 32440, 32441, 32442, 32443, 32444, 32445, 32446, 32447, 32448, 32449, 32450, 32451, 32452, 32453, 32454, 32455, 32456, 32457, 32458, 32459, 32460 -> {
+                    max = 512;
+                    if (damage % 2 == 0) {
+                        current = max;
+                    }
+                }
+                default -> {
+                    return null;
+                }
             }
-            default -> {
-                return null;
-            }
-        }
 
-        if (stack.hasTagCompound()) {
-            var tag = stack.getTagCompound();
-            if (tag.hasKey("GT.RemainingPaint")) {
-                current = tag.getLong("GT.RemainingPaint");
+            if (stack.hasTagCompound()) {
+                var tag = stack.getTagCompound();
+                if (tag.hasKey("GT.RemainingPaint")) {
+                    current = tag.getLong("GT.RemainingPaint");
+                }
+                if (tag.hasKey("GT.LighterFuel")) {
+                    current = tag.getLong("GT.LighterFuel");
+                }
             }
-            if (tag.hasKey("GT.LighterFuel")) {
-                current = tag.getLong("GT.LighterFuel");
-
-            }
+            return new DurabilityLikeInfo(current, max);
+        } else {
+            return null;
         }
-        return new DurabilityLikeInfo(current, max);
     }
 }

@@ -139,6 +139,15 @@ public class OverlayGadgets extends OverlayDurabilityLike {
                     current = max;
                 }
             }
+            // spray can remover full
+            case 32465 -> {
+                max = 1024;
+                current = max;
+            }
+            // spray can remover
+            case 32466 -> {
+                max = 1024;
+            }
             default -> {
                 return null;
             }

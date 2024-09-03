@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.caedis.duradisplay.DuraDisplay;
 
-import gregtech.GT_Mod;
+import gregtech.GTMod;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public final class ModSelfDrawnBar {
@@ -36,8 +36,8 @@ public final class ModSelfDrawnBar {
     public static void changeGTDurabilitybar(boolean enable) {
         try {
             if (!GTDurabilitybar.isPresent())
-                GTDurabilitybar = Optional.of(GT_Mod.gregtechproxy.mRenderItemDurabilityBar);
-            GT_Mod.gregtechproxy.mRenderItemDurabilityBar = enable;
+                GTDurabilitybar = Optional.of(GTMod.gregtechproxy.mRenderItemDurabilityBar);
+            GTMod.gregtechproxy.mRenderItemDurabilityBar = enable;
         } catch (NoClassDefFoundError e) {
             DuraDisplay.LOG.info("GT not found, skipping Durabilitybar config change");
         }
@@ -45,8 +45,8 @@ public final class ModSelfDrawnBar {
 
     public static void changeGTChargebar(boolean enable) {
         try {
-            if (!GTChargebar.isPresent()) GTChargebar = Optional.of(GT_Mod.gregtechproxy.mRenderItemChargeBar);
-            GT_Mod.gregtechproxy.mRenderItemChargeBar = enable;
+            if (!GTChargebar.isPresent()) GTChargebar = Optional.of(GTMod.gregtechproxy.mRenderItemChargeBar);
+            GTMod.gregtechproxy.mRenderItemChargeBar = enable;
         } catch (NoClassDefFoundError e) {
             DuraDisplay.LOG.info("GT not found, skipping Charge config change");
         }
@@ -70,7 +70,7 @@ public final class ModSelfDrawnBar {
 
     public static void restoreGTDurabilitybar() {
         try {
-            GTDurabilitybar.ifPresent(aBoolean -> GT_Mod.gregtechproxy.mRenderItemDurabilityBar = aBoolean);
+            GTDurabilitybar.ifPresent(aBoolean -> GTMod.gregtechproxy.mRenderItemDurabilityBar = aBoolean);
         } catch (NoClassDefFoundError e) {
             DuraDisplay.LOG.info("GT not found, skipping Durabilitybar config restore");
         }
@@ -78,7 +78,7 @@ public final class ModSelfDrawnBar {
 
     public static void restoreGTChargebar() {
         try {
-            GTChargebar.ifPresent(aBoolean -> GT_Mod.gregtechproxy.mRenderItemChargeBar = aBoolean);
+            GTChargebar.ifPresent(aBoolean -> GTMod.gregtechproxy.mRenderItemChargeBar = aBoolean);
         } catch (NoClassDefFoundError e) {
             DuraDisplay.LOG.info("GT not found, skipping Charge config restore");
         }

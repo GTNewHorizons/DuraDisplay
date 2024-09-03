@@ -49,7 +49,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
                     return "gadgets";
                 }
             });
-        addHandler("gregtech.common.items.GT_MetaGenerated_Item_01", OverlayGadgets::handleGregtechMeta1);
+        addHandler("gregtech.common.items.MetaGeneratedItem01", OverlayGadgets::handleGregtechMeta1);
         addHandler("buildcraft.core.ItemPaintbrush", OverlayGadgets::handleBCBrush);
         addHandler("tmechworks.items.SpoolOfWire", OverlayGadgets::handleMechworks);
         addHandler("ic2.core.item.tool.ItemToolPainter", OverlayDurability::handleDefault);

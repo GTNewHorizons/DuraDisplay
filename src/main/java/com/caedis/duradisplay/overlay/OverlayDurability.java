@@ -1,5 +1,6 @@
 package com.caedis.duradisplay.overlay;
 
+import gregtech.api.items.ItemRadioactiveCell;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,7 +14,6 @@ import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.caedis.duradisplay.utils.ModSelfDrawnBar;
 
-import gregtech.api.items.GT_RadioactiveCell_Item;
 import ic2.api.item.ICustomDamageItem;
 import ic2.core.item.armor.ItemArmorFluidTank;
 
@@ -50,8 +50,8 @@ public class OverlayDurability extends OverlayDurabilityLike {
                     return "durability";
                 }
             });
-        addHandler("gregtech.api.items.GT_MetaBase_Item", OverlayDurability::handleGregTech);
-        addHandler("gregtech.api.items.GT_RadioactiveCell_Item", OverlayDurability::handleGregTechRadioactiveCell);
+        addHandler("gregtech.api.items.MetaBaseItem", OverlayDurability::handleGregTech);
+        addHandler("gregtech.api.items.ItemRadioactiveCell", OverlayDurability::handleGregTechRadioactiveCell);
         addHandler("tconstruct.library.weaponry.AmmoItem", i -> null);
         addHandler("appeng.items.tools.powered.powersink.AEBasePoweredItem", i -> null);
         addHandler("ic2.api.item.IElectricItem", i -> null);
@@ -120,7 +120,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
     }
 
     public static DurabilityLikeInfo handleGregTechRadioactiveCell(@NotNull ItemStack stack) {
-        GT_RadioactiveCell_Item bei = ((GT_RadioactiveCell_Item) stack.getItem());
+        ItemRadioactiveCell bei = ((ItemRadioactiveCell) stack.getItem());
 
         assert bei != null;
 

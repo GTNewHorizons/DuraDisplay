@@ -1,6 +1,5 @@
 package com.caedis.duradisplay.overlay;
 
-import gregtech.api.items.ItemRadioactiveCell;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,6 +13,7 @@ import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.caedis.duradisplay.utils.ModSelfDrawnBar;
 
+import gregtech.api.items.ItemRadioactiveCell;
 import ic2.api.item.ICustomDamageItem;
 import ic2.core.item.armor.ItemArmorFluidTank;
 

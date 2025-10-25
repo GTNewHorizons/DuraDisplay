@@ -12,6 +12,7 @@ public class DurabilityFormatter {
         used,
         max,
         fraction,
+        container,
     }
 
     @Nullable
@@ -32,6 +33,17 @@ public class DurabilityFormatter {
             }
             case fraction -> {
                 return Double.isNaN(percent) ? null : String.format("%.0f/%.0f", current, max);
+            }
+            case container -> {
+                final long maxLong = Math.round(max);
+                final long currentLong = Math.round(current);
+                if (maxLong >= 100) {
+                    if (currentLong >= 1000) {
+                        return "*";
+                    }
+                    return String.format("%d", currentLong);
+                }
+                return String.format("%d/%d", currentLong, maxLong);
             }
         }
         return null;

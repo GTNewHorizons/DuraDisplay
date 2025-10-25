@@ -44,4 +44,5 @@ dependencies {
     compileOnly("com.github.GTNewHorizons:Botania:1.11.5-GTNH:dev")
     compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.12.8-GTNH:dev")
     compileOnly("com.github.GTNewHorizons:TinkersMechworks:0.3.1:dev")
+    compileOnly("com.github.GTNewHorizons:ForestryMC:4.9.10:dev")
 }

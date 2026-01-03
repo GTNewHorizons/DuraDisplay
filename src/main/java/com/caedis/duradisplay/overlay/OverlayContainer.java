@@ -11,6 +11,7 @@ import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.caedis.duradisplay.utils.ModSelfDrawnBar;
 
+import cpw.mods.fml.common.Loader;
 import forestry.core.inventory.ItemInventory;
 import forestry.storage.items.ItemBackpack;
 
@@ -21,7 +22,8 @@ public class OverlayContainer extends OverlayDurabilityLike {
 
     public OverlayContainer() {
         super(new ConfigContainer());
-        addHandler("forestry.storage.items.ItemBackpack", OverlayContainer::handleForestryBackpack);
+        if (Loader.isModLoaded("Forestry"))
+            addHandler("forestry.storage.items.ItemBackpack", OverlayContainer::handleForestryBackpack);
     }
 
     public static DurabilityLikeInfo handleForestryBackpack(@NotNull ItemStack stack) {

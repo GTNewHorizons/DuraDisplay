@@ -12,6 +12,7 @@ import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.caedis.duradisplay.utils.ModSelfDrawnBar;
 
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.common.Loader;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 
@@ -49,9 +50,11 @@ public class OverlayCharge extends OverlayDurabilityLike {
                     return "charge";
                 }
             });
-        addHandler("ic2.api.item.IElectricItem", OverlayCharge::handleIElectricItem);
-        addHandler("tconstruct.library.tools.ToolCore", OverlayCharge::handleToolCore);
-        addHandler("cofh.api.energy.IEnergyContainerItem", OverlayCharge::handleEnergyContainer);
+        if (Loader.isModLoaded("IC2")) addHandler("ic2.api.item.IElectricItem", OverlayCharge::handleIElectricItem);
+        if (Loader.isModLoaded("TConstruct"))
+            addHandler("tconstruct.library.tools.ToolCore", OverlayCharge::handleToolCore);
+        if (Loader.isModLoaded("CoFHCore"))
+            addHandler("cofh.api.energy.IEnergyContainerItem", OverlayCharge::handleEnergyContainer);
     }
 
     @Override

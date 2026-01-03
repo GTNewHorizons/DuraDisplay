@@ -14,6 +14,8 @@ import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.google.common.collect.Sets;
 
+import cpw.mods.fml.common.Loader;
+
 // Gadgets are items to show UseCount(remain) as default
 // GT Lighter and GT Paint Sprayer for example
 public class OverlayGadgets extends OverlayDurabilityLike {
@@ -49,12 +51,25 @@ public class OverlayGadgets extends OverlayDurabilityLike {
                     return "gadgets";
                 }
             });
-        addHandler("gregtech.common.items.MetaGeneratedItem01", OverlayGadgets::handleGregtechMeta1);
-        addHandler("buildcraft.core.ItemPaintbrush", OverlayGadgets::handleBCBrush);
-        addHandler("tmechworks.items.SpoolOfWire", OverlayGadgets::handleMechworks);
-        addHandler("ic2.core.item.tool.ItemToolPainter", OverlayDurability::handleDefault);
-        addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", OverlayDurability::handleDefault);
-        addHandler("thaumcraft.api.IScribeTools", OverlayDurability::handleDefault);
+
+        if (Loader.isModLoaded("gregtech"))
+            addHandler("gregtech.common.items.MetaGeneratedItem01", OverlayGadgets::handleGregtechMeta1);
+
+        if (Loader.isModLoaded("BuildCraft|Core"))
+            addHandler("buildcraft.core.ItemPaintbrush", OverlayGadgets::handleBCBrush);
+
+        if (Loader.isModLoaded("TMechworks"))
+            addHandler("tmechworks.items.SpoolOfWire", OverlayGadgets::handleMechworks);
+
+        if (Loader.isModLoaded("IC2"))
+            addHandler("ic2.core.item.tool.ItemToolPainter", OverlayDurability::handleDefault);
+
+        if (Loader.isModLoaded("AWWayofTime"))
+            addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", OverlayDurability::handleDefault);
+
+        if (Loader.isModLoaded("Thaumcraft"))
+            addHandler("thaumcraft.api.IScribeTools", OverlayDurability::handleDefault);
+
         addHandler("net.minecraft.item.Item", OverlayGadgets::handleByAllowList);
     }
 

@@ -12,9 +12,8 @@ import com.caedis.duradisplay.config.ConfigDurabilityLike;
 import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
+import com.caedis.duradisplay.utils.Mods;
 import com.google.common.collect.Sets;
-
-import cpw.mods.fml.common.Loader;
 
 // Gadgets are items to show UseCount(remain) as default
 // GT Lighter and GT Paint Sprayer for example
@@ -52,23 +51,20 @@ public class OverlayGadgets extends OverlayDurabilityLike {
                 }
             });
 
-        if (Loader.isModLoaded("gregtech"))
+        if (Mods.GregTech.isLoaded())
             addHandler("gregtech.common.items.MetaGeneratedItem01", OverlayGadgets::handleGregtechMeta1);
 
-        if (Loader.isModLoaded("BuildCraft|Core"))
-            addHandler("buildcraft.core.ItemPaintbrush", OverlayGadgets::handleBCBrush);
+        if (Mods.BuildCraftCore.isLoaded()) addHandler("buildcraft.core.ItemPaintbrush", OverlayGadgets::handleBCBrush);
 
-        if (Loader.isModLoaded("TMechworks"))
+        if (Mods.TinkersMechworks.isLoaded())
             addHandler("tmechworks.items.SpoolOfWire", OverlayGadgets::handleMechworks);
 
-        if (Loader.isModLoaded("IC2"))
-            addHandler("ic2.core.item.tool.ItemToolPainter", OverlayDurability::handleDefault);
+        if (Mods.IC2.isLoaded()) addHandler("ic2.core.item.tool.ItemToolPainter", OverlayDurability::handleDefault);
 
-        if (Loader.isModLoaded("AWWayofTime"))
+        if (Mods.AlchemicalWizardry.isLoaded())
             addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", OverlayDurability::handleDefault);
 
-        if (Loader.isModLoaded("Thaumcraft"))
-            addHandler("thaumcraft.api.IScribeTools", OverlayDurability::handleDefault);
+        if (Mods.Thaumcraft.isLoaded()) addHandler("thaumcraft.api.IScribeTools", OverlayDurability::handleDefault);
 
         addHandler("net.minecraft.item.Item", OverlayGadgets::handleByAllowList);
     }

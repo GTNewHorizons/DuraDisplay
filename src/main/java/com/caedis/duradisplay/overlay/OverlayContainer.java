@@ -10,8 +10,8 @@ import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.caedis.duradisplay.utils.ModSelfDrawnBar;
+import com.caedis.duradisplay.utils.Mods;
 
-import cpw.mods.fml.common.Loader;
 import forestry.core.inventory.ItemInventory;
 import forestry.storage.items.ItemBackpack;
 
@@ -22,7 +22,7 @@ public class OverlayContainer extends OverlayDurabilityLike {
 
     public OverlayContainer() {
         super(new ConfigContainer());
-        if (Loader.isModLoaded("Forestry"))
+        if (Mods.Forestry.isLoaded())
             addHandler("forestry.storage.items.ItemBackpack", OverlayContainer::handleForestryBackpack);
     }
 

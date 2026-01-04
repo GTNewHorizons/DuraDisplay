@@ -12,8 +12,8 @@ import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.caedis.duradisplay.utils.ModSelfDrawnBar;
+import com.caedis.duradisplay.utils.Mods;
 
-import cpw.mods.fml.common.Loader;
 import gregtech.api.items.ItemRadioactiveCell;
 import ic2.api.item.ICustomDamageItem;
 import ic2.core.item.armor.ItemArmorFluidTank;
@@ -52,36 +52,35 @@ public class OverlayDurability extends OverlayDurabilityLike {
                 }
             });
 
-        if (Loader.isModLoaded("gregtech")) {
+        if (Mods.GregTech.isLoaded()) {
             addHandler("gregtech.api.items.MetaBaseItem", OverlayDurability::handleGregTech);
             addHandler("gregtech.api.items.ItemRadioactiveCell", OverlayDurability::handleGregTechRadioactiveCell);
         }
 
-        if (Loader.isModLoaded("TConstruct")) {
+        if (Mods.TinkersConstruct.isLoaded()) {
             addHandler("tconstruct.library.weaponry.AmmoItem", i -> null);
             addHandler("tconstruct.library.tools.ToolCore", OverlayDurability::handleToolCore);
         }
 
-        if (Loader.isModLoaded("appliedenergistics2"))
-            addHandler("appeng.items.tools.powered.powersink.AEBasePoweredItem", i -> null);
+        if (Mods.AE2.isLoaded()) addHandler("appeng.items.tools.powered.powersink.AEBasePoweredItem", i -> null);
 
-        if (Loader.isModLoaded("IC2")) {
+        if (Mods.IC2.isLoaded()) {
             addHandler("ic2.api.item.IElectricItem", i -> null);
             addHandler("ic2.core.item.armor.ItemArmorFluidTank", OverlayDurability::handleItemArmorFluidTank);
             addHandler("ic2.api.item.ICustomDamageItem", OverlayDurability::handleICustomDamageItem);
             addHandler("ic2.core.item.tool.ItemToolPainter", i -> null);
         }
 
-        if (Loader.isModLoaded("Botania")) addHandler("vazkii.botania.common.item.brew.ItemBrewBase", i -> null);
+        if (Mods.Botania.isLoaded()) addHandler("vazkii.botania.common.item.brew.ItemBrewBase", i -> null);
 
-        if (Loader.isModLoaded("AWWayofTime")) {
+        if (Mods.AlchemicalWizardry.isLoaded()) {
             addHandler("WayofTime.alchemicalWizardry.common.items.potion.AlchemyFlask", i -> null);
             addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", i -> null);
         }
 
-        if (Loader.isModLoaded("BuildCraft|Core")) addHandler("buildcraft.core.ItemPaintbrush", i -> null);
+        if (Mods.BuildCraftCore.isLoaded()) addHandler("buildcraft.core.ItemPaintbrush", i -> null);
 
-        if (Loader.isModLoaded("Thaumcraft")) addHandler("thaumcraft.api.IScribeTools", i -> null);
+        if (Mods.Thaumcraft.isLoaded()) addHandler("thaumcraft.api.IScribeTools", i -> null);
 
         addHandler("net.minecraft.item.Item", OverlayDurability::handleDefault);
     }

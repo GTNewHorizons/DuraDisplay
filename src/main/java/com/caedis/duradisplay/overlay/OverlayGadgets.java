@@ -12,6 +12,7 @@ import com.caedis.duradisplay.config.ConfigDurabilityLike;
 import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
+import com.caedis.duradisplay.utils.Mods;
 import com.google.common.collect.Sets;
 
 // Gadgets are items to show UseCount(remain) as default
@@ -49,12 +50,22 @@ public class OverlayGadgets extends OverlayDurabilityLike {
                     return "gadgets";
                 }
             });
-        addHandler("gregtech.common.items.MetaGeneratedItem01", OverlayGadgets::handleGregtechMeta1);
-        addHandler("buildcraft.core.ItemPaintbrush", OverlayGadgets::handleBCBrush);
-        addHandler("tmechworks.items.SpoolOfWire", OverlayGadgets::handleMechworks);
-        addHandler("ic2.core.item.tool.ItemToolPainter", OverlayDurability::handleDefault);
-        addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", OverlayDurability::handleDefault);
-        addHandler("thaumcraft.api.IScribeTools", OverlayDurability::handleDefault);
+
+        if (Mods.GregTech.isLoaded())
+            addHandler("gregtech.common.items.MetaGeneratedItem01", OverlayGadgets::handleGregtechMeta1);
+
+        if (Mods.BuildCraftCore.isLoaded()) addHandler("buildcraft.core.ItemPaintbrush", OverlayGadgets::handleBCBrush);
+
+        if (Mods.TinkersMechworks.isLoaded())
+            addHandler("tmechworks.items.SpoolOfWire", OverlayGadgets::handleMechworks);
+
+        if (Mods.IC2.isLoaded()) addHandler("ic2.core.item.tool.ItemToolPainter", OverlayDurability::handleDefault);
+
+        if (Mods.AlchemicalWizardry.isLoaded())
+            addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", OverlayDurability::handleDefault);
+
+        if (Mods.Thaumcraft.isLoaded()) addHandler("thaumcraft.api.IScribeTools", OverlayDurability::handleDefault);
+
         addHandler("net.minecraft.item.Item", OverlayGadgets::handleByAllowList);
     }
 

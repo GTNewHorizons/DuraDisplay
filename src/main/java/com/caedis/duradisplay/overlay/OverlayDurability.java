@@ -12,6 +12,7 @@ import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
 import com.caedis.duradisplay.utils.ModSelfDrawnBar;
+import com.caedis.duradisplay.utils.Mods;
 
 import gregtech.api.items.ItemRadioactiveCell;
 import ic2.api.item.ICustomDamageItem;
@@ -50,20 +51,37 @@ public class OverlayDurability extends OverlayDurabilityLike {
                     return "durability";
                 }
             });
-        addHandler("gregtech.api.items.MetaBaseItem", OverlayDurability::handleGregTech);
-        addHandler("gregtech.api.items.ItemRadioactiveCell", OverlayDurability::handleGregTechRadioactiveCell);
-        addHandler("tconstruct.library.weaponry.AmmoItem", i -> null);
-        addHandler("appeng.items.tools.powered.powersink.AEBasePoweredItem", i -> null);
-        addHandler("ic2.api.item.IElectricItem", i -> null);
-        addHandler("tconstruct.library.tools.ToolCore", OverlayDurability::handleToolCore);
-        addHandler("ic2.core.item.armor.ItemArmorFluidTank", OverlayDurability::handleItemArmorFluidTank);
-        addHandler("ic2.api.item.ICustomDamageItem", OverlayDurability::handleICustomDamageItem);
-        addHandler("vazkii.botania.common.item.brew.ItemBrewBase", i -> null);
-        addHandler("WayofTime.alchemicalWizardry.common.items.potion.AlchemyFlask", i -> null);
-        addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", i -> null);
-        addHandler("buildcraft.core.ItemPaintbrush", i -> null);
-        addHandler("ic2.core.item.tool.ItemToolPainter", i -> null);
-        addHandler("thaumcraft.api.IScribeTools", i -> null);
+
+        if (Mods.GregTech.isLoaded()) {
+            addHandler("gregtech.api.items.MetaBaseItem", OverlayDurability::handleGregTech);
+            addHandler("gregtech.api.items.ItemRadioactiveCell", OverlayDurability::handleGregTechRadioactiveCell);
+        }
+
+        if (Mods.TinkersConstruct.isLoaded()) {
+            addHandler("tconstruct.library.weaponry.AmmoItem", i -> null);
+            addHandler("tconstruct.library.tools.ToolCore", OverlayDurability::handleToolCore);
+        }
+
+        if (Mods.AE2.isLoaded()) addHandler("appeng.items.tools.powered.powersink.AEBasePoweredItem", i -> null);
+
+        if (Mods.IC2.isLoaded()) {
+            addHandler("ic2.api.item.IElectricItem", i -> null);
+            addHandler("ic2.core.item.armor.ItemArmorFluidTank", OverlayDurability::handleItemArmorFluidTank);
+            addHandler("ic2.api.item.ICustomDamageItem", OverlayDurability::handleICustomDamageItem);
+            addHandler("ic2.core.item.tool.ItemToolPainter", i -> null);
+        }
+
+        if (Mods.Botania.isLoaded()) addHandler("vazkii.botania.common.item.brew.ItemBrewBase", i -> null);
+
+        if (Mods.AlchemicalWizardry.isLoaded()) {
+            addHandler("WayofTime.alchemicalWizardry.common.items.potion.AlchemyFlask", i -> null);
+            addHandler("WayofTime.alchemicalWizardry.common.items.ScribeTool", i -> null);
+        }
+
+        if (Mods.BuildCraftCore.isLoaded()) addHandler("buildcraft.core.ItemPaintbrush", i -> null);
+
+        if (Mods.Thaumcraft.isLoaded()) addHandler("thaumcraft.api.IScribeTools", i -> null);
+
         addHandler("net.minecraft.item.Item", OverlayDurability::handleDefault);
     }
 

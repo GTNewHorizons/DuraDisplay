@@ -8,6 +8,7 @@ import com.caedis.duradisplay.config.ConfigDurabilityLike;
 import com.caedis.duradisplay.utils.ColorType;
 import com.caedis.duradisplay.utils.DurabilityFormatter;
 import com.caedis.duradisplay.utils.DurabilityLikeInfo;
+import com.caedis.duradisplay.utils.Mods;
 
 import vazkii.botania.common.item.brew.ItemBrewBase;
 
@@ -47,8 +48,13 @@ public class OverlayPotionBrew extends OverlayDurabilityLike {
                     return "potion_brew";
                 }
             });
-        addHandler("vazkii.botania.common.item.brew.ItemBrewBase", OverlayPotionBrew::handleBotaniaBrew);
-        addHandler("WayofTime.alchemicalWizardry.common.items.potion.AlchemyFlask", OverlayDurability::handleDefault);
+
+        if (Mods.Botania.isLoaded())
+            addHandler("vazkii.botania.common.item.brew.ItemBrewBase", OverlayPotionBrew::handleBotaniaBrew);
+
+        if (Mods.AlchemicalWizardry.isLoaded()) addHandler(
+            "WayofTime.alchemicalWizardry.common.items.potion.AlchemyFlask",
+            OverlayDurability::handleDefault);
 
     }
 

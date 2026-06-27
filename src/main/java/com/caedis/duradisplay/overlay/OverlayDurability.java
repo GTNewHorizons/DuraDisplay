@@ -25,7 +25,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
             new ConfigDurabilityLike(
                 true,
                 OverlayDurabilityLike.Style.Text,
-                DurabilityFormatter.Format.percent,
+                DurabilityFormatter.Format.PERCENT,
                 2,
                 false,
                 true,

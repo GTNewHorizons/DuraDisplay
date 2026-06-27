@@ -23,7 +23,7 @@ public class OverlayCharge extends OverlayDurabilityLike {
             new ConfigDurabilityLike(
                 true,
                 OverlayDurabilityLike.Style.Text,
-                DurabilityFormatter.Format.percent,
+                DurabilityFormatter.Format.PERCENT,
                 8,
                 true,
                 true,

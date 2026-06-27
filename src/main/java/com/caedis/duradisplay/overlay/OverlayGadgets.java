@@ -24,7 +24,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
             new ConfigDurabilityLike(
                 true,
                 OverlayDurabilityLike.Style.Text,
-                DurabilityFormatter.Format.remaining,
+                DurabilityFormatter.Format.REMAINING,
                 2,
                 true,
                 true,

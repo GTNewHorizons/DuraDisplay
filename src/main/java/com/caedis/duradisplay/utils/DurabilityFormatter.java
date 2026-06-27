@@ -2,41 +2,45 @@ package com.caedis.duradisplay.utils;
 
 import java.text.DecimalFormat;
 
+import net.minecraft.util.MathHelper;
 import org.jetbrains.annotations.Nullable;
 
 public class DurabilityFormatter {
 
     public enum Format {
-        percent,
-        remaining,
-        used,
-        max,
-        fraction,
-        container,
+        PERCENT,
+        REMAINING,
+        USED,
+        MAX,
+        FRACTION,
+        CONTAINER,
     }
 
     @Nullable
     public static String format(double current, double max, Format format) {
-        double percent = current / max * 100;
         switch (format) {
-            case percent -> {
-                return Double.isNaN(percent) ? null : Math.round(percent) + "%";
+            case PERCENT -> {
+                double percent = current / max * 100;
+                return Double.isNaN(percent) ? null : MathHelper.floor_double(percent) + "%";
             }
-            case remaining -> {
+            case REMAINING -> {
                 return shortenNumber(current);
             }
-            case used -> {
+            case USED -> {
                 return shortenNumber(max - current);
             }
-            case max -> {
+            case MAX -> {
                 return shortenNumber(max);
             }
-            case fraction -> {
-                return Double.isNaN(percent) ? null : Math.round(current) + "/" + Math.round(max);
+            case FRACTION -> {
+                double percent = current / max * 100;
+                // current and max will always be full values
+                return Double.isNaN(percent) ? null
+                    : MathHelper.floor_double_long(current) + "/" + MathHelper.floor_double_long(max);
             }
-            case container -> {
-                final long maxLong = Math.round(max);
-                final long currentLong = Math.round(current);
+            case CONTAINER -> {
+                final long maxLong = MathHelper.floor_double_long(max);
+                final long currentLong = MathHelper.floor_double_long(current);
                 if (maxLong >= 100) {
                     if (currentLong >= 1000) {
                         return "*";

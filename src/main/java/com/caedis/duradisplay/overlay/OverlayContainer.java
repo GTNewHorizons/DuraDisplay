@@ -53,7 +53,7 @@ public class OverlayContainer extends OverlayDurabilityLike {
             super(
                 true,
                 Style.Text,
-                DurabilityFormatter.Format.container,
+                DurabilityFormatter.Format.CONTAINER,
                 2,
                 false,
                 true,

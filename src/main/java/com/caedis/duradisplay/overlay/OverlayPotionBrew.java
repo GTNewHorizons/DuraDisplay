@@ -23,7 +23,7 @@ public class OverlayPotionBrew extends OverlayDurabilityLike {
             new ConfigDurabilityLike(
                 true,
                 OverlayDurabilityLike.Style.Text,
-                DurabilityFormatter.Format.remaining,
+                DurabilityFormatter.Format.REMAINING,
                 2,
                 true,
                 true,
@@ -70,6 +70,6 @@ public class OverlayPotionBrew extends OverlayDurabilityLike {
 
         double current = brew.getSwigsLeft(stack);
         double max = brew.getMaxDamage();
-        return new DurabilityLikeInfo(current, max);
+        return DurabilityLikeInfo.of(current, max);
     }
 }

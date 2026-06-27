@@ -34,9 +34,9 @@ public class OverlayContainer extends OverlayDurabilityLike {
         final int used = ItemInventory.getOccupiedSlotCount(stack);
         final int remaining = backpackSize - used;
         if (showFullness) {
-            return new DurabilityLikeInfo(used, backpackSize);
+            return DurabilityLikeInfo.of(used, backpackSize);
         } else {
-            return new DurabilityLikeInfo(remaining, backpackSize);
+            return DurabilityLikeInfo.of(remaining, backpackSize);
         }
 
     }
@@ -53,7 +53,7 @@ public class OverlayContainer extends OverlayDurabilityLike {
             super(
                 true,
                 Style.Text,
-                DurabilityFormatter.Format.container,
+                DurabilityFormatter.Format.CONTAINER,
                 2,
                 false,
                 true,

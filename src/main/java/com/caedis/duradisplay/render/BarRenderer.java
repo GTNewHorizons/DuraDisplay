@@ -7,11 +7,11 @@ import org.lwjgl.opengl.GL11;
 
 public class BarRenderer extends OverlayRenderer {
 
-    private final int color;
-    private final double durabilityPercent;
-    private final boolean smoothBar;
-    private final int offset;
-    private final boolean showBackground;
+    private int color;
+    private double durabilityPercent;
+    private boolean smoothBar;
+    private int offset;
+    private boolean showBackground;
 
     public BarRenderer(int color, double durabilityPercent, boolean smoothBar, int offset, boolean showBackground) {
         this.color = color;
@@ -19,6 +19,18 @@ public class BarRenderer extends OverlayRenderer {
         this.smoothBar = smoothBar;
         this.offset = offset;
         this.showBackground = showBackground;
+    }
+
+    private static final BarRenderer reuse = new BarRenderer(0, 0, false, 0, false);
+
+    public static BarRenderer of(int color, double durabilityPercent, boolean smoothBar, int offset,
+        boolean showBackground) {
+        reuse.color = color;
+        reuse.durabilityPercent = durabilityPercent;
+        reuse.smoothBar = smoothBar;
+        reuse.offset = offset;
+        reuse.showBackground = showBackground;
+        return reuse;
     }
 
     private static final Tessellator tessellator = Tessellator.instance;

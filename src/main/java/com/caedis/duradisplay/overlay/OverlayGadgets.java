@@ -93,7 +93,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
 
         double max = item.getMaxDamage();
         double current = max - item.getDamage(stack);
-        return new DurabilityLikeInfo(current, max);
+        return DurabilityLikeInfo.of(current, max);
     }
 
     @Nullable
@@ -104,7 +104,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
         if (!stack.hasTagCompound()) return null;
         double max = item.getMaxDamage() + 1;
         double current = max - item.getDamage(stack);
-        return new DurabilityLikeInfo(current, max);
+        return DurabilityLikeInfo.of(current, max);
     }
 
     @Nullable
@@ -117,7 +117,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
 
         double max = item.getMaxDamage();
         double current = max - item.getDamage(stack);
-        return new DurabilityLikeInfo(current, max);
+        return DurabilityLikeInfo.of(current, max);
     }
 
     @Nullable
@@ -173,6 +173,6 @@ public class OverlayGadgets extends OverlayDurabilityLike {
                 current = tag.getLong("GT.LighterFuel");
             }
         }
-        return new DurabilityLikeInfo(current, max);
+        return DurabilityLikeInfo.of(current, max);
     }
 }

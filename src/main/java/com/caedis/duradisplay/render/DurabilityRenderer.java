@@ -31,8 +31,10 @@ public class DurabilityRenderer {
     public static void Render(FontRenderer fontRenderer, ItemStack stack, int xPosition, int yPosition) {
         if (fontRenderer == null && (fontRenderer = Minecraft.getMinecraft().fontRenderer) == null) return;
 
-        for (var f : handlers) {
-            var fOverlay = f.getRenderer(stack);
+        int size = handlers.size();
+        for (int i = 0; i < size; i++) {
+            var fOverlay = handlers.get(i)
+                .getRenderer(stack);
             if (fOverlay != null) {
                 fOverlay.Render(fontRenderer, xPosition, yPosition);
             }

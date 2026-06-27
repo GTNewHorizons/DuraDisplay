@@ -6,9 +6,18 @@ import org.lwjgl.opengl.GL11;
 
 public class TextRenderer extends OverlayRenderer {
 
-    private final String value;
-    private final int color;
-    private final int position;
+    private String value;
+    private int color;
+    private int position;
+
+    private static final TextRenderer reuse = new TextRenderer(null, 0, 0);
+
+    public static TextRenderer of(String value, int color, int numpadPosition) {
+        reuse.value = value;
+        reuse.color = color;
+        reuse.position = numpadPosition;
+        return reuse;
+    }
 
     private int getX(int xPosition, int stringWidth) {
         switch (position) {

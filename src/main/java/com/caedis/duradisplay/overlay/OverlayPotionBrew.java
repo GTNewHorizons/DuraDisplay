@@ -70,6 +70,6 @@ public class OverlayPotionBrew extends OverlayDurabilityLike {
 
         double current = brew.getSwigsLeft(stack);
         double max = brew.getMaxDamage();
-        return new DurabilityLikeInfo(current, max);
+        return DurabilityLikeInfo.of(current, max);
     }
 }

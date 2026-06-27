@@ -20,7 +20,7 @@ public class DurabilityFormatter {
         double percent = current / max * 100;
         switch (format) {
             case percent -> {
-                return Double.isNaN(percent) ? null : String.format("%.0f%%", percent);
+                return Double.isNaN(percent) ? null : Math.round(percent) + "%";
             }
             case remaining -> {
                 return shortenNumber(current);
@@ -32,7 +32,7 @@ public class DurabilityFormatter {
                 return shortenNumber(max);
             }
             case fraction -> {
-                return Double.isNaN(percent) ? null : String.format("%.0f/%.0f", current, max);
+                return Double.isNaN(percent) ? null : Math.round(current) + "/" + Math.round(max);
             }
             case container -> {
                 final long maxLong = Math.round(max);
@@ -41,18 +41,19 @@ public class DurabilityFormatter {
                     if (currentLong >= 1000) {
                         return "*";
                     }
-                    return String.format("%d", currentLong);
+                    return Long.toString(currentLong);
                 }
-                return String.format("%d/%d", currentLong, maxLong);
+                return currentLong + "/" + maxLong;
             }
         }
         return null;
     }
 
+    // Reused; construction is expensive
+    private static final DecimalFormat decimalFormat = new DecimalFormat("0.#");
+
     // Logic from Durability101
     public static String shortenNumber(double number) {
-        DecimalFormat decimalFormat = new DecimalFormat("0.#");
-
         if (number >= 1000000000) return decimalFormat.format(number / 1000000000) + "b";
         if (number >= 1000000) return decimalFormat.format(number / 1000000) + "m";
         if (number >= 1000) return decimalFormat.format(number / 1000) + "k";

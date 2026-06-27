@@ -101,7 +101,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
 
         double max = item.getMaxDamage(stack);
         double current = max - item.getDamage(stack);
-        return new DurabilityLikeInfo(current, max);
+        return DurabilityLikeInfo.of(current, max);
     }
 
     public static DurabilityLikeInfo handleGregTech(@NotNull ItemStack stack) {
@@ -116,7 +116,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
             double damage = ts.getLong("Damage");
             double max = ts.getLong("MaxDamage");
             double current = max - damage;
-            return new DurabilityLikeInfo(current, max);
+            return DurabilityLikeInfo.of(current, max);
         }
 
     }
@@ -131,7 +131,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
             int damage = tags.getInteger("Damage");
             int max = tags.getInteger("TotalDurability");
             int current = max - damage;
-            return new DurabilityLikeInfo(current, max);
+            return DurabilityLikeInfo.of(current, max);
         }
 
         return null;
@@ -145,14 +145,14 @@ public class OverlayDurability extends OverlayDurabilityLike {
         double damage = bei.getDamageOfStack(stack);
         double max = bei.getMaxDamageEx();
         double current = max - damage;
-        return new DurabilityLikeInfo(current, max);
+        return DurabilityLikeInfo.of(current, max);
     }
 
     public static DurabilityLikeInfo handleItemArmorFluidTank(@NotNull ItemStack stack) {
         ItemArmorFluidTank bei = ((ItemArmorFluidTank) stack.getItem());
         assert bei != null;
 
-        return new DurabilityLikeInfo(bei.getCharge(stack), bei.getCapacity(stack));
+        return DurabilityLikeInfo.of(bei.getCharge(stack), bei.getCapacity(stack));
     }
 
     public static DurabilityLikeInfo handleICustomDamageItem(@NotNull ItemStack stack) {
@@ -162,7 +162,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
         double damage = bei.getCustomDamage(stack);
         double max = bei.getMaxCustomDamage(stack);
         double current = max - damage;
-        return new DurabilityLikeInfo(current, max);
+        return DurabilityLikeInfo.of(current, max);
     }
 
 }

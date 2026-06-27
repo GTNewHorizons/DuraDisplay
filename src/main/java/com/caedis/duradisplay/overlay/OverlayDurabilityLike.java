@@ -1,6 +1,7 @@
 package com.caedis.duradisplay.overlay;
 
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -36,6 +37,11 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
 
     private final @NotNull ArrayList<Pair<@NotNull Class<?>, @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo>>> handlers = new ArrayList<>();
 
+    // Cache resolved handler per Item class; skips the isInstance scan every frame
+    private final @NotNull IdentityHashMap<Class<?>, Function<ItemStack, DurabilityLikeInfo>> handlerCache = new IdentityHashMap<>();
+
+    private static final Function<ItemStack, DurabilityLikeInfo> NO_HANDLER = s -> null;
+
     private void addHandler(@Nullable Class<?> clazz,
         @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo> handler) {
         if (clazz != null) handlers.add(Pair.of(clazz, handler));
@@ -51,21 +57,27 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
     }
 
     protected @NotNull DurabilityLikeInfo getDurabilityLikeInfo(@NotNull ItemStack itemStack) {
-        int handlerSize = handlers.size();
-        for (int i = 0; i < handlerSize; i++) {
-            Pair<@NotNull Class<?>, @NotNull Function<@NotNull ItemStack, @Nullable DurabilityLikeInfo>> handler = handlers
-                .get(i);
-            if (handler.getLeft()
-                .isInstance(itemStack.getItem())) {
-                DurabilityLikeInfo info = handler.getRight()
-                    .apply(itemStack);
-                if (info != null) {
-                    return info;
+        var item = itemStack.getItem();
+        if (item == null) return DurabilityLikeInfo.empty;
+
+        Class<?> key = item.getClass();
+        Function<ItemStack, DurabilityLikeInfo> handler = handlerCache.get(key);
+        if (handler == null) {
+            handler = NO_HANDLER;
+            int handlerSize = handlers.size();
+            for (int i = 0; i < handlerSize; i++) {
+                var pair = handlers.get(i);
+                if (pair.getLeft()
+                    .isInstance(item)) {
+                    handler = pair.getRight();
+                    break;
                 }
-                return DurabilityLikeInfo.empty;
             }
+            handlerCache.put(key, handler);
         }
-        return DurabilityLikeInfo.empty;
+
+        DurabilityLikeInfo info = handler.apply(itemStack);
+        return info != null ? info : DurabilityLikeInfo.empty;
     }
 
     protected int getColor(DurabilityLikeInfo info) {
@@ -84,7 +96,7 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
         if (!config().showWhenEmpty && info.isEmpty()) return null;
         if (!config().showWhenFull && info.isFull()) return null;
         if (Objects.requireNonNull(config().style) == Style.Bar) {
-            return new BarRenderer(
+            return BarRenderer.of(
                 getColor(info),
                 info.percent(),
                 config().smoothBar,
@@ -92,13 +104,13 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
                 config().showBackground);
         }
         if (Objects.requireNonNull(config().style) == Style.VerticalBar) {
-            return new VerticalBarRenderer(
+            return VerticalBarRenderer.of(
                 getColor(info),
                 info.percent(),
                 config().smoothBar,
                 config().barOffset,
                 config().showBackground);
         }
-        return new TextRenderer(getValue(info), getColor(info), config().numPadPosition);
+        return TextRenderer.of(getValue(info), getColor(info), config().numPadPosition);
     }
 }

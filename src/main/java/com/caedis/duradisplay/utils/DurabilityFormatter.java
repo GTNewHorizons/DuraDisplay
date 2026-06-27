@@ -3,6 +3,7 @@ package com.caedis.duradisplay.utils;
 import java.text.DecimalFormat;
 
 import net.minecraft.util.MathHelper;
+
 import org.jetbrains.annotations.Nullable;
 
 public class DurabilityFormatter {

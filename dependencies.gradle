@@ -11,4 +11,7 @@ dependencies {
     compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.14.103-GTNH:dev")
     compileOnly("com.github.GTNewHorizons:TinkersMechworks:0.4.2:dev")
     compileOnly("com.github.GTNewHorizons:ForestryMC:4.11.36:dev")
+    // Forestry's ItemBackpack implements ActivatableFromInventoryServerSide
+    // javac needs the full supertype closure to resolve calls on it.
+    compileOnly("net.xonich.mc:NoHotbarNeeded:0.0.4:dev")
 }

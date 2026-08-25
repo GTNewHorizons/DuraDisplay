@@ -1,5 +1,6 @@
 package com.caedis.duradisplay.overlay;
 
+import java.util.IdentityHashMap;
 import java.util.Set;
 
 import net.minecraft.item.Item;
@@ -69,7 +70,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
         addHandler("net.minecraft.item.Item", OverlayGadgets::handleByAllowList);
     }
 
-    public static final Set<String> AllowListUnLocalized = Sets.newHashSet(
+    private static final Set<String> AllowListUnLocalized = Sets.newHashSet(
         "item.flintAndSteel",
         "ic2.itemWeedEx",
         "item.for.waxCast",
@@ -80,6 +81,20 @@ public class OverlayGadgets extends OverlayDurabilityLike {
         "ic2.itemToolForgeHammer",
         "item.spellCloth",
         "item.WoodenBrickForm");
+
+    private static final IdentityHashMap<Item, Boolean> allowListCache = new IdentityHashMap<>();
+
+    public static boolean isAllowListed(@NotNull ItemStack stack) {
+        Item item = stack.getItem();
+        if (item == null || !item.isDamageable()) return false;
+
+        Boolean cached = allowListCache.get(item);
+        if (cached == null) {
+            cached = AllowListUnLocalized.contains(stack.getUnlocalizedName());
+            allowListCache.put(item, cached);
+        }
+        return cached;
+    }
 
     @Override
     @NotNull
@@ -109,11 +124,11 @@ public class OverlayGadgets extends OverlayDurabilityLike {
 
     @Nullable
     public static DurabilityLikeInfo handleByAllowList(@NotNull ItemStack stack) {
-        if (!AllowListUnLocalized.contains(stack.getUnlocalizedName())) return null;
         Item item = stack.getItem();
         assert item != null;
 
         if (!item.isDamageable()) return null;
+        if (!isAllowListed(stack)) return null;
 
         double max = item.getMaxDamage();
         double current = max - item.getDamage(stack);

@@ -97,7 +97,7 @@ public class OverlayDurability extends OverlayDurabilityLike {
         if (!item.isDamageable()) return null;
 
         // handled by OverlayGadgets
-        if (OverlayGadgets.AllowListUnLocalized.contains(stack.getUnlocalizedName())) return null;
+        if (OverlayGadgets.isAllowListed(stack)) return null;
 
         double max = item.getMaxDamage(stack);
         double current = max - item.getDamage(stack);

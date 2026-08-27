@@ -1,5 +1,6 @@
 package com.caedis.duradisplay.overlay;
 
+import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.Set;
 
@@ -82,18 +83,24 @@ public class OverlayGadgets extends OverlayDurabilityLike {
         "item.spellCloth",
         "item.WoodenBrickForm");
 
-    private static final IdentityHashMap<Item, Boolean> allowListCache = new IdentityHashMap<>();
+    private static Set<Item> allowListItems;
+
+    private static Set<Item> allowListItems() {
+        if (allowListItems == null) {
+            allowListItems = Collections.newSetFromMap(new IdentityHashMap<>());
+            for (Object o : Item.itemRegistry) {
+                Item item = (Item) o;
+                if (!item.isDamageable()) continue;
+                if (AllowListUnLocalized.contains(new ItemStack(item).getUnlocalizedName())) allowListItems.add(item);
+            }
+        }
+        return allowListItems;
+    }
 
     public static boolean isAllowListed(@NotNull ItemStack stack) {
         Item item = stack.getItem();
         if (item == null || !item.isDamageable()) return false;
-
-        Boolean cached = allowListCache.get(item);
-        if (cached == null) {
-            cached = AllowListUnLocalized.contains(stack.getUnlocalizedName());
-            allowListCache.put(item, cached);
-        }
-        return cached;
+        return allowListItems().contains(item);
     }
 
     @Override

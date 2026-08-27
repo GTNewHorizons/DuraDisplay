@@ -2,7 +2,6 @@ package com.caedis.duradisplay.overlay;
 
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
-import java.util.Objects;
 import java.util.function.Function;
 
 import net.minecraft.item.ItemStack;
@@ -80,29 +79,24 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
         return info != null ? info : DurabilityLikeInfo.empty;
     }
 
-    protected int getColor(DurabilityLikeInfo info) {
-        return config().colorType.get(info.percent(), config());
-    }
-
-    protected String getValue(DurabilityLikeInfo info) {
-        return DurabilityFormatter.format(info.current, info.max, config().textFormat);
-    }
-
     @Override
     public @Nullable OverlayRenderer getRenderer(@NotNull ItemStack itemStack) {
-        if (!config().enabled) return null;
+        final ConfigDurabilityLike cfg = config();
+        if (!cfg.enabled) return null;
         var info = getDurabilityLikeInfo(itemStack);
         if (info.isNaN()) return null;
-        if (!config().showWhenEmpty && info.isEmpty()) return null;
-        if (!config().showWhenFull && info.isFull()) return null;
-        if (Objects.requireNonNull(config().style) == Style.Bar) {
-            return BarRenderer
-                .of(getColor(info), info.percent(), config().smoothBar, config().barOffset, config().showBackground);
-        }
-        if (Objects.requireNonNull(config().style) == Style.VerticalBar) {
-            return VerticalBarRenderer
-                .of(getColor(info), info.percent(), config().smoothBar, config().barOffset, config().showBackground);
-        }
-        return TextRenderer.of(getValue(info), getColor(info), config().numPadPosition);
+        if (!cfg.showWhenEmpty && info.isEmpty()) return null;
+        if (!cfg.showWhenFull && info.isFull()) return null;
+
+        final double percent = info.percent();
+        final int color = cfg.colorType.get(percent, cfg);
+
+        return switch (cfg.style) {
+            case Bar -> BarRenderer.of(color, percent, cfg.smoothBar, cfg.barOffset, cfg.showBackground);
+            case VerticalBar -> VerticalBarRenderer
+                .of(color, percent, cfg.smoothBar, cfg.barOffset, cfg.showBackground);
+            default -> TextRenderer
+                .of(DurabilityFormatter.format(info.current, info.max, cfg.textFormat), color, cfg.numPadPosition);
+        };
     }
 }

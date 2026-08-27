@@ -22,7 +22,9 @@ public class DurabilityFormatter {
         switch (format) {
             case PERCENT -> {
                 double percent = current / max * 100;
-                return Double.isNaN(percent) ? null : MathHelper.floor_double(percent) + "%";
+                if (Double.isNaN(percent)) return null;
+                final int p = MathHelper.floor_double(percent);
+                return (p >= 0 && p < PERCENT_CACHE.length) ? PERCENT_CACHE[p] : p + "%";
             }
             case REMAINING -> {
                 return shortenNumber(current);
@@ -57,11 +59,22 @@ public class DurabilityFormatter {
     // Reused; construction is expensive
     private static final DecimalFormat decimalFormat = new DecimalFormat("0.#");
 
+    // PERCENT is the default format and runs per item per frame; only 0-100 are reachable
+    private static final String[] PERCENT_CACHE = new String[101];
+
+    static {
+        for (int i = 0; i < PERCENT_CACHE.length; i++) PERCENT_CACHE[i] = i + "%";
+    }
+
     // Logic from Durability101
     public static String shortenNumber(double number) {
         if (number >= 1000000000) return decimalFormat.format(number / 1000000000) + "b";
         if (number >= 1000000) return decimalFormat.format(number / 1000000) + "m";
         if (number >= 1000) return decimalFormat.format(number / 1000) + "k";
+
+        // whole small numbers are the common case; skip DecimalFormat
+        final long whole = MathHelper.floor_double_long(number);
+        if (whole == number) return Long.toString(whole);
 
         return decimalFormat.format(number);
     }

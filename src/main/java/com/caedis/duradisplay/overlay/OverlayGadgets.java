@@ -1,5 +1,7 @@
 package com.caedis.duradisplay.overlay;
 
+import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.Set;
 
 import net.minecraft.item.Item;
@@ -69,7 +71,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
         addHandler("net.minecraft.item.Item", OverlayGadgets::handleByAllowList);
     }
 
-    public static final Set<String> AllowListUnLocalized = Sets.newHashSet(
+    private static final Set<String> AllowListUnLocalized = Sets.newHashSet(
         "item.flintAndSteel",
         "ic2.itemWeedEx",
         "item.for.waxCast",
@@ -80,6 +82,26 @@ public class OverlayGadgets extends OverlayDurabilityLike {
         "ic2.itemToolForgeHammer",
         "item.spellCloth",
         "item.WoodenBrickForm");
+
+    private static Set<Item> allowListItems;
+
+    private static Set<Item> allowListItems() {
+        if (allowListItems == null) {
+            allowListItems = Collections.newSetFromMap(new IdentityHashMap<>());
+            for (Object o : Item.itemRegistry) {
+                Item item = (Item) o;
+                if (!item.isDamageable()) continue;
+                if (AllowListUnLocalized.contains(new ItemStack(item).getUnlocalizedName())) allowListItems.add(item);
+            }
+        }
+        return allowListItems;
+    }
+
+    public static boolean isAllowListed(@NotNull ItemStack stack) {
+        Item item = stack.getItem();
+        if (item == null || !item.isDamageable()) return false;
+        return allowListItems().contains(item);
+    }
 
     @Override
     @NotNull
@@ -109,11 +131,11 @@ public class OverlayGadgets extends OverlayDurabilityLike {
 
     @Nullable
     public static DurabilityLikeInfo handleByAllowList(@NotNull ItemStack stack) {
-        if (!AllowListUnLocalized.contains(stack.getUnlocalizedName())) return null;
         Item item = stack.getItem();
         assert item != null;
 
         if (!item.isDamageable()) return null;
+        if (!isAllowListed(stack)) return null;
 
         double max = item.getMaxDamage();
         double current = max - item.getDamage(stack);

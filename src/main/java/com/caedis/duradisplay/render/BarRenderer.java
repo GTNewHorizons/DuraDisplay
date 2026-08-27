@@ -40,21 +40,22 @@ public class BarRenderer extends OverlayRenderer {
         double length;
         if (smoothBar) length = durabilityPercent * 13.0;
         else length = Math.round(durabilityPercent * 13.0);
-        final int k = (int) Math.round(durabilityPercent * 255.0);
-
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glDisable(GL11.GL_BLEND);
 
-        final int i1 = (255 - k) / 4 << 16 | 16128;
-
+        // All quads share the vertex format, so one batch instead of a draw call each
+        tessellator.startDrawingQuads();
         if (showBackground) {
-            renderQuad(xPosition + 2, yPosition + 14 - offset, 13, 2, 0);
-            renderQuad(xPosition + 2, yPosition + 14 - offset, 12, 1, i1);
+            final int k = (int) Math.round(durabilityPercent * 255.0);
+            final int i1 = (255 - k) / 4 << 16 | 16128;
+            addQuad(xPosition + 2, yPosition + 14 - offset, 13, 2, 0);
+            addQuad(xPosition + 2, yPosition + 14 - offset, 12, 1, i1);
         }
-        renderQuad(xPosition + 2, yPosition + 14 - offset, length, 1, color);
+        addQuad(xPosition + 2, yPosition + 14 - offset, length, 1, color);
+        tessellator.draw();
 
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -64,14 +65,12 @@ public class BarRenderer extends OverlayRenderer {
 
     }
 
-    private static void renderQuad(final double xPosition, final double yPosition, final double width,
-        final double height, final int color) {
-        tessellator.startDrawingQuads();
+    private static void addQuad(final double xPosition, final double yPosition, final double width, final double height,
+        final int color) {
         tessellator.setColorOpaque_I(color);
         tessellator.addVertex(xPosition, yPosition, 0.0D);
         tessellator.addVertex(xPosition, yPosition + height, 0.0D);
         tessellator.addVertex(xPosition + width, yPosition + height, 0.0D);
         tessellator.addVertex(xPosition + width, yPosition, 0.0D);
-        tessellator.draw();
     }
 }

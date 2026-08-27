@@ -77,7 +77,6 @@ public class TextRenderer extends OverlayRenderer {
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glScalef(2.0F, 2.0F, 2.0F);
         GL11.glPopMatrix();
     }
 

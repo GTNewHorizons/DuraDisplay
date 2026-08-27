@@ -1,7 +1,5 @@
 package com.caedis.duradisplay.utils;
 
-import java.util.Objects;
-
 public final class DurabilityLikeInfo {
 
     public double current;
@@ -37,33 +35,6 @@ public final class DurabilityLikeInfo {
 
     public double percent() {
         return current / max;
-    }
-
-    public double current() {
-        return current;
-    }
-
-    public double max() {
-        return max;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (DurabilityLikeInfo) obj;
-        return Double.doubleToLongBits(this.current) == Double.doubleToLongBits(that.current)
-            && Double.doubleToLongBits(this.max) == Double.doubleToLongBits(that.max);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(current, max);
-    }
-
-    @Override
-    public String toString() {
-        return "DurabilityLikeInfo[" + "current=" + current + ", " + "max=" + max + ']';
     }
 
 }

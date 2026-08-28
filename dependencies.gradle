@@ -14,4 +14,5 @@ dependencies {
     // Forestry's ItemBackpack implements ActivatableFromInventoryServerSide
     // javac needs the full supertype closure to resolve calls on it.
     compileOnly("net.xonich.mc:NoHotbarNeeded:0.0.4:dev")
+    compileOnly("com.github.GTNewHorizons:Angelica:2.2.8:dev") { transitive = false }
 }

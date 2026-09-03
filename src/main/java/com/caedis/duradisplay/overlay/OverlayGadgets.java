@@ -85,22 +85,22 @@ public class OverlayGadgets extends OverlayDurabilityLike {
 
     private static Set<Item> allowListItems;
 
-    private static Set<Item> allowListItems() {
-        if (allowListItems == null) {
-            allowListItems = Collections.newSetFromMap(new IdentityHashMap<>());
-            for (Object o : Item.itemRegistry) {
-                Item item = (Item) o;
-                if (!item.isDamageable()) continue;
-                if (AllowListUnLocalized.contains(new ItemStack(item).getUnlocalizedName())) allowListItems.add(item);
-            }
+    // Scans the whole item registry, so build it at postInit instead of on the first render frame
+    public static void buildAllowList() {
+        if (allowListItems != null) return;
+        allowListItems = Collections.newSetFromMap(new IdentityHashMap<>());
+        for (Object o : Item.itemRegistry) {
+            Item item = (Item) o;
+            if (!item.isDamageable()) continue;
+            if (AllowListUnLocalized.contains(new ItemStack(item).getUnlocalizedName())) allowListItems.add(item);
         }
-        return allowListItems;
     }
 
     public static boolean isAllowListed(@NotNull ItemStack stack) {
         Item item = stack.getItem();
         if (item == null || !item.isDamageable()) return false;
-        return allowListItems().contains(item);
+        buildAllowList();
+        return allowListItems.contains(item);
     }
 
     @Override

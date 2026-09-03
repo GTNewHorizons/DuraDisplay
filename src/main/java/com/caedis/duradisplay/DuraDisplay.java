@@ -4,12 +4,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.caedis.duradisplay.config.DuraDisplayConfig;
+import com.caedis.duradisplay.overlay.OverlayGadgets;
+import com.caedis.duradisplay.render.DurabilityRenderer;
 import com.caedis.duradisplay.utils.AppEngItemRenderHook;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 @Mod(
@@ -42,6 +45,17 @@ public class DuraDisplay {
             AppEngItemRenderHook.init();
         } catch (NoClassDefFoundError e) {
             DuraDisplay.LOG.info("AE2 not found, skipping AppEngItemRenderHook");
+        }
+    }
+
+    @SuppressWarnings("unused")
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        if (FMLCommonHandler.instance()
+            .getSide()
+            .isClient()) {
+            OverlayGadgets.buildAllowList();
+            DurabilityRenderer.partitionByMode();
         }
     }
 

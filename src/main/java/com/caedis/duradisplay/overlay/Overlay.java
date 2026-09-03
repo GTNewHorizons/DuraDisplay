@@ -25,4 +25,8 @@ public abstract class Overlay<C extends Config> {
 
     @Nullable
     public abstract OverlayRenderer getRenderer(@NotNull ItemStack itemStack);
+
+    // Mode getRenderer will produce, without building one. Ordering only.
+    @NotNull
+    public abstract OverlayRenderer.Mode mode();
 }

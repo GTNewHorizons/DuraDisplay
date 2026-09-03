@@ -1,5 +1,6 @@
 package com.caedis.duradisplay.render;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Tessellator;
 
@@ -11,11 +12,7 @@ import cpw.mods.fml.common.Loader;
 
 public abstract class OverlayRenderer {
 
-    /**
-     * GL setup is identical for every renderer of a mode, so {@link DurabilityRenderer} sets it up once per run of
-     * same-mode renderers instead of once per renderer. Declaration order is the draw order handlers get sorted into,
-     * so bars land under text.
-     */
+    // Shared GL setup per renderer kind. Declaration order is draw order: bars under text.
     public enum Mode {
         QUAD,
         TEXT
@@ -26,6 +23,26 @@ public abstract class OverlayRenderer {
     public abstract Mode mode();
 
     public abstract void Render(FontRenderer fontRenderer, int xPosition, int yPosition);
+
+    // Opens a font batch around a whole item pass. Pair with endBatch. No-op without Angelica.
+    public static void beginBatch() {
+        if (!ANGELICA_LOADED) return;
+        if (Minecraft.getMinecraft().fontRenderer instanceof FontRendererAccessor accessor)
+            accessor.angelica$getBatcher()
+                .beginBatch();
+    }
+
+    // Flushes the batch with depth test off, matching the state the text was queued under.
+    public static void endBatch() {
+        if (!ANGELICA_LOADED) return;
+        if (!(Minecraft.getMinecraft().fontRenderer instanceof FontRendererAccessor accessor)) return;
+
+        final boolean depthTest = GL11.glIsEnabled(GL11.GL_DEPTH_TEST);
+        if (depthTest) GL11.glDisable(GL11.GL_DEPTH_TEST);
+        accessor.angelica$getBatcher()
+            .endBatch();
+        if (depthTest) GL11.glEnable(GL11.GL_DEPTH_TEST);
+    }
 
     public static void begin(Mode mode, FontRenderer fontRenderer) {
         GL11.glDisable(GL11.GL_LIGHTING);
@@ -45,7 +62,7 @@ public abstract class OverlayRenderer {
                 GL11.glDisable(GL11.GL_TEXTURE_2D);
                 GL11.glDisable(GL11.GL_ALPHA_TEST);
                 GL11.glDisable(GL11.GL_BLEND);
-                // All quads share the vertex format, so one batch covers every bar on this item
+                // One batch for every bar on this item
                 Tessellator.instance.startDrawingQuads();
             }
         }

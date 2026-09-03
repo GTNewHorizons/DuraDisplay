@@ -69,7 +69,7 @@ public enum ColorType {
         }
     };
 
-    // Hue spans only 120 degrees, so 1% steps are visually identical to exact math
+    // Hue in 1% steps; spans 120 degrees, so indistinguishable from exact math
     private static final int[] RYG_CACHE = new int[101];
 
     static {

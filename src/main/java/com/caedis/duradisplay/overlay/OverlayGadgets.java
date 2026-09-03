@@ -85,7 +85,7 @@ public class OverlayGadgets extends OverlayDurabilityLike {
 
     private static Set<Item> allowListItems;
 
-    // Scans the whole item registry, so build it at postInit instead of on the first render frame
+    // Scans the whole item registry; called at postInit, not on the first render frame
     public static void buildAllowList() {
         if (allowListItems != null) return;
         allowListItems = Collections.newSetFromMap(new IdentityHashMap<>());

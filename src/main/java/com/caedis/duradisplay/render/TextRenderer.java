@@ -18,7 +18,7 @@ public class TextRenderer extends OverlayRenderer {
     }
 
     private int getX(FontRenderer fontRenderer, int xPosition) {
-        // left needs no measuring; getStringWidth walks every char
+        // Left needs no measuring
         if (position == 1 || position == 4 || position == 7) return (xPosition * 2) + 2;
 
         final int stringWidth = fontRenderer.getStringWidth(value);

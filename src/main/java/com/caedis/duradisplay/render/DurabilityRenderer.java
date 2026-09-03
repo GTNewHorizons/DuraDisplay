@@ -15,15 +15,11 @@ public class DurabilityRenderer {
     // Used to prevent calls from outside actual inventories
     public static boolean Execute = true;
 
-    // Cloned because it gets sorted in place, and OverlayInfo hands out its own cached array
+    // Cloned; sorted in place, and OverlayInfo hands out its own cached array
     private static final Overlay<?>[] handlers = OverlayInfo.getOverlays()
         .clone();
 
-    /**
-     * Groups handlers by render mode so each mode's GL state is set up once per item instead of once per mode switch.
-     * The sort is stable, so overlays sharing a mode keep their relative draw order. Called at postInit, once config
-     * has settled.
-     */
+    // Groups handlers by render mode. Stable, so same-mode overlays keep their draw order.
     public static void partitionByMode() {
         Arrays.sort(handlers, Comparator.comparing(Overlay::mode));
     }
@@ -31,7 +27,7 @@ public class DurabilityRenderer {
     public static void Render(FontRenderer fontRenderer, ItemStack stack, int xPosition, int yPosition) {
         if (fontRenderer == null && (fontRenderer = Minecraft.getMinecraft().fontRenderer) == null) return;
 
-        // Set GL state once per run of same-mode renderers rather than once per renderer
+        // Set GL state once per run of same-mode renderers
         OverlayRenderer.Mode active = null;
         try {
             for (Overlay<?> handler : handlers) {

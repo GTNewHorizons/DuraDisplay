@@ -1,11 +1,12 @@
 package com.caedis.duradisplay.core;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.caedis.duradisplay.mixins.Mixins;
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
+import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
@@ -16,13 +17,12 @@ public class DuraDisplayCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
     @Override
     public String getMixinConfig() {
-        return "mixins.duradisplay.json";
+        return "mixins.duradisplay.early.json";
     }
 
     @Override
     public List<String> getMixins(Set<String> loadedCoreMods) {
-        return Arrays
-            .asList("minecraft.MixinRenderItem", "minecraft.MixinGuiScreen", "minecraft.MixinGuiContainerCreative");
+        return IMixins.getEarlyMixins(Mixins.class, loadedCoreMods);
     }
 
     @Override

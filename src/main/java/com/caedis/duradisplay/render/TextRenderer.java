@@ -25,19 +25,18 @@ public class TextRenderer extends OverlayRenderer {
         return reuse;
     }
 
-    private int getX(int xPosition, int stringWidth) {
-        switch (position) {
-            case 1, 4, 7 -> { // left
-                return (xPosition * 2) + 2;
-            }
+    private int getX(FontRenderer fontRenderer, int xPosition) {
+        // left needs no measuring; getStringWidth walks every char
+        if (position == 1 || position == 4 || position == 7) return (xPosition * 2) + 2;
+
+        final int stringWidth = fontRenderer.getStringWidth(value);
+        return switch (position) {
+            case 3, 6, 9 -> // right
+                (xPosition + 20) * 2 - stringWidth - 10;
             // 2, 5, 8
-            default -> { // center
-                return ((xPosition + 8) * 2 + 1 + stringWidth / 2 - stringWidth);
-            }
-            case 3, 6, 9 -> { // right
-                return (xPosition + 20) * 2 - stringWidth - 10;
-            }
-        }
+            default -> // center
+                ((xPosition + 8) * 2 + 1 + stringWidth / 2 - stringWidth);
+        };
     }
 
     private int getY(int yPosition) {
@@ -70,8 +69,7 @@ public class TextRenderer extends OverlayRenderer {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glTranslatef(0, 0, 50);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        int stringWidth = fontRenderer.getStringWidth(value);
-        int x = getX(xPosition, stringWidth);
+        int x = getX(fontRenderer, xPosition);
         int y = getY(yPosition);
 
         if (ANGELICA_LOADED) AngelicaBatch.begin(fontRenderer);

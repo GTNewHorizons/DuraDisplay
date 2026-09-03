@@ -2,19 +2,17 @@ package com.caedis.duradisplay.utils;
 
 import java.awt.Color;
 
+import net.minecraft.util.MathHelper;
+
 import com.caedis.duradisplay.config.ConfigDurabilityLike;
 
 public enum ColorType {
 
     RYGDurability {
 
-        private int get(double percent) {
-            return Color.HSBtoRGB(Math.max(0.0F, (float) percent) / 3.0F, 1.0F, 1.0F);
-        }
-
         @Override
         public int get(double percent, ConfigDurabilityLike config) {
-            return get(percent);
+            return RYG_CACHE[MathHelper.clamp_int(MathHelper.floor_double(percent * 100), 0, 100)];
         }
     },
     Threshold {
@@ -70,6 +68,13 @@ public enum ColorType {
             return r3 << 16 | g3 << 8 | b3;
         }
     };
+
+    // Hue spans only 120 degrees, so 1% steps are visually identical to exact math
+    private static final int[] RYG_CACHE = new int[101];
+
+    static {
+        for (int i = 0; i < RYG_CACHE.length; i++) RYG_CACHE[i] = Color.HSBtoRGB(i / 300.0F, 1.0F, 1.0F);
+    }
 
     public abstract int get(double percent, ConfigDurabilityLike config);
 

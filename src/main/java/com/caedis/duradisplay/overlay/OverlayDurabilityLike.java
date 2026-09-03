@@ -80,6 +80,14 @@ public abstract class OverlayDurabilityLike extends Overlay<ConfigDurabilityLike
     }
 
     @Override
+    public @NotNull OverlayRenderer.Mode mode() {
+        return switch (config().style) {
+            case Bar, VerticalBar -> OverlayRenderer.Mode.QUAD;
+            default -> OverlayRenderer.Mode.TEXT;
+        };
+    }
+
+    @Override
     public @Nullable OverlayRenderer getRenderer(@NotNull ItemStack itemStack) {
         final ConfigDurabilityLike cfg = config();
         if (!cfg.enabled) return null;

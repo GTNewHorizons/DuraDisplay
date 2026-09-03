@@ -2,15 +2,7 @@ package com.caedis.duradisplay.render;
 
 import net.minecraft.client.gui.FontRenderer;
 
-import org.lwjgl.opengl.GL11;
-
-import com.gtnewhorizons.angelica.mixins.interfaces.FontRendererAccessor;
-
-import cpw.mods.fml.common.Loader;
-
 public class TextRenderer extends OverlayRenderer {
-
-    private static final boolean ANGELICA_LOADED = Loader.isModLoaded("angelica");
 
     private String value;
     private int color;
@@ -61,45 +53,21 @@ public class TextRenderer extends OverlayRenderer {
     }
 
     @Override
+    public Mode mode() {
+        return Mode.TEXT;
+    }
+
+    @Override
     public void Render(FontRenderer fontRenderer, int xPosition, int yPosition) {
-        GL11.glPushMatrix();
-        GL11.glScalef(0.5F, 0.5F, 0.5F);
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDisable(GL11.GL_DEPTH_TEST);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glTranslatef(0, 0, 50);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         int x = getX(fontRenderer, xPosition);
         int y = getY(yPosition);
 
-        if (ANGELICA_LOADED) AngelicaBatch.begin(fontRenderer);
-        try {
-            fontRenderer.drawString(value, x + 1, y, 0);
-            fontRenderer.drawString(value, x - 1, y, 0);
-            fontRenderer.drawString(value, x, y + 1, 0);
-            fontRenderer.drawString(value, x, y - 1, 0);
+        fontRenderer.drawString(value, x + 1, y, 0);
+        fontRenderer.drawString(value, x - 1, y, 0);
+        fontRenderer.drawString(value, x, y + 1, 0);
+        fontRenderer.drawString(value, x, y - 1, 0);
 
-            fontRenderer.drawString(value, x, y, color);
-        } finally {
-            if (ANGELICA_LOADED) AngelicaBatch.end(fontRenderer);
-        }
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glEnable(GL11.GL_LIGHTING);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glPopMatrix();
-    }
-
-    private static class AngelicaBatch {
-
-        private static void begin(FontRenderer fontRenderer) {
-            if (fontRenderer instanceof FontRendererAccessor accessor) accessor.angelica$getBatcher()
-                .beginBatch();
-        }
-
-        private static void end(FontRenderer fontRenderer) {
-            if (fontRenderer instanceof FontRendererAccessor accessor) accessor.angelica$getBatcher()
-                .endBatch();
-        }
+        fontRenderer.drawString(value, x, y, color);
     }
 
 }

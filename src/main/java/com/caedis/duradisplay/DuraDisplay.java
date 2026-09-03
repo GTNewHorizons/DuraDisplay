@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.caedis.duradisplay.config.DuraDisplayConfig;
 import com.caedis.duradisplay.overlay.OverlayGadgets;
+import com.caedis.duradisplay.render.DurabilityRenderer;
 import com.caedis.duradisplay.utils.AppEngItemRenderHook;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -54,6 +55,7 @@ public class DuraDisplay {
             .getSide()
             .isClient()) {
             OverlayGadgets.buildAllowList();
+            DurabilityRenderer.partitionByMode();
         }
     }
 

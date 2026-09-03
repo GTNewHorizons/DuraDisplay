@@ -1,5 +1,8 @@
 package com.caedis.duradisplay.render;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
@@ -12,16 +15,39 @@ public class DurabilityRenderer {
     // Used to prevent calls from outside actual inventories
     public static boolean Execute = true;
 
-    private static final Overlay<?>[] handlers = OverlayInfo.getOverlays();
+    // Cloned because it gets sorted in place, and OverlayInfo hands out its own cached array
+    private static final Overlay<?>[] handlers = OverlayInfo.getOverlays()
+        .clone();
+
+    /**
+     * Groups handlers by render mode so each mode's GL state is set up once per item instead of once per mode switch.
+     * The sort is stable, so overlays sharing a mode keep their relative draw order. Called at postInit, once config
+     * has settled.
+     */
+    public static void partitionByMode() {
+        Arrays.sort(handlers, Comparator.comparing(Overlay::mode));
+    }
 
     public static void Render(FontRenderer fontRenderer, ItemStack stack, int xPosition, int yPosition) {
         if (fontRenderer == null && (fontRenderer = Minecraft.getMinecraft().fontRenderer) == null) return;
 
-        for (Overlay<?> handler : handlers) {
-            var fOverlay = handler.getRenderer(stack);
-            if (fOverlay != null) {
+        // Set GL state once per run of same-mode renderers rather than once per renderer
+        OverlayRenderer.Mode active = null;
+        try {
+            for (Overlay<?> handler : handlers) {
+                var fOverlay = handler.getRenderer(stack);
+                if (fOverlay == null) continue;
+
+                final OverlayRenderer.Mode mode = fOverlay.mode();
+                if (mode != active) {
+                    if (active != null) OverlayRenderer.end(active, fontRenderer);
+                    OverlayRenderer.begin(mode, fontRenderer);
+                    active = mode;
+                }
                 fOverlay.Render(fontRenderer, xPosition, yPosition);
             }
+        } finally {
+            if (active != null) OverlayRenderer.end(active, fontRenderer);
         }
     }
 

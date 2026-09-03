@@ -25,4 +25,11 @@ public abstract class Overlay<C extends Config> {
 
     @Nullable
     public abstract OverlayRenderer getRenderer(@NotNull ItemStack itemStack);
+
+    /**
+     * Which {@link OverlayRenderer.Mode} {@link #getRenderer} will produce, without building a renderer. Used only to
+     * order handlers; the renderer itself remains the authority on GL state.
+     */
+    @NotNull
+    public abstract OverlayRenderer.Mode mode();
 }

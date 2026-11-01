@@ -101,6 +101,8 @@ public class OverlayDurability extends OverlayDurabilityLike {
 
         double max = item.getMaxDamage(stack);
         double current = max - item.getDamage(stack);
+
+        if (current < 0) current = 0;
         return DurabilityLikeInfo.of(current, max);
     }
 

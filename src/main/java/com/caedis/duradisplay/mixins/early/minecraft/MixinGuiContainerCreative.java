@@ -1,4 +1,4 @@
-package com.caedis.duradisplay.mixins.minecraft;
+package com.caedis.duradisplay.mixins.early.minecraft;
 
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 

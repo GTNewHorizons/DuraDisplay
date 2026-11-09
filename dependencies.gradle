@@ -1,18 +1,23 @@
 
 dependencies {
     annotationProcessor(project(":processor"))
-    compileOnly('com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-1042-GTNH:dev')
-    devOnlyNonPublishable('com.github.GTNewHorizons:GT5-Unofficial:5.09.54.112:dev')
-    compileOnly("com.github.GTNewHorizons:EnderIO:2.10.40:dev")
+    compileOnly('com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-999-GTNH:dev')
+    devOnlyNonPublishable('com.github.GTNewHorizons:GT5-Unofficial:5.09.54.124:dev')
+    compileOnly("com.github.GTNewHorizons:EnderIO:2.10.41:dev")
     compileOnly("com.github.GTNewHorizons:ae2stuff:0.10.20-GTNH:dev")
-    compileOnly("com.github.GTNewHorizons:NewHorizonsCoreMod:2.9.52:dev")
+    compileOnly("com.github.GTNewHorizons:NewHorizonsCoreMod:2.9.57:dev")
     compileOnly("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev")
     compileOnly("com.github.GTNewHorizons:Botania:1.13.34-GTNH:dev")
-    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.14.104-GTNH:dev")
+    compileOnly("com.github.GTNewHorizons:TinkersConstruct:1.14.106-GTNH:dev")
     compileOnly("com.github.GTNewHorizons:TinkersMechworks:0.4.2:dev")
     compileOnly("com.github.GTNewHorizons:ForestryMC:4.11.37:dev")
     // Forestry's ItemBackpack implements ActivatableFromInventoryServerSide
     // javac needs the full supertype closure to resolve calls on it.
     compileOnly("net.xonich.mc:NoHotbarNeeded:0.0.4:dev")
-    compileOnly("com.github.GTNewHorizons:Angelica:2.2.8:dev") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:Angelica:2.2.9:dev") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:NotEnoughItems:2.8.130-GTNH:dev") { transitive = false }
+
+    devOnlyNonPublishable("com.github.GTNewHorizons:Nuclear-Control:2.7.12:dev")
+
+    runtimeOnlyNonPublishable("com.github.GTNewHorizons:Angelica:2.2.9:dev")
 }
